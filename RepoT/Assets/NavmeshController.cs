@@ -36,10 +36,10 @@ public class NavmeshController : MonoBehaviour
         //}
         Vector3 randomPoint = transform.position + Random.insideUnitSphere * range;
         NavMeshHit hit;
-        Debug.Log("In movimento = " + inMovimento);
+        //Debug.Log("In movimento = " + inMovimento);
         if (!inMovimento)
         {
-            Debug.Log("Sample position : " + (NavMesh.SamplePosition(randomPoint, out hit, 50f, areaNavMesh)));
+            //Debug.Log("Sample position : " + (NavMesh.SamplePosition(randomPoint, out hit, 50f, areaNavMesh)));
             if (NavMesh.SamplePosition(randomPoint, out hit, 50f, areaNavMesh))
             {
                 result = hit.position;
