@@ -7,11 +7,12 @@ public class Movimento : MonoBehaviour
     [SerializeField] private int[] azioni; //array di azioni
     [SerializeField] private float speed; //velocità camminata
     [SerializeField] private float jumpForce; //forza di salto
-    [SerializeField] private GameObject lvlController;
 
     private CharacterController characterController;
     private Vector3 movimento;
     private Animator anim;
+    private GameObject lvlController;
+    private AnimationEvent eventPostRotazione;
 
     private GameObject primoCubo;
     private GameObject ultimoCubo;
@@ -19,6 +20,9 @@ public class Movimento : MonoBehaviour
     private Transform posAttuale; //transform posizione attuale (aggiornamento)
     private GameObject posDestinazione; //transform posizione cubo successivo (aggiornamento)
     private int idCuboAttuale; //id del cubo su cui il player è sopra
+
+    private bool giraSx;
+    private bool giraDx;
 
     private float gravity = 9.8f;
     private bool flagHit;
@@ -31,6 +35,7 @@ public class Movimento : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        lvlController = GameObject.FindGameObjectWithTag("GameController");
         primoCubo = lvlController.GetComponent<Percorso>().GetCuboById(0);
         ultimoCubo = lvlController.GetComponent<Percorso>().GetCuboFinale();
         characterController = gameObject.GetComponent<CharacterController>();
@@ -38,6 +43,8 @@ public class Movimento : MonoBehaviour
         movimento = Vector3.zero;
         distanzaCubi = Vector3.zero;
         nomeOldCollision = primoCubo.name;
+
+        //Inizio movimento
         CambiaAzione();
         
     }
@@ -54,7 +61,7 @@ public class Movimento : MonoBehaviour
         if(IsDestinazioneRaggiunta())
         {
             anim.SetBool("run", false);
-            if(posDestinazione.name.Equals(ultimoCubo.name))
+            if (posDestinazione.name.Equals(ultimoCubo.name))
             {
                 anim.CrossFade("Vittoria", .1f);
                 lvlController.GetComponent<PlayStopPlayerMovimento>().Stop();
@@ -68,8 +75,10 @@ public class Movimento : MonoBehaviour
         characterController.Move(movimento * Time.deltaTime);
     }
 
-    void ResetMovimento()
+
+    public void ResetMovimento()
     {
+        
         movimento = Vector3.zero;
         indexAzione++;
         CambiaAzione();
@@ -131,12 +140,14 @@ public class Movimento : MonoBehaviour
 
     void GiraDestra()
     {
+        //anim.SetBool("giraDx", true);
         transform.Rotate(0f, 90f, 0f, Space.Self);
         ResetMovimento();
     }
 
     void GiraSinistra()
     {
+        //anim.SetBool("giraSx", true);
         transform.Rotate(0f, -90f, 0f, Space.Self);
         ResetMovimento();
     }
