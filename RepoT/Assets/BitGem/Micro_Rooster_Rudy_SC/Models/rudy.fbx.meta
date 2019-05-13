@@ -1,89 +1,254 @@
 fileFormatVersion: 2
 guid: bf5ce0f95ddc14e248412852d3663351
 ModelImporter:
-  serializedVersion: 22
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: rudy_beak_bottom_1
-    100004: rudy_beak_bottom_2
-    100006: rudy_beak_left
-    100008: rudy_beak_right
-    100010: rudy_beak_root
-    100012: rudy_beak_top_1
-    100014: rudy_beak_top_2
-    100016: rudy_body
-    100018: rudy_eye_left
-    100020: rudy_eye_right
-    100022: rudy_hair_1
-    100024: rudy_hair_2
-    100026: rudy_hair_3
-    100028: rudy_head
-    100030: rudy_root
-    100032: rudy_SC_body
-    100034: rudy_SC_eye_left
-    100036: rudy_SC_eye_right
-    100038: rudy_tail_1
-    100040: rudy_tail_2
-    100042: rudy_tail_3
-    100044: rudy_tongue_1
-    100046: rudy_tongue_2
-    100048: rudy_tongue_3
-    100050: rudy_wing_left_1
-    100052: rudy_wing_left_2
-    100054: rudy_wing_left_3
-    100056: rudy_wing_right_1
-    100058: rudy_wing_right_2
-    100060: rudy_wing_right_3
-    400000: //RootNode
-    400002: rudy_beak_bottom_1
-    400004: rudy_beak_bottom_2
-    400006: rudy_beak_left
-    400008: rudy_beak_right
-    400010: rudy_beak_root
-    400012: rudy_beak_top_1
-    400014: rudy_beak_top_2
-    400016: rudy_body
-    400018: rudy_eye_left
-    400020: rudy_eye_right
-    400022: rudy_hair_1
-    400024: rudy_hair_2
-    400026: rudy_hair_3
-    400028: rudy_head
-    400030: rudy_root
-    400032: rudy_SC_body
-    400034: rudy_SC_eye_left
-    400036: rudy_SC_eye_right
-    400038: rudy_tail_1
-    400040: rudy_tail_2
-    400042: rudy_tail_3
-    400044: rudy_tongue_1
-    400046: rudy_tongue_2
-    400048: rudy_tongue_3
-    400050: rudy_wing_left_1
-    400052: rudy_wing_left_2
-    400054: rudy_wing_left_3
-    400056: rudy_wing_right_1
-    400058: rudy_wing_right_2
-    400060: rudy_wing_right_3
-    2100000: rudy_SC_mat
-    2300000: rudy_SC_eye_left
-    2300002: rudy_SC_eye_right
-    3300000: rudy_SC_eye_left
-    3300002: rudy_SC_eye_right
-    4300000: rudy_SC_eye_right
-    4300002: rudy_SC_eye_left
-    4300004: rudy_SC_body
-    7400000: idle
-    7400002: shout
-    7400004: panic
-    7400006: pokpok
-    7400008: gethit
-    7400010: fly
-    7400012: dizzy
-    7400014: shout
-    7400016: cheer
-    9500000: //RootNode
-    13700000: rudy_SC_body
+  serializedVersion: 25
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: rudy_beak_bottom_1
+  - first:
+      1: 100004
+    second: rudy_beak_bottom_2
+  - first:
+      1: 100006
+    second: rudy_beak_left
+  - first:
+      1: 100008
+    second: rudy_beak_right
+  - first:
+      1: 100010
+    second: rudy_beak_root
+  - first:
+      1: 100012
+    second: rudy_beak_top_1
+  - first:
+      1: 100014
+    second: rudy_beak_top_2
+  - first:
+      1: 100016
+    second: rudy_body
+  - first:
+      1: 100018
+    second: rudy_eye_left
+  - first:
+      1: 100020
+    second: rudy_eye_right
+  - first:
+      1: 100022
+    second: rudy_hair_1
+  - first:
+      1: 100024
+    second: rudy_hair_2
+  - first:
+      1: 100026
+    second: rudy_hair_3
+  - first:
+      1: 100028
+    second: rudy_head
+  - first:
+      1: 100030
+    second: rudy_root
+  - first:
+      1: 100032
+    second: rudy_SC_body
+  - first:
+      1: 100034
+    second: rudy_SC_eye_left
+  - first:
+      1: 100036
+    second: rudy_SC_eye_right
+  - first:
+      1: 100038
+    second: rudy_tail_1
+  - first:
+      1: 100040
+    second: rudy_tail_2
+  - first:
+      1: 100042
+    second: rudy_tail_3
+  - first:
+      1: 100044
+    second: rudy_tongue_1
+  - first:
+      1: 100046
+    second: rudy_tongue_2
+  - first:
+      1: 100048
+    second: rudy_tongue_3
+  - first:
+      1: 100050
+    second: rudy_wing_left_1
+  - first:
+      1: 100052
+    second: rudy_wing_left_2
+  - first:
+      1: 100054
+    second: rudy_wing_left_3
+  - first:
+      1: 100056
+    second: rudy_wing_right_1
+  - first:
+      1: 100058
+    second: rudy_wing_right_2
+  - first:
+      1: 100060
+    second: rudy_wing_right_3
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: rudy_beak_bottom_1
+  - first:
+      4: 400004
+    second: rudy_beak_bottom_2
+  - first:
+      4: 400006
+    second: rudy_beak_left
+  - first:
+      4: 400008
+    second: rudy_beak_right
+  - first:
+      4: 400010
+    second: rudy_beak_root
+  - first:
+      4: 400012
+    second: rudy_beak_top_1
+  - first:
+      4: 400014
+    second: rudy_beak_top_2
+  - first:
+      4: 400016
+    second: rudy_body
+  - first:
+      4: 400018
+    second: rudy_eye_left
+  - first:
+      4: 400020
+    second: rudy_eye_right
+  - first:
+      4: 400022
+    second: rudy_hair_1
+  - first:
+      4: 400024
+    second: rudy_hair_2
+  - first:
+      4: 400026
+    second: rudy_hair_3
+  - first:
+      4: 400028
+    second: rudy_head
+  - first:
+      4: 400030
+    second: rudy_root
+  - first:
+      4: 400032
+    second: rudy_SC_body
+  - first:
+      4: 400034
+    second: rudy_SC_eye_left
+  - first:
+      4: 400036
+    second: rudy_SC_eye_right
+  - first:
+      4: 400038
+    second: rudy_tail_1
+  - first:
+      4: 400040
+    second: rudy_tail_2
+  - first:
+      4: 400042
+    second: rudy_tail_3
+  - first:
+      4: 400044
+    second: rudy_tongue_1
+  - first:
+      4: 400046
+    second: rudy_tongue_2
+  - first:
+      4: 400048
+    second: rudy_tongue_3
+  - first:
+      4: 400050
+    second: rudy_wing_left_1
+  - first:
+      4: 400052
+    second: rudy_wing_left_2
+  - first:
+      4: 400054
+    second: rudy_wing_left_3
+  - first:
+      4: 400056
+    second: rudy_wing_right_1
+  - first:
+      4: 400058
+    second: rudy_wing_right_2
+  - first:
+      4: 400060
+    second: rudy_wing_right_3
+  - first:
+      21: 2100000
+    second: rudy_SC_mat
+  - first:
+      23: 2300000
+    second: rudy_SC_eye_left
+  - first:
+      23: 2300002
+    second: rudy_SC_eye_right
+  - first:
+      33: 3300000
+    second: rudy_SC_eye_left
+  - first:
+      33: 3300002
+    second: rudy_SC_eye_right
+  - first:
+      43: 4300000
+    second: rudy_SC_eye_right
+  - first:
+      43: 4300002
+    second: rudy_SC_eye_left
+  - first:
+      43: 4300004
+    second: rudy_SC_body
+  - first:
+      74: 7400000
+    second: idle
+  - first:
+      74: 7400002
+    second: shout
+  - first:
+      74: 7400004
+    second: panic
+  - first:
+      74: 7400006
+    second: pokpok
+  - first:
+      74: 7400008
+    second: gethit
+  - first:
+      74: 7400010
+    second: fly
+  - first:
+      74: 7400012
+    second: dizzy
+  - first:
+      74: 7400014
+    second: shout
+  - first:
+      74: 7400016
+    second: cheer
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: rudy_SC_body
+  - first:
+      74: -5966861916977969543
+    second: shout
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -108,6 +273,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -119,6 +285,7 @@ ModelImporter:
     - serializedVersion: 16
       name: idle
       takeName: Take 001
+      internalID: 7400000
       firstFrame: 20
       lastFrame: 80
       wrapMode: 0
@@ -147,6 +314,7 @@ ModelImporter:
     - serializedVersion: 16
       name: shout
       takeName: Take 001
+      internalID: 7400002
       firstFrame: 90
       lastFrame: 120
       wrapMode: 0
@@ -175,6 +343,7 @@ ModelImporter:
     - serializedVersion: 16
       name: panic
       takeName: Take 001
+      internalID: 7400004
       firstFrame: 130
       lastFrame: 200
       wrapMode: 0
@@ -203,6 +372,7 @@ ModelImporter:
     - serializedVersion: 16
       name: pokpok
       takeName: Take 001
+      internalID: 7400006
       firstFrame: 210
       lastFrame: 240
       wrapMode: 0
@@ -231,6 +401,7 @@ ModelImporter:
     - serializedVersion: 16
       name: gethit
       takeName: Take 001
+      internalID: 7400008
       firstFrame: 250
       lastFrame: 265
       wrapMode: 0
@@ -259,6 +430,7 @@ ModelImporter:
     - serializedVersion: 16
       name: fly
       takeName: Take 001
+      internalID: 7400010
       firstFrame: 280
       lastFrame: 310
       wrapMode: 0
@@ -287,6 +459,7 @@ ModelImporter:
     - serializedVersion: 16
       name: dizzy
       takeName: Take 001
+      internalID: 7400012
       firstFrame: 320
       lastFrame: 360
       wrapMode: 0
@@ -315,6 +488,7 @@ ModelImporter:
     - serializedVersion: 16
       name: shout
       takeName: Take 001
+      internalID: -5966861916977969543
       firstFrame: 370
       lastFrame: 400
       wrapMode: 0
@@ -343,6 +517,7 @@ ModelImporter:
     - serializedVersion: 16
       name: cheer
       takeName: Take 001
+      internalID: 7400016
       firstFrame: 410
       lastFrame: 440
       wrapMode: 0
@@ -374,6 +549,7 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -381,10 +557,13 @@ ModelImporter:
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
@@ -396,10 +575,14 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -409,8 +592,8 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
