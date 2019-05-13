@@ -7,7 +7,6 @@ public class Movimento : MonoBehaviour
     [SerializeField] private int[] azioni; //array di azioni
     [SerializeField] private float speed; //velocità camminata
     [SerializeField] private float jumpForce; //forza di salto
-    [SerializeField] private AnimationClip giraSx;
 
     private CharacterController characterController;
     private Vector3 movimento;
@@ -21,6 +20,9 @@ public class Movimento : MonoBehaviour
     private Transform posAttuale; //transform posizione attuale (aggiornamento)
     private GameObject posDestinazione; //transform posizione cubo successivo (aggiornamento)
     private int idCuboAttuale; //id del cubo su cui il player è sopra
+
+    private bool giraSx;
+    private bool giraDx;
 
     private float gravity = 9.8f;
     private bool flagHit;
@@ -41,11 +43,6 @@ public class Movimento : MonoBehaviour
         movimento = Vector3.zero;
         distanzaCubi = Vector3.zero;
         nomeOldCollision = primoCubo.name;
-
-        eventPostRotazione = new AnimationEvent();
-        eventPostRotazione.functionName = "ResetRotazioneSx";
-        eventPostRotazione.time = .7f;
-        giraSx.AddEvent(eventPostRotazione);
 
         //Inizio movimento
         CambiaAzione();
@@ -76,16 +73,6 @@ public class Movimento : MonoBehaviour
         movimento.y -= gravity * Time.deltaTime;
 
         characterController.Move(movimento * Time.deltaTime);
-    }
-
-    public void ResetRotazioneSx()
-    {
-        anim.SetBool("giraSx", false);
-        //anim.SetBool("giraDx", false);
-        transform.Rotate(0f, -90f, 0f, Space.Self);
-
-
-        ResetMovimento();
     }
 
 
@@ -153,12 +140,16 @@ public class Movimento : MonoBehaviour
 
     void GiraDestra()
     {
-        anim.SetBool("giraDx", true);
+        //anim.SetBool("giraDx", true);
+        transform.Rotate(0f, 90f, 0f, Space.Self);
+        ResetMovimento();
     }
 
     void GiraSinistra()
     {
-        anim.SetBool("giraSx", true);
+        //anim.SetBool("giraSx", true);
+        transform.Rotate(0f, -90f, 0f, Space.Self);
+        ResetMovimento();
     }
 
     private void MoveToTarget(Vector3 target)
