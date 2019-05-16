@@ -30,15 +30,15 @@ public class FillCursor : MonoBehaviour {
         {
             
             //tiempo = tiempo + Time.deltaTime;
-            Debug.Log("Tiempo = " + tiempo);
+            //Debug.Log("Tiempo = " + tiempo);
 
             radial.fillAmount += (Time.deltaTime/sec);
-            Debug.Log("Fill = " + radial.fillAmount);
+            //Debug.Log("Fill = " + radial.fillAmount);
             //print(radial.fillAmount);
 
         }
         else {
-            Debug.Log("Uscito");
+            //Debug.Log("Uscito");
             radial.fillAmount = 0;
       
         }

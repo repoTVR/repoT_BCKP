@@ -8,9 +8,12 @@ using UnityEngine.UI;
 
 public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-
+    public GameObject player;
     public int timeremain = 1; // tiempo restante
     Button _button;
+    public int idAzione;
+    private ArrayList azioniList;
+    private ArrayList azioniListTmp;
 
 
 
@@ -18,7 +21,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     
     // Use this for initialization
     void Start () {
-
+        //azioniListTmp = new ArrayList();
         _button = GetComponent<Button>();
    
     }
@@ -70,8 +73,32 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
 
     public void Clicked() {
-
-        print("clicked");
+        switch (idAzione)
+        {
+            case 0:
+                player.GetComponent<Movimento>().azioniList.Add(idAzione);
+                break;
+            case 1:
+                player.GetComponent<Movimento>().azioniList.Add(idAzione);
+                break;
+            case 2:
+                player.GetComponent<Movimento>().azioniList.Add(idAzione);
+                break;
+            case 3:
+                player.GetComponent<Movimento>().azioniList.Add(idAzione);
+                break;
+            case 4:
+                //player.GetComponent<Movimento>().enabled = true;
+                if (player.GetComponent<Movimento>().azioniList == null)
+                {
+                    Debug.Log("null arr list");
+                }
+                //player.GetComponent<Movimento>().azioniList.Add(azioniListTmp.Clone());
+                player.GetComponent<Movimento>().play = true;
+                
+                break;
+        }
+        Debug.Log("Azione " + idAzione + "aggiunta alla lista");
     }
 
 

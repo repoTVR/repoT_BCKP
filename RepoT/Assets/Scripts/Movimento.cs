@@ -7,6 +7,7 @@ public class Movimento : MonoBehaviour
     [SerializeField] private int[] azioni; //array di azioni
     [SerializeField] private float speed; //velocità camminata
     [SerializeField] private float jumpForce; //forza di salto
+    [SerializeField] private float rotationSpeed = 5f; //velocità di rotazione
 
     private CharacterController characterController;
     private Vector3 movimento;
@@ -14,8 +15,23 @@ public class Movimento : MonoBehaviour
     private GameObject lvlController;
     private AnimationEvent eventPostRotazione;
 
+
     private GameObject primoCubo;
     private GameObject ultimoCubo;
+
+    #region Davide
+    private Quaternion rotation;
+
+    public GameObject lightBeamIniziale;
+    public GameObject lightBeamFinale;
+    Vector3 posLightBeamIniziale;
+    Vector3 posLightBeamFinale;
+    public bool inPosizione;
+    public GameObject partVittoria;
+    public ArrayList azioniList;
+    public bool play;
+
+    #endregion 
 
     private Transform posAttuale; //transform posizione attuale (aggiornamento)
     private GameObject posDestinazione; //transform posizione cubo successivo (aggiornamento)
@@ -35,23 +51,50 @@ public class Movimento : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        azioniList = new ArrayList();
+        //azioniList.Add(3);
+        //azioniList.Add(0);
+        //azioniList.Add(3);
+        //azioniList.Add(0);
+        //azioniList.Add(2);
+        //azioniList.Add(0);
+        //azioniList.Add(3);
+
+        rotation = Quaternion.Euler(0f, 0f, 0f);
         lvlController = GameObject.FindGameObjectWithTag("GameController");
         primoCubo = lvlController.GetComponent<Percorso>().GetCuboById(0);
         ultimoCubo = lvlController.GetComponent<Percorso>().GetCuboFinale();
+
+        posLightBeamIniziale = new Vector3(primoCubo.transform.position.x, primoCubo.transform.position.y + 0.579f, primoCubo.transform.position.z);
+        Instantiate(lightBeamIniziale, posLightBeamIniziale, Quaternion.identity);
+
+        posLightBeamFinale = new Vector3(ultimoCubo.transform.position.x, ultimoCubo.transform.position.y + 0.579f, ultimoCubo.transform.position.z);
+        Instantiate(lightBeamFinale, posLightBeamFinale, Quaternion.identity);
+
         characterController = gameObject.GetComponent<CharacterController>();
         anim = gameObject.GetComponent<Animator>();
         movimento = Vector3.zero;
         distanzaCubi = Vector3.zero;
         nomeOldCollision = primoCubo.name;
 
+        posAttuale = transform;
+        idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
+        posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);
+
         //Inizio movimento
-        CambiaAzione();
-        
+        //CambiaAzione();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Inizio movimento (in teoria)
+        if (play)
+        {
+            CambiaAzione();
+            play = false;
+        }
 
         if(characterController.isGrounded)
         {
@@ -63,6 +106,7 @@ public class Movimento : MonoBehaviour
             anim.SetBool("run", false);
             if (posDestinazione.name.Equals(ultimoCubo.name))
             {
+                Instantiate(partVittoria, posLightBeamFinale, Quaternion.Euler(-90f, 0f, 0f));
                 anim.CrossFade("Vittoria", .1f);
                 lvlController.GetComponent<PlayStopPlayerMovimento>().Stop();
             }
@@ -73,12 +117,23 @@ public class Movimento : MonoBehaviour
         movimento.y -= gravity * Time.deltaTime;
 
         characterController.Move(movimento * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+        //Debug.Log(Mathf.Abs(transform.localEulerAngles.y));
+        //Debug.Log("Rot finale = " + rotFinale);
+
+        if ( (transform.localEulerAngles.y) == 270.0001f && !inPosizione)
+        {
+            ResetMovimento();
+            Debug.Log("entrato if");
+            inPosizione = true;
+        }
+
     }
 
 
     public void ResetMovimento()
     {
-        
+        Debug.Log("Reset movimento");   
         movimento = Vector3.zero;
         indexAzione++;
         CambiaAzione();
@@ -96,9 +151,9 @@ public class Movimento : MonoBehaviour
             Debug.Log("Errore");
         }
 
-        if (indexAzione < azioni.Length)
+        if (indexAzione < azioniList.Count)
         {
-            switch (azioni[indexAzione])
+            switch (azioniList[indexAzione])
             {
                 case 0:
                     {
@@ -140,16 +195,22 @@ public class Movimento : MonoBehaviour
 
     void GiraDestra()
     {
+        inPosizione = false;
         //anim.SetBool("giraDx", true);
-        transform.Rotate(0f, 90f, 0f, Space.Self);
-        ResetMovimento();
+        //transform.Rotate(0f, 90f, 0f, Space.Self);
+        //rotation = new Vector3(0, 90f * rotationSpeed, 0);
+        rotation = Quaternion.Euler(0, 90f, 0);
+        //ResetMovimento();
     }
 
     void GiraSinistra()
     {
+        inPosizione = false;
         //anim.SetBool("giraSx", true);
-        transform.Rotate(0f, -90f, 0f, Space.Self);
-        ResetMovimento();
+        //transform.Rotate(0f, -90f, 0f, Space.Self);
+        rotation = Quaternion.Euler(0, -90f, 0);
+
+        //ResetMovimento();
     }
 
     private void MoveToTarget(Vector3 target)
