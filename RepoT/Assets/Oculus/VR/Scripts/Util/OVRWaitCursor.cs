@@ -15,19 +15,29 @@ permissions and limitations under the License.
 ************************************************************************************/
 
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Rotates this GameObject at a given speed.
 /// </summary>
 public class OVRWaitCursor : MonoBehaviour
 {
+    public Image img;
+    public GameObject quad;
 	public Vector3 rotateSpeeds = new Vector3(0.0f, 0.0f, -60.0f);
 
-	/// <summary>
-	/// Auto rotates the attached cursor.
-	/// </summary>
-	void Update()
+    private void Start()
+    {
+        quad.SetActive(false);
+
+    }
+
+    /// <summary>
+    /// Auto rotates the attached cursor.
+    /// </summary>
+    void Update()
 	{
+
 		transform.Rotate(rotateSpeeds * Time.smoothDeltaTime);
 	}
 }

@@ -57,7 +57,7 @@ public class NavmeshController : MonoBehaviour
             //Debug.Log("Dist = " + Mathf.Abs(Vector3.Distance(transform.position, point)));
             inMovimento = Mathf.Abs(transform.position.x - result.x) > 0.2 && Mathf.Abs(transform.position.z - result.z) > 0.2;
         }
-        Debug.Log("Inmovimento = " + inMovimento);
+        //Debug.Log("Inmovimento = " + inMovimento);
         
     }
 

@@ -17,7 +17,7 @@ public class LightBeamController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float t = Mathf.PingPong(Time.time, duration) / duration;
+        float t = Mathf.PingPong(Time.time, duration);
         light.intensity = Mathf.Lerp(1, 5, t);
     }
 }
