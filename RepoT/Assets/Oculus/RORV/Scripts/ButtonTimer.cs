@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    public GameObject miniPanel;
     public GameObject player;
     public int timeremain = 1; // tiempo restante
     Button _button;
@@ -98,6 +99,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 
                 break;
         }
+        miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
         Debug.Log("Azione " + idAzione + "aggiunta alla lista");
     }
 

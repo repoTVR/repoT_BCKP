@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UI;
 
 public class Movimento : MonoBehaviour
 {
@@ -20,6 +22,8 @@ public class Movimento : MonoBehaviour
     private GameObject ultimoCubo;
 
     #region Davide
+    ////Prova per highlight della selezione in esecuzione al momento
+    public GameObject miniPanel;
     private Quaternion rotation;
 
     public GameObject lightBeamIniziale;
@@ -51,6 +55,7 @@ public class Movimento : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        #region Davide
         azioniList = new ArrayList();
         //azioniList.Add(3);
         //azioniList.Add(0);
@@ -61,15 +66,20 @@ public class Movimento : MonoBehaviour
         //azioniList.Add(3);
 
         rotation = Quaternion.Euler(0f, 0f, 0f);
+        #endregion
         lvlController = GameObject.FindGameObjectWithTag("GameController");
         primoCubo = lvlController.GetComponent<Percorso>().GetCuboById(0);
         ultimoCubo = lvlController.GetComponent<Percorso>().GetCuboFinale();
 
+        #region Davide
+
+        
         posLightBeamIniziale = new Vector3(primoCubo.transform.position.x, primoCubo.transform.position.y + 0.579f, primoCubo.transform.position.z);
         Instantiate(lightBeamIniziale, posLightBeamIniziale, Quaternion.identity);
 
         posLightBeamFinale = new Vector3(ultimoCubo.transform.position.x, ultimoCubo.transform.position.y + 0.579f, ultimoCubo.transform.position.z);
         Instantiate(lightBeamFinale, posLightBeamFinale, Quaternion.identity);
+        #endregion
 
         characterController = gameObject.GetComponent<CharacterController>();
         anim = gameObject.GetComponent<Animator>();
@@ -142,6 +152,7 @@ public class Movimento : MonoBehaviour
 
     void CambiaAzione()
     {
+        miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
         posAttuale = transform;
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
         posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);
