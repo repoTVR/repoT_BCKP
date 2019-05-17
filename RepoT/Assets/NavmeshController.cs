@@ -40,7 +40,7 @@ public class NavmeshController : MonoBehaviour
         if (!inMovimento)
         {
             //Debug.Log("Sample position : " + (NavMesh.SamplePosition(randomPoint, out hit, 50f, areaNavMesh)));
-            if (NavMesh.SamplePosition(randomPoint, out hit, 50f, areaNavMesh))
+            if (NavMesh.SamplePosition(randomPoint, out hit, 3000f, NavMesh.AllAreas))
             {
                 result = hit.position;
                 navmeshagent.SetDestination(result);
