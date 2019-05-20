@@ -26,6 +26,8 @@ public class Movimento : MonoBehaviour
     public GameObject miniPanel;
     private Quaternion rotation;
 
+    private Quaternion oldRotation;
+
     public GameObject lightBeamIniziale;
     public GameObject lightBeamFinale;
     Vector3 posLightBeamIniziale;
@@ -207,19 +209,21 @@ public class Movimento : MonoBehaviour
     void GiraDestra()
     {
         inPosizione = false;
+        oldRotation = transform.rotation;
         //anim.SetBool("giraDx", true);
         //transform.Rotate(0f, 90f, 0f, Space.Self);
         //rotation = new Vector3(0, 90f * rotationSpeed, 0);
-        rotation = Quaternion.Euler(0, 90f, 0);
+        rotation = Quaternion.Euler(0, this.rotation.y+90f, 0);
         //ResetMovimento();
     }
 
     void GiraSinistra()
     {
         inPosizione = false;
+        oldRotation = transform.rotation;
         //anim.SetBool("giraSx", true);
         //transform.Rotate(0f, -90f, 0f, Space.Self);
-        rotation = Quaternion.Euler(0, -90f, 0);
+        rotation = Quaternion.Euler(0, this.rotation.y-90f, 0);
 
         //ResetMovimento();
     }
