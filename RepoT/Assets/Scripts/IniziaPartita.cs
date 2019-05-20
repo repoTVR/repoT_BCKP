@@ -10,7 +10,7 @@ public class IniziaPartita : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.gameObject.GetComponent<PlayStopPlayerMovimento>().Play();
+        //this.gameObject.GetComponent<PlayStopPlayerMovimento>().Play();
     }
 
     // Update is called once per frame

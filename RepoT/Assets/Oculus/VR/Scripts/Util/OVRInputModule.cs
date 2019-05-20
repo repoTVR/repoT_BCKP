@@ -612,7 +612,7 @@ namespace UnityEngine.EventSystems
             leftData.pointerCurrentRaycast = raycast;
             m_RaycastResultCache.Clear();
 
-            m_Cursor.SetCursorRay(rayTransform);
+            //m_Cursor.SetCursorRay(rayTransform);
 
             OVRRaycaster ovrRaycaster = raycast.module as OVRRaycaster;
             // We're only interested in intersections from OVRRaycasters

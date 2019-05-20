@@ -11,7 +11,7 @@ public class Percorso : MonoBehaviour
     private int keyPercorso;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         percorso = new SortedDictionary<int, GameObject>();
         arrayCubi = GameObject.FindGameObjectsWithTag("Cubo");
