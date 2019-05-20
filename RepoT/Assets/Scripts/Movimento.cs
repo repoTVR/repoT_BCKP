@@ -16,6 +16,7 @@ public class Movimento : MonoBehaviour
     private Animator anim;
     private GameObject lvlController;
     private AnimationEvent eventPostRotazione;
+    private bool morto;
 
 
     private GameObject primoCubo;
@@ -26,7 +27,7 @@ public class Movimento : MonoBehaviour
     public GameObject miniPanel;
     private Quaternion rotation;
 
-    private Quaternion oldRotation;
+    private float oldRotation;
 
     public GameObject lightBeamIniziale;
     public GameObject lightBeamFinale;
@@ -36,6 +37,7 @@ public class Movimento : MonoBehaviour
     public GameObject partVittoria;
     public ArrayList azioniList;
     public bool play;
+    public float targetRot;
 
     #endregion 
 
@@ -45,6 +47,8 @@ public class Movimento : MonoBehaviour
 
     private bool giraSx;
     private bool giraDx;
+
+    private float timeCount;
 
     private float gravity = 9.8f;
     private bool flagHit;
@@ -59,19 +63,15 @@ public class Movimento : MonoBehaviour
     {
         #region Davide
         azioniList = new ArrayList();
-        //azioniList.Add(3);
-        //azioniList.Add(0);
-        //azioniList.Add(3);
-        //azioniList.Add(0);
-        //azioniList.Add(2);
-        //azioniList.Add(0);
-        //azioniList.Add(3);
+        inPosizione = true;
+        timeCount = 0f;
 
         rotation = Quaternion.Euler(0f, 0f, 0f);
         #endregion
         lvlController = GameObject.FindGameObjectWithTag("GameController");
         primoCubo = lvlController.GetComponent<Percorso>().GetCuboById(0);
         ultimoCubo = lvlController.GetComponent<Percorso>().GetCuboFinale();
+        
 
         #region Davide
 
@@ -129,15 +129,16 @@ public class Movimento : MonoBehaviour
         movimento.y -= gravity * Time.deltaTime;
 
         characterController.Move(movimento * Time.deltaTime);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-        //Debug.Log(Mathf.Abs(transform.localEulerAngles.y));
-        //Debug.Log("Rot finale = " + rotFinale);
-
-        if ( (transform.localEulerAngles.y) == 270.0001f && !inPosizione)
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, timeCount * 0.5f);
+        timeCount += Time.deltaTime;
+        Debug.Log("Angolo " + transform.localEulerAngles.y);
+        Debug.Log("Differenza = " + Mathf.Abs((transform.localEulerAngles.y - targetRot)) +" bool " + inPosizione);
+        if (Mathf.Abs((transform.localEulerAngles.y - targetRot)) <= 0.01f && !inPosizione)
         {
+            inPosizione = true;
             ResetMovimento();
             Debug.Log("entrato if");
-            inPosizione = true;
+            
         }
 
     }
@@ -208,24 +209,31 @@ public class Movimento : MonoBehaviour
 
     void GiraDestra()
     {
+        timeCount = 0f;
         inPosizione = false;
-        oldRotation = transform.rotation;
-        //anim.SetBool("giraDx", true);
-        //transform.Rotate(0f, 90f, 0f, Space.Self);
-        //rotation = new Vector3(0, 90f * rotationSpeed, 0);
-        rotation = Quaternion.Euler(0, this.rotation.y+90f, 0);
-        //ResetMovimento();
+        oldRotation = transform.localEulerAngles.y;
+        targetRot = oldRotation + 90f;
+        if (targetRot < 0)
+        {
+            targetRot += 360f;
+        }
+
+        rotation = Quaternion.Euler(0, targetRot, 0);
     }
 
     void GiraSinistra()
     {
+        timeCount = 0f;
         inPosizione = false;
-        oldRotation = transform.rotation;
-        //anim.SetBool("giraSx", true);
-        //transform.Rotate(0f, -90f, 0f, Space.Self);
-        rotation = Quaternion.Euler(0, this.rotation.y-90f, 0);
+        oldRotation = transform.localEulerAngles.y;
+        targetRot = oldRotation - 90f;
+        if(targetRot < 0)
+        {
+            targetRot += 360f;
+        }
+        Debug.Log("Target rot = " + targetRot);
 
-        //ResetMovimento();
+        rotation = Quaternion.Euler(0, targetRot, 0);
     }
 
     private void MoveToTarget(Vector3 target)
@@ -274,6 +282,12 @@ public class Movimento : MonoBehaviour
     {
         movimento = Vector3.zero;
         anim.CrossFade("Morte", 0.1f);
+        morto = true;
+    }
+
+    public bool getMorto()
+    {
+        return morto;
     }
 
 }
