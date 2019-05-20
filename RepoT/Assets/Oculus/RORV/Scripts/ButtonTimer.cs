@@ -99,7 +99,11 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 
                 break;
         }
-        miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
+
+        if (idAzione != 4)
+        {
+            miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
+        }
         Debug.Log("Azione " + idAzione + "aggiunta alla lista");
     }
 
