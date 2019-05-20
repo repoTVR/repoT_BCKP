@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,23 +32,24 @@ public class MiniPanelScript : MonoBehaviour
         //Instantiate(buttonPrefab).transform.SetParent(transform, false);
         //Instantiate(buttonPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity, transform);
         actualButton = Instantiate(buttonPrefab, transform, false);
-        actualButton.GetComponent<buttonNumber>().index = cont;
+        //actualButton.GetComponent<buttonNumber>().index = cont;
         buttons.Add(cont, actualButton);
         cont++;
+        Debug.Log("Bottone " + actualButton.GetComponentInChildren<TextMeshProUGUI>().text);
 
         switch (id)
         {
             case 0:
-                actualButton.GetComponentInChildren<Text>().text = "Cammina";
+                actualButton.GetComponentInChildren<TextMeshProUGUI>().text = "Cammina";
                 break;
             case 1:
-                actualButton.GetComponentInChildren<Text>().text = "Gira destra";
+                actualButton.GetComponentInChildren<TextMeshProUGUI>().text = "Gira destra";
                 break;
             case 2:
-                actualButton.GetComponentInChildren<Text>().text = "Gira sinistra";
+                actualButton.GetComponentInChildren<TextMeshProUGUI>().text = "Gira sinistra";
                 break;
             case 3:
-                actualButton.GetComponentInChildren<Text>().text = "Salta";
+                actualButton.GetComponentInChildren<TextMeshProUGUI>().text = "Salta";
                 break;
         }
     }
