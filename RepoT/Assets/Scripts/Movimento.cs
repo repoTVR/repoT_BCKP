@@ -23,10 +23,10 @@ public class Movimento : MonoBehaviour
 
     #region Davide
     ////Prova per highlight della selezione in esecuzione al momento
-    public GameObject miniPanel;
+    //public GameObject miniPanel;
     private Quaternion rotation;
 
-    private Quaternion oldRotation;
+    private float oldRotation;
 
     public GameObject lightBeamIniziale;
     public GameObject lightBeamFinale;
@@ -36,6 +36,7 @@ public class Movimento : MonoBehaviour
     public GameObject partVittoria;
     public ArrayList azioniList;
     public bool play;
+    public float targetRot;
 
     #endregion 
 
@@ -63,9 +64,11 @@ public class Movimento : MonoBehaviour
         //azioniList.Add(0);
         //azioniList.Add(3);
         //azioniList.Add(0);
-        //azioniList.Add(2);
+        azioniList.Add(2);
+        azioniList.Add(2);
         //azioniList.Add(0);
         //azioniList.Add(3);
+        inPosizione = true;
 
         rotation = Quaternion.Euler(0f, 0f, 0f);
         #endregion
@@ -130,10 +133,9 @@ public class Movimento : MonoBehaviour
 
         characterController.Move(movimento * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-        //Debug.Log(Mathf.Abs(transform.localEulerAngles.y));
+        Debug.Log(transform.localEulerAngles.y);
         //Debug.Log("Rot finale = " + rotFinale);
-
-        if ( (transform.localEulerAngles.y) == 270.0001f && !inPosizione)
+        if (Mathf.Abs((transform.localEulerAngles.y - targetRot)) <= 0.8f && !inPosizione)
         {
             ResetMovimento();
             Debug.Log("entrato if");
@@ -154,7 +156,7 @@ public class Movimento : MonoBehaviour
 
     void CambiaAzione()
     {
-        miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
+        //miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
         posAttuale = transform;
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
         posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);
@@ -209,7 +211,8 @@ public class Movimento : MonoBehaviour
     void GiraDestra()
     {
         inPosizione = false;
-        oldRotation = transform.rotation;
+        oldRotation = transform.localEulerAngles.y;
+        targetRot = oldRotation + 89.9999f;
         //anim.SetBool("giraDx", true);
         //transform.Rotate(0f, 90f, 0f, Space.Self);
         //rotation = new Vector3(0, 90f * rotationSpeed, 0);
@@ -220,7 +223,13 @@ public class Movimento : MonoBehaviour
     void GiraSinistra()
     {
         inPosizione = false;
-        oldRotation = transform.rotation;
+        oldRotation = transform.localEulerAngles.y;
+        targetRot = oldRotation - 90f;
+        if(targetRot < 0)
+        {
+            targetRot += 360f;
+        }
+        Debug.Log("Target rot = " + targetRot);
         //anim.SetBool("giraSx", true);
         //transform.Rotate(0f, -90f, 0f, Space.Self);
         rotation = Quaternion.Euler(0, this.rotation.y-90f, 0);
