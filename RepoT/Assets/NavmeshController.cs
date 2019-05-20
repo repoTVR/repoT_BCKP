@@ -10,6 +10,7 @@ public class NavmeshController : MonoBehaviour
     float range;
     int areaNavMesh;
     bool inMovimento;
+    bool morto;
     Vector3 result;
     // Start is called before the first frame update
     void Start()
@@ -37,28 +38,31 @@ public class NavmeshController : MonoBehaviour
         Vector3 randomPoint = transform.position + Random.insideUnitSphere * range;
         NavMeshHit hit;
         //Debug.Log("In movimento = " + inMovimento);
-        if (!inMovimento)
+        if(!morto)
         {
-            //Debug.Log("Sample position : " + (NavMesh.SamplePosition(randomPoint, out hit, 50f, areaNavMesh)));
-            if (NavMesh.SamplePosition(randomPoint, out hit, 3000f, NavMesh.AllAreas))
+            if (!inMovimento)
             {
-                result = hit.position;
-                navmeshagent.SetDestination(result);
-                inMovimento = true;
+                //Debug.Log("Sample position : " + (NavMesh.SamplePosition(randomPoint, out hit, 50f, areaNavMesh)));
+                if (NavMesh.SamplePosition(randomPoint, out hit, 3000f, NavMesh.AllAreas))
+                {
+                    result = hit.position;
+                    navmeshagent.SetDestination(result);
+                    inMovimento = true;
+                }
+            }
+            else
+            {
+                inMovimento = Mathf.Abs(transform.position.x - result.x) > 0.2 && Mathf.Abs(transform.position.z - result.z) > 0.2;
             }
         }
-
-
-
-        if (inMovimento)
-        {
-            //Debug.Log("Posizione Rudy: " + transform.position);
-            //inMovimento = Mathf.Abs(Vector3.Distance(transform.position, point)) > 0.5f;
-            //Debug.Log("Dist = " + Mathf.Abs(Vector3.Distance(transform.position, point)));
-            inMovimento = Mathf.Abs(transform.position.x - result.x) > 0.2 && Mathf.Abs(transform.position.z - result.z) > 0.2;
-        }
-        //Debug.Log("Inmovimento = " + inMovimento);
         
+        
+    }
+
+    public void MortePersonaggio(Transform target)
+    {
+        morto = true;
+        navmeshagent.SetDestination(target.position);
     }
 
     //bool RandomPoint(Vector3 center, float range, out Vector3 result)

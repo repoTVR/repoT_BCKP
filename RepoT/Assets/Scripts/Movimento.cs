@@ -16,6 +16,7 @@ public class Movimento : MonoBehaviour
     private Animator anim;
     private GameObject lvlController;
     private AnimationEvent eventPostRotazione;
+    private bool morto;
 
 
     private GameObject primoCubo;
@@ -281,6 +282,12 @@ public class Movimento : MonoBehaviour
     {
         movimento = Vector3.zero;
         anim.CrossFade("Morte", 0.1f);
+        morto = true;
+    }
+
+    public bool getMorto()
+    {
+        return morto;
     }
 
 }
