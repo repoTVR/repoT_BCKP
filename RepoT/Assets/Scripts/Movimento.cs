@@ -23,7 +23,7 @@ public class Movimento : MonoBehaviour
 
     #region Davide
     ////Prova per highlight della selezione in esecuzione al momento
-    //public GameObject miniPanel;
+    public GameObject miniPanel;
     private Quaternion rotation;
 
     private float oldRotation;
@@ -47,6 +47,8 @@ public class Movimento : MonoBehaviour
     private bool giraSx;
     private bool giraDx;
 
+    private float timeCount;
+
     private float gravity = 9.8f;
     private bool flagHit;
     private int indexAzione; //index dell'array azioni[]
@@ -60,21 +62,15 @@ public class Movimento : MonoBehaviour
     {
         #region Davide
         azioniList = new ArrayList();
-        //azioniList.Add(3);
-        //azioniList.Add(0);
-        //azioniList.Add(3);
-        //azioniList.Add(0);
-        azioniList.Add(2);
-        azioniList.Add(2);
-        //azioniList.Add(0);
-        //azioniList.Add(3);
         inPosizione = true;
+        timeCount = 0f;
 
         rotation = Quaternion.Euler(0f, 0f, 0f);
         #endregion
         lvlController = GameObject.FindGameObjectWithTag("GameController");
         primoCubo = lvlController.GetComponent<Percorso>().GetCuboById(0);
         ultimoCubo = lvlController.GetComponent<Percorso>().GetCuboFinale();
+        
 
         #region Davide
 
@@ -132,14 +128,16 @@ public class Movimento : MonoBehaviour
         movimento.y -= gravity * Time.deltaTime;
 
         characterController.Move(movimento * Time.deltaTime);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-        Debug.Log(transform.localEulerAngles.y);
-        //Debug.Log("Rot finale = " + rotFinale);
-        if (Mathf.Abs((transform.localEulerAngles.y - targetRot)) <= 0.8f && !inPosizione)
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, timeCount * 0.5f);
+        timeCount += Time.deltaTime;
+        Debug.Log("Angolo " + transform.localEulerAngles.y);
+        Debug.Log("Differenza = " + Mathf.Abs((transform.localEulerAngles.y - targetRot)) +" bool " + inPosizione);
+        if (Mathf.Abs((transform.localEulerAngles.y - targetRot)) <= 0.01f && !inPosizione)
         {
+            inPosizione = true;
             ResetMovimento();
             Debug.Log("entrato if");
-            inPosizione = true;
+            
         }
 
     }
@@ -156,7 +154,7 @@ public class Movimento : MonoBehaviour
 
     void CambiaAzione()
     {
-        //miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
+        miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
         posAttuale = transform;
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
         posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);
@@ -210,18 +208,21 @@ public class Movimento : MonoBehaviour
 
     void GiraDestra()
     {
+        timeCount = 0f;
         inPosizione = false;
         oldRotation = transform.localEulerAngles.y;
-        targetRot = oldRotation + 89.9999f;
-        //anim.SetBool("giraDx", true);
-        //transform.Rotate(0f, 90f, 0f, Space.Self);
-        //rotation = new Vector3(0, 90f * rotationSpeed, 0);
-        rotation = Quaternion.Euler(0, this.rotation.y+90f, 0);
-        //ResetMovimento();
+        targetRot = oldRotation + 90f;
+        if (targetRot < 0)
+        {
+            targetRot += 360f;
+        }
+
+        rotation = Quaternion.Euler(0, targetRot, 0);
     }
 
     void GiraSinistra()
     {
+        timeCount = 0f;
         inPosizione = false;
         oldRotation = transform.localEulerAngles.y;
         targetRot = oldRotation - 90f;
@@ -230,11 +231,8 @@ public class Movimento : MonoBehaviour
             targetRot += 360f;
         }
         Debug.Log("Target rot = " + targetRot);
-        //anim.SetBool("giraSx", true);
-        //transform.Rotate(0f, -90f, 0f, Space.Self);
-        rotation = Quaternion.Euler(0, this.rotation.y-90f, 0);
 
-        //ResetMovimento();
+        rotation = Quaternion.Euler(0, targetRot, 0);
     }
 
     private void MoveToTarget(Vector3 target)
