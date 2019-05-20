@@ -27,6 +27,7 @@ public class NavmeshController : MonoBehaviour
     void Update()
     {
         Vector3 point;
+        MortePersonaggio();
 
         //if (RandomPoint(transform.position, range, out point) && !inMovimento)
         //{
@@ -59,10 +60,13 @@ public class NavmeshController : MonoBehaviour
         
     }
 
-    public void MortePersonaggio(Transform target)
+    public void MortePersonaggio()
     {
-        morto = true;
-        navmeshagent.SetDestination(target.position);
+        if(player.GetComponent<Movimento>().getMorto())
+        {
+            morto = true;
+            navmeshagent.SetDestination(player.transform.position);
+        }
     }
 
     //bool RandomPoint(Vector3 center, float range, out Vector3 result)
