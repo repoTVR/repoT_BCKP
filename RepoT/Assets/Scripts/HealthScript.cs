@@ -12,7 +12,6 @@ public class HealthScript : MonoBehaviour
     float size;
     int vite;
     float dim;
-    public bool prova;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,11 +27,6 @@ public class HealthScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (prova)
-        {
-            StartCoroutine("loseHealth");
-            prova = false;
-        }
     }
     
     public IEnumerator loseHealth()
@@ -51,7 +45,7 @@ public class HealthScript : MonoBehaviour
         else
         {
             anim.SetTrigger("dead");
-            Destroy(gameObject, 1f);
+            Destroy(gameObject, 0.2f);
         }
 
         vite--;
