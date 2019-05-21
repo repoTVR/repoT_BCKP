@@ -11,7 +11,7 @@ public class MiniPanelScript : MonoBehaviour
     public Button buttonPrefab;
     private Button actualButton;
     private SortedDictionary<int, Button> buttons;
-    public float panelWidth;
+    [SerializeField] private Sprite[] arrImg;
     // Start is called before the first frame update
     void Start()
     {
