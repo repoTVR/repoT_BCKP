@@ -68,20 +68,22 @@ public class Movimento : MonoBehaviour
         azioniList = new ArrayList();
         inPosizione = true;
         timeCount = 0f;
-        azioniList.Add(3);
-        azioniList.Add(0);
-        azioniList.Add(3);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(0);
-        azioniList.Add(3);
+        //azioniList.Add(3);
+        //azioniList.Add(0);
+        //azioniList.Add(3);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(0);
+        //azioniList.Add(3);
 
 
         arma = GameObject.FindGameObjectWithTag("Weapon");
         rotation = Quaternion.Euler(0f, 0f, 0f);
+
+        rotation = transform.rotation;
         #endregion
         lvlController = GameObject.FindGameObjectWithTag("GameController");
         primoCubo = lvlController.GetComponent<Percorso>().GetCuboById(0);
@@ -116,18 +118,20 @@ public class Movimento : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Inizio movimento (in teoria)
+        //Inizio movimento 
         if (play)
         {
             CambiaAzione();
             play = false;
         }
 
+        //Controllo atterraggio
         if(characterController.isGrounded)
         {
             anim.SetBool("is_in_air", false);
         }
 
+        //Check fine movimento avanti/salto
         if(IsDestinazioneRaggiunta())
         {
             anim.SetBool("run", false);
@@ -141,33 +145,37 @@ public class Movimento : MonoBehaviour
             ResetMovimento();
         }
 
+        //Applicazione gravità
         movimento.y -= gravity * Time.deltaTime;
 
+        //Applicazione movimento
         characterController.Move(movimento * Time.deltaTime);
+
+        //Applicazione rotazione
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, timeCount * 0.5f);
         timeCount += Time.deltaTime;
-        //Debug.Log("Angolo " + transform.localEulerAngles.y);
-        //Debug.Log("Differenza = " + Mathf.Abs((transform.localEulerAngles.y - targetRot)) +" bool " + inPosizione);
+
+        //Check fine rotazione
         if (Mathf.Abs((transform.localEulerAngles.y - targetRot)) <= 0.01f && !inPosizione)
         {
             inPosizione = true;
             ResetMovimento();
-            Debug.Log("entrato if");
             
         }
 
     }
 
 
+    //Fine azione, switch nuova azione
     public void ResetMovimento()
-    {
-        Debug.Log("Reset movimento");   
+    { 
         movimento = Vector3.zero;
         indexAzione++;
         CambiaAzione();
 
     }
 
+    //Identificazione nuova azione da svolgere
     void CambiaAzione()
     {
         //miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
@@ -175,10 +183,6 @@ public class Movimento : MonoBehaviour
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
         posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);
         
-        if(posDestinazione == null)
-        {
-            Debug.Log("Errore");
-        }
 
         if (indexAzione < azioniList.Count)
         {
@@ -251,7 +255,6 @@ public class Movimento : MonoBehaviour
         {
             targetRot += 360f;
         }
-        Debug.Log("Target rot = " + targetRot);
 
         rotation = Quaternion.Euler(0, targetRot, 0);
     }
@@ -264,7 +267,6 @@ public class Movimento : MonoBehaviour
         {
             anim.SetBool("run", true);
             movimento = transform.forward * speed;
-            //distanzaCubi.normalized
         }
     }
 
@@ -276,7 +278,6 @@ public class Movimento : MonoBehaviour
         {
             anim.SetBool("is_in_air", true);
             movimento = transform.forward * speed;
-            //distanzaCubi.normalized
             movimento.y = jumpForce;
         }
     }

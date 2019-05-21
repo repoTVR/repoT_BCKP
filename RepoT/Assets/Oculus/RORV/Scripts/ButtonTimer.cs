@@ -9,27 +9,31 @@ using UnityEngine.UI;
 public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject miniPanel;
-    public GameObject player;
+    private GameObject player;
     public int timeremain = 1; // tiempo restante
     Button _button;
     public int idAzione;
     private ArrayList azioniList;
     private ArrayList azioniListTmp;
+    private bool isButtonLaterale;
+    public int tempoSelezione;
 
 
 
 
-    
+
     // Use this for initialization
     void Start () {
         //azioniListTmp = new ArrayList();
+        player = GameObject.FindGameObjectWithTag("Player");
         _button = GetComponent<Button>();
+        isButtonLaterale = gameObject.tag.Equals("ButtonLaterali");
    
     }
 
     void Update()
     { 
- 
+        
     }
 
 
@@ -49,7 +53,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         NotificationCenter.DefaultCenter().PostNotification(this, "EnNada");
         print("Cancela");
         CancelInvoke("countDown");
-        timeremain = 3;
+        timeremain = tempoSelezione;
     }
 
     void countDown()
@@ -105,6 +109,32 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
         }
         Debug.Log("Azione " + idAzione + "aggiunta alla lista");
+    }
+
+    public void BottoneLateraleClicked()
+    {
+
+        GameObject[] arrBottoniLaterali = GameObject.FindGameObjectsWithTag("ButtonLaterali");
+        GameObject emptyCentrale = GameObject.FindGameObjectWithTag("PanelCentrale");
+        
+
+        
+
+        foreach(GameObject btn in arrBottoniLaterali)
+        {
+            btn.GetComponentInChildren<RawImage>().enabled = false;
+        }
+
+        gameObject.GetComponentInChildren<RawImage>().enabled = isButtonLaterale;
+
+        foreach (Transform tr in emptyCentrale.transform)
+        {
+
+            tr.gameObject.SetActive(tr.gameObject.GetComponentInChildren<IdPanelCentrale>().IsPanelCentrale(idAzione));
+            
+        }
+
+        
     }
 
 
