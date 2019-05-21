@@ -26,7 +26,6 @@ public class NavmeshController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 point;
         MortePersonaggio();
 
         //if (RandomPoint(transform.position, range, out point) && !inMovimento)
@@ -65,6 +64,8 @@ public class NavmeshController : MonoBehaviour
         if(player.GetComponent<Movimento>().getMorto())
         {
             morto = true;
+            navmeshagent.stoppingDistance = 3f;
+            navmeshagent.speed = 3f;
             navmeshagent.SetDestination(player.transform.position);
         }
     }

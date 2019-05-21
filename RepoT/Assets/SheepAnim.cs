@@ -17,9 +17,7 @@ public class SheepAnim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(agent.velocity.magnitude > 0.1f)
-        {
-            anim.SetBool("walk", true);
-        }
+        //Debug.Log("Velocità pecora " + agent.velocity.magnitude);
+        anim.SetBool("walk", agent.velocity.magnitude > 0.1f);
     }
 }

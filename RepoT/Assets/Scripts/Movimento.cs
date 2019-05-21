@@ -131,8 +131,8 @@ public class Movimento : MonoBehaviour
         characterController.Move(movimento * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, timeCount * 0.5f);
         timeCount += Time.deltaTime;
-        Debug.Log("Angolo " + transform.localEulerAngles.y);
-        Debug.Log("Differenza = " + Mathf.Abs((transform.localEulerAngles.y - targetRot)) +" bool " + inPosizione);
+        //Debug.Log("Angolo " + transform.localEulerAngles.y);
+        //Debug.Log("Differenza = " + Mathf.Abs((transform.localEulerAngles.y - targetRot)) +" bool " + inPosizione);
         if (Mathf.Abs((transform.localEulerAngles.y - targetRot)) <= 0.01f && !inPosizione)
         {
             inPosizione = true;
