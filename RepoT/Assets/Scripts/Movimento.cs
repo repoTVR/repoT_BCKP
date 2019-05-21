@@ -24,10 +24,13 @@ public class Movimento : MonoBehaviour
 
     #region Davide
     ////Prova per highlight della selezione in esecuzione al momento
-    public GameObject miniPanel;
+    //public GameObject miniPanel;
     private Quaternion rotation;
 
+    public GameObject arma;
+
     private float oldRotation;
+
 
     public GameObject lightBeamIniziale;
     public GameObject lightBeamFinale;
@@ -65,7 +68,13 @@ public class Movimento : MonoBehaviour
         azioniList = new ArrayList();
         inPosizione = true;
         timeCount = 0f;
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
 
+        arma = GameObject.FindGameObjectWithTag("Weapon");
         rotation = Quaternion.Euler(0f, 0f, 0f);
         #endregion
         lvlController = GameObject.FindGameObjectWithTag("GameController");
@@ -155,7 +164,7 @@ public class Movimento : MonoBehaviour
 
     void CambiaAzione()
     {
-        miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
+        //miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
         posAttuale = transform;
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
         posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);
@@ -187,6 +196,11 @@ public class Movimento : MonoBehaviour
                 case 3:
                     {
                         Salta();
+                        break;
+                    }
+                case 4:
+                    {
+                        StartCoroutine("Attacca");
                         break;
                     }
             }
@@ -259,6 +273,22 @@ public class Movimento : MonoBehaviour
             //distanzaCubi.normalized
             movimento.y = jumpForce;
         }
+    }
+    
+
+    IEnumerator Attacca()
+    {
+        GameObject enemy = GetComponent<AxeCollision>().getCollider();
+        float length;
+        Debug.Log("Attacco");
+        anim.SetBool("attack", true);
+        length = anim.GetCurrentAnimatorClipInfo(0).Length;
+        Debug.Log("length = " + length);
+        enemy.GetComponent<HealthScript>().StartCoroutine("loseHealth");
+        yield return new WaitForSeconds(length);
+        anim.SetBool("attack", false);
+        yield return new WaitForSeconds(1f);
+        ResetMovimento();
     }
 
     private bool IsDestinazioneRaggiunta()
