@@ -51,7 +51,6 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         //do your stuff when highlighted
         NotificationCenter.DefaultCenter().PostNotification(this, "EnNada");
-        print("Cancela");
         CancelInvoke("countDown");
         timeremain = tempoSelezione;
     }
@@ -135,6 +134,18 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
 
         
+    }
+
+    public void DelLastClicked()
+    {
+        player.GetComponent<Movimento>().EliminaUltimaAzione();
+        miniPanel.GetComponent<MiniPanelScript>().EliminaUltimoBottone();
+    }
+
+    public void DelTutto()
+    {
+        player.GetComponent<Movimento>().EliminaTutteLeAzioni();
+        miniPanel.GetComponent<MiniPanelScript>().EliminaTutteLeAzioni();
     }
 
 

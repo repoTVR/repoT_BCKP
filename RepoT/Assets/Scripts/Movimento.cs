@@ -289,4 +289,14 @@ public class Movimento : MonoBehaviour
         return morto;
     }
 
+    public void EliminaUltimaAzione()
+    {
+        azioniList.RemoveAt(azioniList.Count - 1);
+    }
+
+    public void EliminaTutteLeAzioni()
+    {
+        azioniList.Clear();
+    }
+
 }
