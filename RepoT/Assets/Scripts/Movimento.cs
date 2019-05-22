@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UI;
 
 public class Movimento : MonoBehaviour
 {
@@ -24,10 +23,13 @@ public class Movimento : MonoBehaviour
 
     #region Davide
     ////Prova per highlight della selezione in esecuzione al momento
-    public GameObject miniPanel;
+    //public GameObject miniPanel;
     private Quaternion rotation;
 
+    public GameObject arma;
+
     private float oldRotation;
+
 
     public GameObject lightBeamIniziale;
     public GameObject lightBeamFinale;
@@ -65,6 +67,20 @@ public class Movimento : MonoBehaviour
         azioniList = new ArrayList();
         inPosizione = true;
         timeCount = 0f;
+        azioniList.Add(3);
+        azioniList.Add(0);
+        azioniList.Add(3);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(0);
+        azioniList.Add(3);
+
+
+        arma = GameObject.FindGameObjectWithTag("Weapon");
+        rotation = Quaternion.Euler(0f, 0f, 0f);
 
         rotation = transform.rotation;
         #endregion
@@ -120,8 +136,7 @@ public class Movimento : MonoBehaviour
             anim.SetBool("run", false);
             if (posDestinazione.name.Equals(ultimoCubo.name))
             {
-                Instantiate(partVittoria, posLightBeamFinale, Quaternion.Euler(-90f, 0f, 0f));
-                anim.CrossFade("Vittoria", .1f);
+                Vittoria();
             }
             lvlController.GetComponent<Percorso>().IncrementIndexPercorso();
             ResetMovimento();
@@ -160,7 +175,7 @@ public class Movimento : MonoBehaviour
     //Identificazione nuova azione da svolgere
     void CambiaAzione()
     {
-        miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
+        //miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
         posAttuale = transform;
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
         posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);
@@ -188,6 +203,11 @@ public class Movimento : MonoBehaviour
                 case 3:
                     {
                         Salta();
+                        break;
+                    }
+                case 4:
+                    {
+                        StartCoroutine("Attacca");
                         break;
                     }
             }
@@ -258,6 +278,22 @@ public class Movimento : MonoBehaviour
             movimento.y = jumpForce;
         }
     }
+    
+
+    IEnumerator Attacca()
+    {
+        GameObject enemy = GetComponent<AxeCollision>().getCollider();
+        float length;
+        Debug.Log("Attacco");
+        anim.SetBool("attack", true);
+        length = anim.GetCurrentAnimatorClipInfo(0).Length;
+        Debug.Log("length = " + length);
+        yield return new WaitForSeconds(length);
+        enemy.GetComponent<HealthScript>().StartCoroutine("loseHealth");
+        anim.SetBool("attack", false);
+        yield return new WaitForSeconds(1f);
+        ResetMovimento();
+    }
 
     private bool IsDestinazioneRaggiunta()
     {
@@ -306,4 +342,28 @@ public class Movimento : MonoBehaviour
         azioniList.Clear();
     }
 
+    private void Vittoria()
+    {
+        Instantiate(partVittoria, posLightBeamFinale, Quaternion.Euler(-90f, 0f, 0f));
+        anim.CrossFade("Vittoria", .1f);
+        lvlController.GetComponent<PlayStopPlayerMovimento>().Stop();
+
+        GameObject menu = GameObject.FindGameObjectWithTag("Menu");
+        foreach(Transform tr in menu.transform)
+        {
+            tr.gameObject.SetActive(tr.CompareTag("PanelVittoria"));
+        }
+        GameObject panelVittoria = GameObject.FindGameObjectWithTag("PanelVittoria");
+        //Dimensioni dell'immagine della vittoria
+        RectTransform imgTransform = panelVittoria.GetComponentInChildren<Image>().rectTransform;
+        Debug.Log("Img -> " + panelVittoria.GetComponentInChildren<Image>());
+
+        //Larghezza dell'immagine
+        float size = imgTransform.sizeDelta.x;
+
+        //Numero delle stelle ottenute (da prendere eventualmente dal lvlmanager);
+        float numStelle = 5f;
+        imgTransform.sizeDelta = new Vector2(imgTransform.sizeDelta.x * numStelle, imgTransform.sizeDelta.y);
+
+    }
 }
