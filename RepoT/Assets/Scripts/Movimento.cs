@@ -122,7 +122,6 @@ public class Movimento : MonoBehaviour
             {
                 Instantiate(partVittoria, posLightBeamFinale, Quaternion.Euler(-90f, 0f, 0f));
                 anim.CrossFade("Vittoria", .1f);
-                lvlController.GetComponent<PlayStopPlayerMovimento>().Stop();
             }
             lvlController.GetComponent<Percorso>().IncrementIndexPercorso();
             ResetMovimento();
@@ -279,9 +278,17 @@ public class Movimento : MonoBehaviour
 
     void Morte()
     {
+        GameObject menu = GameObject.FindGameObjectWithTag("Menu");
         movimento = Vector3.zero;
         anim.CrossFade("Morte", 0.1f);
         morto = true;
+
+        foreach(Transform tr in menu.transform)
+        {
+            tr.gameObject.SetActive(tr.gameObject.tag.Equals("PanelMorte"));
+        }
+
+
     }
 
     public bool getMorto()

@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IniziaPartita : MonoBehaviour
+public class InizioLivello : MonoBehaviour
 {
 
-    [SerializeField] private GameObject player;
+    Transform transformIniziale;
+    GameObject player;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        //this.gameObject.GetComponent<PlayStopPlayerMovimento>().Play();
+        player = GameObject.FindGameObjectWithTag("Player");
+        transformIniziale = player.transform;
     }
 
     // Update is called once per frame
