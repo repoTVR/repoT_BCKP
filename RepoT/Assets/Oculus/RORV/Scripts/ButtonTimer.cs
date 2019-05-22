@@ -51,7 +51,6 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         //do your stuff when highlighted
         NotificationCenter.DefaultCenter().PostNotification(this, "EnNada");
-        print("Cancela");
         CancelInvoke("countDown");
         timeremain = tempoSelezione;
     }
@@ -93,13 +92,11 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 player.GetComponent<Movimento>().azioniList.Add(idAzione);
                 break;
             case 4:
-                //player.GetComponent<Movimento>().enabled = true;
-                if (player.GetComponent<Movimento>().azioniList == null)
+                if(player.GetComponent<Movimento>().azioniList.Count > 0)
                 {
-                    Debug.Log("null arr list");
+                    player.GetComponent<Movimento>().play = true;
                 }
-                //player.GetComponent<Movimento>().azioniList.Add(azioniListTmp.Clone());
-                player.GetComponent<Movimento>().play = true;
+                
                 
                 break;
         }
@@ -108,7 +105,6 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
         }
-        Debug.Log("Azione " + idAzione + "aggiunta alla lista");
     }
 
     public void BottoneLateraleClicked()
@@ -135,6 +131,26 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
 
         
+    }
+
+    public void DelLastClicked()
+    {
+        if (player.GetComponent<Movimento>().azioniList.Count > 0)
+        {
+            player.GetComponent<Movimento>().EliminaUltimaAzione();
+            miniPanel.GetComponent<MiniPanelScript>().EliminaUltimoBottone();
+        }
+            
+    }
+
+    public void DelTutto()
+    {
+        if (player.GetComponent<Movimento>().azioniList.Count > 0)
+        {
+            player.GetComponent<Movimento>().EliminaTutteLeAzioni();
+            miniPanel.GetComponent<MiniPanelScript>().EliminaTutteLeAzioni();
+        }
+            
     }
 
 

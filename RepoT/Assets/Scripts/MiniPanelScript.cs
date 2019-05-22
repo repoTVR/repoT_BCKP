@@ -40,14 +40,42 @@ public class MiniPanelScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("Id non presente");
             return null;
         }
 
     }
     public void selectButton(int id)
     {
-        getButtonById(id).Select();
+        if(id > 0 && getButtonById(id-1) != null)
+        {
+            getButtonById(id-1).GetComponentInChildren<RawImage>().enabled = false;
+        }
 
+        if(getButtonById(id) != null && id <= cont)
+        {
+            getButtonById(id).GetComponentInChildren<RawImage>().enabled = true;
+        }
+        
+
+    }
+
+    public void EliminaUltimoBottone()
+    {
+        if (buttons.ContainsKey(cont-1))
+        {
+            buttons.Remove(cont-1);
+            Destroy(transform.GetChild(cont-1).gameObject);
+            cont--;
+        }
+    }
+
+    public void EliminaTutteLeAzioni()
+    {
+        buttons.Clear();
+        foreach(Transform tr in transform)
+        {
+            Destroy(tr.gameObject);
+        }
+        cont = 0;
     }
 }
