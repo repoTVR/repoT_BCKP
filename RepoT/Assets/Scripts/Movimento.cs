@@ -67,16 +67,18 @@ public class Movimento : MonoBehaviour
         azioniList = new ArrayList();
         inPosizione = true;
         timeCount = 0f;
-        //azioniList.Add(3);
-        //azioniList.Add(0);
-        //azioniList.Add(3);
-        //azioniList.Add(4);
-        //azioniList.Add(4);
-        //azioniList.Add(4);
-        //azioniList.Add(4);
-        //azioniList.Add(4);
-        //azioniList.Add(0);
-        //azioniList.Add(3);
+        azioniList.Add(3);
+        azioniList.Add(0);
+        azioniList.Add(3);
+        azioniList.Add(0);
+        azioniList.Add(2);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(0);
+        azioniList.Add(3);
 
 
         //arma = GameObject.FindGameObjectWithTag("Weapon");
@@ -134,7 +136,7 @@ public class Movimento : MonoBehaviour
         if(IsDestinazioneRaggiunta())
         {
             anim.SetBool("run", false);
-            if (posDestinazione.name.Equals(ultimoCubo.name))
+            if (posAttuale.name.Equals(ultimoCubo.name))
             {
                 Vittoria();
             }
@@ -289,7 +291,10 @@ public class Movimento : MonoBehaviour
         length = anim.GetCurrentAnimatorClipInfo(0).Length;
         Debug.Log("length = " + length);
         yield return new WaitForSeconds(length);
-        enemy.GetComponent<HealthScript>().StartCoroutine("loseHealth");
+        if(enemy != null)
+        {
+            enemy.GetComponent<HealthScript>().StartCoroutine("loseHealth");
+        }
         anim.SetBool("attack", false);
         yield return new WaitForSeconds(1f);
         ResetMovimento();
