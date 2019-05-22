@@ -69,9 +69,11 @@ public class Movimento : MonoBehaviour
         timeCount = 0f;
         azioniList.Add(3);
         azioniList.Add(0);
-
         azioniList.Add(3);
         azioniList.Add(0);
+        azioniList.Add(2);
+        azioniList.Add(4);
+        azioniList.Add(4);
         azioniList.Add(4);
         azioniList.Add(4);
         azioniList.Add(4);
@@ -134,7 +136,7 @@ public class Movimento : MonoBehaviour
         if(IsDestinazioneRaggiunta())
         {
             anim.SetBool("run", false);
-            if (posDestinazione.name.Equals(ultimoCubo.name))
+            if (posAttuale.name.Equals(ultimoCubo.name))
             {
                 Vittoria();
             }
