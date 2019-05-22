@@ -67,18 +67,18 @@ public class Movimento : MonoBehaviour
         azioniList = new ArrayList();
         inPosizione = true;
         timeCount = 0f;
-        azioniList.Add(3);
-        azioniList.Add(0);
-        azioniList.Add(3);
-        azioniList.Add(0);
-        azioniList.Add(2);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(0);
-        azioniList.Add(3);
+        //azioniList.Add(3);
+        //azioniList.Add(0);
+        //azioniList.Add(3);
+        //azioniList.Add(0);
+        //azioniList.Add(2);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(0);
+        //azioniList.Add(3);
 
 
         //arma = GameObject.FindGameObjectWithTag("Weapon");
@@ -111,8 +111,6 @@ public class Movimento : MonoBehaviour
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
         posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);
 
-        //Inizio movimento
-        //CambiaAzione();
 
     }
 
