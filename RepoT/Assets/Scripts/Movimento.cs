@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UI;
 
 public class Movimento : MonoBehaviour
 {
@@ -68,16 +67,16 @@ public class Movimento : MonoBehaviour
         azioniList = new ArrayList();
         inPosizione = true;
         timeCount = 0f;
-        //azioniList.Add(3);
-        //azioniList.Add(0);
-        //azioniList.Add(3);
-        //azioniList.Add(4);
-        //azioniList.Add(4);
-        //azioniList.Add(4);
-        //azioniList.Add(4);
-        //azioniList.Add(4);
-        //azioniList.Add(0);
-        //azioniList.Add(3);
+        azioniList.Add(3);
+        azioniList.Add(0);
+        azioniList.Add(3);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(0);
+        azioniList.Add(3);
 
 
         arma = GameObject.FindGameObjectWithTag("Weapon");
@@ -137,9 +136,7 @@ public class Movimento : MonoBehaviour
             anim.SetBool("run", false);
             if (posDestinazione.name.Equals(ultimoCubo.name))
             {
-                Instantiate(partVittoria, posLightBeamFinale, Quaternion.Euler(-90f, 0f, 0f));
-                anim.CrossFade("Vittoria", .1f);
-                lvlController.GetComponent<PlayStopPlayerMovimento>().Stop();
+                Vittoria();
             }
             lvlController.GetComponent<Percorso>().IncrementIndexPercorso();
             ResetMovimento();
@@ -327,4 +324,28 @@ public class Movimento : MonoBehaviour
         return morto;
     }
 
+    private void Vittoria()
+    {
+        Instantiate(partVittoria, posLightBeamFinale, Quaternion.Euler(-90f, 0f, 0f));
+        anim.CrossFade("Vittoria", .1f);
+        lvlController.GetComponent<PlayStopPlayerMovimento>().Stop();
+
+        GameObject menu = GameObject.FindGameObjectWithTag("Menu");
+        foreach(Transform tr in menu.transform)
+        {
+            tr.gameObject.SetActive(tr.CompareTag("PanelVittoria"));
+        }
+        GameObject panelVittoria = GameObject.FindGameObjectWithTag("PanelVittoria");
+        //Dimensioni dell'immagine della vittoria
+        RectTransform imgTransform = panelVittoria.GetComponentInChildren<Image>().rectTransform;
+        Debug.Log("Img -> " + panelVittoria.GetComponentInChildren<Image>());
+
+        //Larghezza dell'immagine
+        float size = imgTransform.sizeDelta.x;
+
+        //Numero delle stelle ottenute (da prendere eventualmente dal lvlmanager);
+        float numStelle = 5f;
+        imgTransform.sizeDelta = new Vector2(imgTransform.sizeDelta.x * numStelle, imgTransform.sizeDelta.y);
+
+    }
 }
