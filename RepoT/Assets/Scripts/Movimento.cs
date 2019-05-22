@@ -25,6 +25,7 @@ public class Movimento : MonoBehaviour
     ////Prova per highlight della selezione in esecuzione al momento
     public GameObject miniPanel;
     private Quaternion rotation;
+    public bool uno;
 
     //public GameObject arma;
 
@@ -67,6 +68,7 @@ public class Movimento : MonoBehaviour
         azioniList = new ArrayList();
         inPosizione = true;
         timeCount = 0f;
+        uno = true;
         //azioniList.Add(3);
         //azioniList.Add(0);
         //azioniList.Add(3);
@@ -134,9 +136,13 @@ public class Movimento : MonoBehaviour
         if(IsDestinazioneRaggiunta())
         {
             anim.SetBool("run", false);
-            if (posAttuale.name.Equals(ultimoCubo.name))
+            if (lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale).name.Equals(ultimoCubo.name))
             {
-                Vittoria();
+                if (uno)
+                {
+                    Vittoria();
+                    uno = false;
+                }
             }
             lvlController.GetComponent<Percorso>().IncrementIndexPercorso();
             ResetMovimento();
@@ -300,11 +306,18 @@ public class Movimento : MonoBehaviour
 
     private bool IsDestinazioneRaggiunta()
     {
-        float x = posDestinazione.transform.position.x - transform.position.x;
-        float z = posDestinazione.transform.position.z - transform.position.z;
-        float y = posDestinazione.transform.position.y - transform.position.y;
+        if(posDestinazione != null)
+        {
+            float x = posDestinazione.transform.position.x - transform.position.x;
+            float z = posDestinazione.transform.position.z - transform.position.z;
+            float y = posDestinazione.transform.position.y - transform.position.y;
 
-        return Mathf.Abs(x + z) < .2f && Mathf.Abs(y) < 1.2f;
+            return Mathf.Abs(x + z) < .2f && Mathf.Abs(y) < 1.2f;
+        }else
+        {
+            return true;
+        }
+        
     }
 
     private void OnCollisionEnter(Collision collision)
