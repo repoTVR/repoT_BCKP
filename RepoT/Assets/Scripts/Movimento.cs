@@ -26,7 +26,7 @@ public class Movimento : MonoBehaviour
     public GameObject miniPanel;
     private Quaternion rotation;
 
-    //public GameObject arma;
+    public GameObject arma;
 
     private float oldRotation;
 
@@ -70,8 +70,6 @@ public class Movimento : MonoBehaviour
         azioniList.Add(3);
         azioniList.Add(0);
         azioniList.Add(3);
-        azioniList.Add(0);
-        azioniList.Add(2);
         azioniList.Add(4);
         azioniList.Add(4);
         azioniList.Add(4);
@@ -81,7 +79,7 @@ public class Movimento : MonoBehaviour
         azioniList.Add(3);
 
 
-        //arma = GameObject.FindGameObjectWithTag("Weapon");
+        arma = GameObject.FindGameObjectWithTag("Weapon");
         rotation = Quaternion.Euler(0f, 0f, 0f);
 
         rotation = transform.rotation;
@@ -284,19 +282,16 @@ public class Movimento : MonoBehaviour
 
     IEnumerator Attacca()
     {
-        GameObject enemy = GetComponent<AxeCollision>().getCollider();
+        arma.GetComponent<AxeScript>().isAttacking = true;
         float length;
         Debug.Log("Attacco");
         anim.SetBool("attack", true);
         length = anim.GetCurrentAnimatorClipInfo(0).Length;
         Debug.Log("length = " + length);
         yield return new WaitForSeconds(length);
-        if(enemy != null)
-        {
-            enemy.GetComponent<HealthScript>().StartCoroutine("loseHealth");
-        }
+        arma.GetComponent<AxeScript>().isAttacking = true;
         anim.SetBool("attack", false);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         ResetMovimento();
     }
 
