@@ -23,10 +23,10 @@ public class Movimento : MonoBehaviour
 
     #region Davide
     ////Prova per highlight della selezione in esecuzione al momento
-    //public GameObject miniPanel;
+    public GameObject miniPanel;
     private Quaternion rotation;
 
-    public GameObject arma;
+    //public GameObject arma;
 
     private float oldRotation;
 
@@ -67,19 +67,19 @@ public class Movimento : MonoBehaviour
         azioniList = new ArrayList();
         inPosizione = true;
         timeCount = 0f;
-        azioniList.Add(3);
-        azioniList.Add(0);
-        azioniList.Add(3);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(0);
-        azioniList.Add(3);
+        //azioniList.Add(3);
+        //azioniList.Add(0);
+        //azioniList.Add(3);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(0);
+        //azioniList.Add(3);
 
 
-        arma = GameObject.FindGameObjectWithTag("Weapon");
+        //arma = GameObject.FindGameObjectWithTag("Weapon");
         rotation = Quaternion.Euler(0f, 0f, 0f);
 
         rotation = transform.rotation;
@@ -175,7 +175,7 @@ public class Movimento : MonoBehaviour
     //Identificazione nuova azione da svolgere
     void CambiaAzione()
     {
-        //miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
+        miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
         posAttuale = transform;
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
         posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);
@@ -346,7 +346,6 @@ public class Movimento : MonoBehaviour
     {
         Instantiate(partVittoria, posLightBeamFinale, Quaternion.Euler(-90f, 0f, 0f));
         anim.CrossFade("Vittoria", .1f);
-        lvlController.GetComponent<PlayStopPlayerMovimento>().Stop();
 
         GameObject menu = GameObject.FindGameObjectWithTag("Menu");
         foreach(Transform tr in menu.transform)

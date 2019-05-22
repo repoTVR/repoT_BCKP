@@ -40,7 +40,6 @@ public class MiniPanelScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("Id non presente");
             return null;
         }
 
@@ -52,7 +51,7 @@ public class MiniPanelScript : MonoBehaviour
             getButtonById(id-1).GetComponentInChildren<RawImage>().enabled = false;
         }
 
-        if(getButtonById(id) != null)
+        if(getButtonById(id) != null && id <= cont)
         {
             getButtonById(id).GetComponentInChildren<RawImage>().enabled = true;
         }
