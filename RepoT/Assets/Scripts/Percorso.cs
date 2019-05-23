@@ -55,6 +55,11 @@ public class Percorso : MonoBehaviour
         
     }
 
+    public void ResetIndex()
+    {
+        keyPercorso = 0;
+    }
+
     public int GetIndexPercorso()
     {
         return keyPercorso;
