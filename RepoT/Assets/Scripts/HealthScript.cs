@@ -45,7 +45,7 @@ public class HealthScript : MonoBehaviour
         else
         {
             anim.SetTrigger("dead");
-            Destroy(gameObject, 0.2f);
+            Destroy(gameObject, 0.5f);
         }
 
         vite--;

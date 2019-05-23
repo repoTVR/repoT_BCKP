@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Movimento : MonoBehaviour
 {
-    [SerializeField] private int[] azioni; //array di azioni
     [SerializeField] private float speed; //velocità camminata
     [SerializeField] private float jumpForce; //forza di salto
     [SerializeField] private float rotationSpeed = 5f; //velocità di rotazione
@@ -67,16 +66,17 @@ public class Movimento : MonoBehaviour
         azioniList = new ArrayList();
         inPosizione = true;
         timeCount = 0f;
-        azioniList.Add(3);
-        azioniList.Add(0);
-        azioniList.Add(3);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(0);
-        azioniList.Add(3);
+        //azioniList.Add(3);
+        //azioniList.Add(0);
+        //azioniList.Add(3);
+        //azioniList.Add(0);
+        ////azioniList.Add(4);
+        ////azioniList.Add(4);
+        ////azioniList.Add(4);
+        ////azioniList.Add(4);
+        ////azioniList.Add(4);
+        ////azioniList.Add(0);
+        ////azioniList.Add(3);
 
 
         arma = GameObject.FindGameObjectWithTag("Weapon");
@@ -282,14 +282,14 @@ public class Movimento : MonoBehaviour
 
     IEnumerator Attacca()
     {
-        arma.GetComponent<AxeScript>().isAttacking = true;
         float length;
+        arma.GetComponent<AxeScript>().isAttacking = true;
         Debug.Log("Attacco");
         anim.SetBool("attack", true);
         length = anim.GetCurrentAnimatorClipInfo(0).Length;
-        Debug.Log("length = " + length);
+        //Debug.Log("length = " + length);
         yield return new WaitForSeconds(length);
-        arma.GetComponent<AxeScript>().isAttacking = true;
+        arma.GetComponent<AxeScript>().isAttacking = false;
         anim.SetBool("attack", false);
         yield return new WaitForSeconds(0.5f);
         ResetMovimento();
@@ -308,6 +308,12 @@ public class Movimento : MonoBehaviour
     {
         if(collision.gameObject.tag.Equals("Terrain"))
         {
+            Morte();
+        }
+
+        if (collision.gameObject.tag.Equals("Enemy"))
+        {
+            Debug.Log("Ho toccato rudy");
             Morte();
         }
     }
