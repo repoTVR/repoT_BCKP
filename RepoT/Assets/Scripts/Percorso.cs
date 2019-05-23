@@ -5,10 +5,31 @@ using UnityEngine;
 
 public class Percorso : MonoBehaviour
 {
+    public GameObject lightBeamIniziale;
+    public GameObject lightBeamFinale;
 
     private SortedDictionary<int,GameObject> percorso;
+
     private GameObject[] arrayCubi;
+    private GameObject primoCubo;
+    private GameObject ultimoCubo;
+
     private int keyPercorso;
+
+    private Vector3 posLightBeamIniziale;
+    private Vector3 posLightBeamFinale;
+
+    private void Start()
+    {
+        primoCubo = GetCuboById(0);
+        ultimoCubo = GetCuboFinale();
+
+        posLightBeamIniziale = new Vector3(primoCubo.transform.position.x, primoCubo.transform.position.y + 0.579f, primoCubo.transform.position.z);
+        Instantiate(lightBeamIniziale, posLightBeamIniziale, Quaternion.identity);
+
+        posLightBeamFinale = new Vector3(ultimoCubo.transform.position.x, ultimoCubo.transform.position.y + 0.579f, ultimoCubo.transform.position.z);
+        Instantiate(lightBeamFinale, posLightBeamFinale, Quaternion.identity);
+    }
 
     // Start is called before the first frame update
     void Awake()

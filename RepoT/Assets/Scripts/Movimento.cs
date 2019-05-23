@@ -5,110 +5,96 @@ using UnityEngine.UI;
 
 public class Movimento : MonoBehaviour
 {
+
+    #region Pubblici
+
     [SerializeField] private float speed; //velocità camminata
     [SerializeField] private float jumpForce; //forza di salto
-    [SerializeField] private float rotationSpeed = 5f; //velocità di rotazione
+
+    public GameObject miniPanel; //Pannello esecuzione comandi
+    
+    public GameObject partVittoria;
+
+    public ArrayList azioniList;
+
+    public bool play;
+
+    #endregion
+
+    #region Privati
 
     private CharacterController characterController;
+
     private Vector3 movimento;
+
     private Animator anim;
+
     private GameObject lvlController;
-    private AnimationEvent eventPostRotazione;
-    private bool caduto;
-
-
     private GameObject primoCubo;
     private GameObject ultimoCubo;
-
-    #region Davide
-    ////Prova per highlight della selezione in esecuzione al momento
-    public GameObject miniPanel;
-    private Quaternion rotation;
-    public bool uno;
-
-    public GameObject arma;
-
-    private float oldRotation;
-
-
-    public GameObject lightBeamIniziale;
-    public GameObject lightBeamFinale;
-    Vector3 posLightBeamIniziale;
-    Vector3 posLightBeamFinale;
-    public bool inPosizione;
-    public GameObject partVittoria;
-    public ArrayList azioniList;
-    public bool play;
-    public float targetRot;
-
-    #endregion 
+    private GameObject arma;
+    private GameObject posDestinazione; //transform posizione cubo successivo (aggiornamento)
 
     private Transform posAttuale; //transform posizione attuale (aggiornamento)
-    private GameObject posDestinazione; //transform posizione cubo successivo (aggiornamento)
-    private int idCuboAttuale; //id del cubo su cui il player è sopra
 
-    private bool giraSx;
-    private bool giraDx;
+    private Quaternion rotation;
 
-    private float timeCount;
-
-    private float gravity = 9.8f;
-    private bool flagHit;
-    private int indexAzione; //index dell'array azioni[]
-    private string nomeOldCollision; //nome del gameobject cubo con cui ho colliso precedentemente
     private Vector3 distanzaCubi; //distanza spostamento
 
+    private bool morto;
+    private bool uno;
+    private bool inPosizione;
 
+    private float oldRotation;
+    private float targetRot;
+    private float timeCount;
+    private float gravity = 9.8f;
+
+    private int idCuboAttuale; //id del cubo su cui il player è sopra
+    private int indexAzione; //index dell'array azioni[]
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        #region Davide
         azioniList = new ArrayList();
         inPosizione = true;
+        uno = true;
         timeCount = 0f;
 
         uno = true;
 
-        azioniList.Add(3);
-        azioniList.Add(0);
-        azioniList.Add(3);
-        azioniList.Add(0);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(0);
-        azioniList.Add(3);
+        #region ListaAzioniManuali
 
+        azioniList.Add(3);
+        azioniList.Add(0);
+        azioniList.Add(3);
+        azioniList.Add(0);
+        azioniList.Add(2);
+
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(0);
+        azioniList.Add(3);
+        #endregion
 
         arma = GameObject.FindGameObjectWithTag("Weapon");
 
         rotation = Quaternion.Euler(0f, 0f, 0f);
 
         rotation = transform.rotation;
-        #endregion
         lvlController = GameObject.FindGameObjectWithTag("GameController");
         primoCubo = lvlController.GetComponent<Percorso>().GetCuboById(0);
         ultimoCubo = lvlController.GetComponent<Percorso>().GetCuboFinale();
-        
-
-        #region Davide
-
-        
-        posLightBeamIniziale = new Vector3(primoCubo.transform.position.x, primoCubo.transform.position.y + 0.579f, primoCubo.transform.position.z);
-        Instantiate(lightBeamIniziale, posLightBeamIniziale, Quaternion.identity);
-
-        posLightBeamFinale = new Vector3(ultimoCubo.transform.position.x, ultimoCubo.transform.position.y + 0.579f, ultimoCubo.transform.position.z);
-        Instantiate(lightBeamFinale, posLightBeamFinale, Quaternion.identity);
-        #endregion
 
         characterController = gameObject.GetComponent<CharacterController>();
         anim = gameObject.GetComponent<Animator>();
         movimento = Vector3.zero;
         distanzaCubi = Vector3.zero;
-        nomeOldCollision = primoCubo.name;
 
         posAttuale = transform;
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
@@ -310,7 +296,7 @@ public class Movimento : MonoBehaviour
             float z = posDestinazione.transform.position.z - transform.position.z;
             float y = posDestinazione.transform.position.y - transform.position.y;
 
-            return Mathf.Abs(x + z) < .2f && Mathf.Abs(y) < 1.2f;
+            return Mathf.Abs(x + z) < .05f && Mathf.Abs(y) < 1.2f;
         }else
         {
             return true;
@@ -364,11 +350,12 @@ public class Movimento : MonoBehaviour
 
     private void Vittoria()
     {
-        Instantiate(partVittoria, posLightBeamFinale, Quaternion.Euler(-90f, 0f, 0f));
+        Transform light = GameObject.FindGameObjectWithTag("LightFinale").transform;
+        Instantiate(partVittoria, light.position, Quaternion.Euler(-90f, 0f, 0f));
         anim.CrossFade("Vittoria", .1f);
 
         GameObject menu = GameObject.FindGameObjectWithTag("Menu");
-        foreach(Transform tr in menu.transform)
+        foreach (Transform tr in menu.transform)
         {
             tr.gameObject.SetActive(tr.CompareTag("PanelVittoria"));
         }
