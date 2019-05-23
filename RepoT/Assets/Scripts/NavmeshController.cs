@@ -27,14 +27,6 @@ public class NavmeshController : MonoBehaviour
     void Update()
     {
         MortePersonaggio();
-
-        //if (RandomPoint(transform.position, range, out point) && !inMovimento)
-        //{
-        //    Debug.DrawRay(point, Vector3.up, Color.blue, 5.0f);
-        //    navmeshagent.SetDestination(point);
-        //    inMovimento = true;
-
-        //}
         Vector3 randomPoint = transform.position + Random.insideUnitSphere * range;
         NavMeshHit hit;
         //Debug.Log("In movimento = " + inMovimento);
@@ -69,21 +61,5 @@ public class NavmeshController : MonoBehaviour
             navmeshagent.SetDestination(player.transform.position);
         }
     }
-
-    //bool RandomPoint(Vector3 center, float range, out Vector3 result)
-    //{
-    //    for (int i = 0; i < 30; i++)
-    //    {
-    //        Vector3 randomPoint = center + Random.insideUnitSphere * range;
-    //        NavMeshHit hit;
-    //        if (NavMesh.SamplePosition(randomPoint, out hit, 10f, areaNavMesh))
-    //        {
-    //            result = hit.position;
-    //            return true;
-    //        }
-    //    }
-    //    result = Vector3.zero;
-    //    return false;
-    //}
 
 }
