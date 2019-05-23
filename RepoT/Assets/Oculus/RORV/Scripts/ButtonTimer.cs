@@ -76,35 +76,18 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         timeremain--;
     }
 
-    public void Clicked() {
-        switch (idAzione)
+    public void Play()
+    {
+        if (player.GetComponent<Movimento>().azioniList.Count > 0)
         {
-            case 0:
-                player.GetComponent<Movimento>().azioniList.Add(idAzione);
-                break;
-            case 1:
-                player.GetComponent<Movimento>().azioniList.Add(idAzione);
-                break;
-            case 2:
-                player.GetComponent<Movimento>().azioniList.Add(idAzione);
-                break;
-            case 3:
-                player.GetComponent<Movimento>().azioniList.Add(idAzione);
-                break;
-            case 4:
-                if(player.GetComponent<Movimento>().azioniList.Count > 0)
-                {
-                    player.GetComponent<Movimento>().play = true;
-                }
-                
-                
-                break;
+            player.GetComponent<Movimento>().play = true;
         }
+    }
 
-        if (idAzione != 4)
-        {
-            miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
-        }
+    public void Clicked() {
+
+        player.GetComponent<Movimento>().azioniList.Add(idAzione);
+        miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
     }
 
     public void BottoneLateraleClicked()
