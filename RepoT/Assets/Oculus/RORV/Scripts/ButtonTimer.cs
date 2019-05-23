@@ -17,6 +17,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private ArrayList azioniListTmp;
     private bool isButtonLaterale;
     public int tempoSelezione;
+    private GameObject lvlManager;
 
 
 
@@ -28,6 +29,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         player = GameObject.FindGameObjectWithTag("Player");
         _button = GetComponent<Button>();
         isButtonLaterale = gameObject.tag.Equals("ButtonLaterali");
+        lvlManager = GameObject.FindGameObjectWithTag("GameController");
    
     }
 
@@ -78,8 +80,10 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void Play()
     {
+        Debug.Log("Play Dentro");
         if (player.GetComponent<Movimento>().azioniList.Count > 0)
         {
+            Debug.Log("Play conta azioni " + player.GetComponent<Movimento>().azioniList.Count);
             player.GetComponent<Movimento>().play = true;
         }
     }
@@ -134,6 +138,11 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             miniPanel.GetComponent<MiniPanelScript>().EliminaTutteLeAzioni();
         }
             
+    }
+
+    public void Riavvia()
+    {
+        lvlManager.GetComponent<InizioLivello>().Riavvia();
     }
 
 
