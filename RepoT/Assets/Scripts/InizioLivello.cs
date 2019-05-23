@@ -5,7 +5,8 @@ using UnityEngine;
 public class InizioLivello : MonoBehaviour
 {
 
-    Transform transformIniziale;
+    Vector3 positionIniziale;
+    Quaternion rotIniziale;
     GameObject player;
     GameObject miniPanel;
 
@@ -14,7 +15,8 @@ public class InizioLivello : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        transformIniziale = player.transform;
+        positionIniziale = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+        rotIniziale = Quaternion.Euler(player.transform.rotation.x, player.transform.rotation.y, player.transform.rotation.z);
         miniPanel = GameObject.FindGameObjectWithTag("PanelEsecuzione");
     }
 
@@ -27,8 +29,12 @@ public class InizioLivello : MonoBehaviour
     public void Riavvia()
     {
         ClearListaAzioniETabellone();
-        player.transform.position = transformIniziale.position;
-        player.transform.rotation = transformIniziale.rotation;
+        this.gameObject.GetComponent<Percorso>().ResetIndex();
+        player.GetComponent<Movimento>().ClearIndex();
+
+        player.transform.position = positionIniziale;
+        player.transform.rotation = rotIniziale;
+
 
     }
 

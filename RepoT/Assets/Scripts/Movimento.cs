@@ -66,19 +66,19 @@ public class Movimento : MonoBehaviour
 
         #region ListaAzioniManuali
 
-        azioniList.Add(3);
-        azioniList.Add(0);
-        azioniList.Add(3);
-        azioniList.Add(0);
-        azioniList.Add(2);
+        //azioniList.Add(3);
+        //azioniList.Add(0);
+        //azioniList.Add(3);
+        //azioniList.Add(0);
+        //azioniList.Add(2);
 
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(0);
-        azioniList.Add(3);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(0);
+        //azioniList.Add(3);
 
         #endregion
 
@@ -110,6 +110,7 @@ public class Movimento : MonoBehaviour
         //Inizio movimento 
         if (play)
         {
+            Debug.Log("Play ");
             CambiaAzione();
             play = false;
         }
@@ -166,9 +167,15 @@ public class Movimento : MonoBehaviour
 
     }
 
+    public void ClearIndex()
+    {
+        indexAzione = 0;
+    }
+
     //Identificazione nuova azione da svolgere
     void CambiaAzione()
     {
+        Debug.Log("Dentro Cambia Azione");
         miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
         posAttuale = transform;
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
@@ -328,7 +335,7 @@ public class Movimento : MonoBehaviour
 
         foreach(Transform tr in menu.transform)
         {
-            tr.gameObject.SetActive(tr.gameObject.tag.Equals("PanelMorte"));
+            tr.gameObject.SetActive(tr.gameObject.tag.Equals("PanelMorte") || tr.gameObject.tag.Equals("PanelMenu"));
         }
 
 
