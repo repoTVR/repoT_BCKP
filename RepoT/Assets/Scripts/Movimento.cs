@@ -66,19 +66,23 @@ public class Movimento : MonoBehaviour
 
         #region ListaAzioniManuali
 
-        //azioniList.Add(3);
-        //azioniList.Add(0);
-        //azioniList.Add(3);
-        //azioniList.Add(0);
-        //azioniList.Add(2);
+        azioniList.Add(3);
+        azioniList.Add(0);
+        azioniList.Add(3);
+        azioniList.Add(0);
+        azioniList.Add(2);
 
-        //azioniList.Add(4);
-        //azioniList.Add(4);
-        //azioniList.Add(4);
-        //azioniList.Add(4);
-        //azioniList.Add(4);
-        //azioniList.Add(0);
-        //azioniList.Add(3);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(0);
+        azioniList.Add(3);
+
+        azioniList.Add(2);
+        azioniList.Add(0);
+        azioniList.Add(1);
+        azioniList.Add(0);
+        azioniList.Add(3);
 
         #endregion
 
@@ -365,7 +369,7 @@ public class Movimento : MonoBehaviour
         GameObject menu = GameObject.FindGameObjectWithTag("Menu");
         foreach (Transform tr in menu.transform)
         {
-            tr.gameObject.SetActive(tr.CompareTag("PanelVittoria"));
+            tr.gameObject.SetActive(tr.CompareTag("PanelVittoria") || tr.gameObject.tag.Equals("PanelMenu"));
         }
         GameObject panelVittoria = GameObject.FindGameObjectWithTag("PanelVittoria");
         //Dimensioni dell'immagine della vittoria

@@ -94,6 +94,11 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
     }
 
+    public void SpecialiClicked()
+    {
+
+    }
+
     public void BottoneLateraleClicked()
     {
 

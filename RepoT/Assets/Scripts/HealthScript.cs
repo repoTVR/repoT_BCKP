@@ -10,18 +10,18 @@ public class HealthScript : MonoBehaviour
     public Image img;
     RectTransform imgTransform;
     float size;
-    int vite;
+    public int vite;
     float dim;
     // Start is called before the first frame update
     void Start()
     {
-        vite = 5;
         anim = GetComponent<Animator>();
         img = GetComponentInChildren<Image>();
         imgTransform = img.rectTransform;
         size = imgTransform.sizeDelta.x;
-        dim = (size / 5);
+        dim = (size);
         piume = GetComponentInChildren<ParticleSystem>();
+        imgTransform.sizeDelta = new Vector2(size * vite, imgTransform.sizeDelta.y);
     }
 
     // Update is called once per frame
