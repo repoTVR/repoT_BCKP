@@ -22,7 +22,7 @@ public class Movimento : MonoBehaviour
     #endregion
 
     #region Privati
-
+    private bool arrivato;
     private CharacterController characterController;
 
     private Vector3 movimento;
@@ -41,7 +41,7 @@ public class Movimento : MonoBehaviour
 
     private Vector3 distanzaCubi; //distanza spostamento
 
-    private bool morto;
+    private bool caduto;
     private bool uno;
     private bool inPosizione;
 
@@ -63,29 +63,25 @@ public class Movimento : MonoBehaviour
         uno = true;
         timeCount = 0f;
 
+        uno = true;
 
         #region ListaAzioniManuali
-
         azioniList.Add(3);
-        azioniList.Add(0);
         azioniList.Add(3);
-        azioniList.Add(0);
-        azioniList.Add(2);
-
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(0);
         azioniList.Add(3);
-
-        azioniList.Add(2);
-        azioniList.Add(0);
-        azioniList.Add(1);
-        azioniList.Add(0);
+        azioniList.Add(3);
+        azioniList.Add(3);
+        azioniList.Add(3);
+        azioniList.Add(3);
+        azioniList.Add(3);
+        azioniList.Add(3);
+        azioniList.Add(3);
+        azioniList.Add(3);
+        azioniList.Add(3);
+        azioniList.Add(3);
         azioniList.Add(3);
 
         #endregion
-
 
         arma = GameObject.FindGameObjectWithTag("Weapon");
 
@@ -129,16 +125,21 @@ public class Movimento : MonoBehaviour
         if(IsDestinazioneRaggiunta())
         {
             anim.SetBool("run", false);
-            if (lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale).name.Equals(ultimoCubo.name))
+            //if (lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale).name.Equals(ultimoCubo.name))
+            if(arrivato)
             {
                 if (uno)
                 {
                     Vittoria();
                     uno = false;
+               
                 }
             }
-            lvlController.GetComponent<Percorso>().IncrementIndexPercorso();
-            ResetMovimento();
+            else
+            {
+                lvlController.GetComponent<Percorso>().IncrementIndexPercorso();
+                ResetMovimento();
+            }
         }
 
         //Applicazione gravità
@@ -320,13 +321,22 @@ public class Movimento : MonoBehaviour
     {
         if(collision.gameObject.tag.Equals("Terrain"))
         {
+            caduto = true;
             Morte();
         }
 
         if (collision.gameObject.tag.Equals("Enemy"))
         {
-            Debug.Log("Ho toccato rudy");
+            collision.gameObject.GetComponent<HealthScript>().anim.SetBool("playerDead", true);
             Morte();
+        }
+
+        if (collision.gameObject.CompareTag("Cubo"))
+        {
+            if(collision.gameObject.GetComponent<IdCubo>().GetId() == lvlController.GetComponent<Percorso>().GetCuboFinale().gameObject.GetComponent<IdCubo>().GetId())
+            {
+                arrivato = true;
+            }
         }
     }
 
@@ -335,7 +345,6 @@ public class Movimento : MonoBehaviour
         GameObject menu = GameObject.FindGameObjectWithTag("Menu");
         movimento = Vector3.zero;
         anim.CrossFade("Morte", 0.1f);
-        morto = true;
 
         foreach(Transform tr in menu.transform)
         {
@@ -345,9 +354,9 @@ public class Movimento : MonoBehaviour
 
     }
 
-    public bool getMorto()
+    public bool getCaduto()
     {
-        return morto;
+        return caduto;
     }
 
     public void EliminaUltimaAzione()
@@ -383,5 +392,6 @@ public class Movimento : MonoBehaviour
         float numStelle = 5f;
         imgTransform.sizeDelta = new Vector2(imgTransform.sizeDelta.x * numStelle, imgTransform.sizeDelta.y);
 
+        lvlController.GetComponent<SceneSetup>().LoadNextScene();
     }
 }
