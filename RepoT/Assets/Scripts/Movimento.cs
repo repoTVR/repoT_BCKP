@@ -22,7 +22,7 @@ public class Movimento : MonoBehaviour
     #endregion
 
     #region Privati
-
+    private bool arrivato;
     private CharacterController characterController;
 
     private Vector3 movimento;
@@ -41,7 +41,7 @@ public class Movimento : MonoBehaviour
 
     private Vector3 distanzaCubi; //distanza spostamento
 
-    private bool morto;
+    private bool caduto;
     private bool uno;
     private bool inPosizione;
 
@@ -70,8 +70,6 @@ public class Movimento : MonoBehaviour
         azioniList.Add(3);
         azioniList.Add(0);
         azioniList.Add(3);
-        azioniList.Add(0);
-        azioniList.Add(2);
 
         azioniList.Add(4);
         azioniList.Add(4);
@@ -125,16 +123,21 @@ public class Movimento : MonoBehaviour
         if(IsDestinazioneRaggiunta())
         {
             anim.SetBool("run", false);
-            if (lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale).name.Equals(ultimoCubo.name))
+            //if (lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale).name.Equals(ultimoCubo.name))
+            if(arrivato)
             {
                 if (uno)
                 {
                     Vittoria();
                     uno = false;
+               
                 }
             }
-            lvlController.GetComponent<Percorso>().IncrementIndexPercorso();
-            ResetMovimento();
+            else
+            {
+                lvlController.GetComponent<Percorso>().IncrementIndexPercorso();
+                ResetMovimento();
+            }
         }
 
         //Applicazione gravità
@@ -325,6 +328,14 @@ public class Movimento : MonoBehaviour
             collision.gameObject.GetComponent<HealthScript>().anim.SetBool("playerDead", true);
             Morte();
         }
+
+        if (collision.gameObject.CompareTag("Cubo"))
+        {
+            if(collision.gameObject.GetComponent<IdCubo>().GetId() == lvlController.GetComponent<Percorso>().GetCuboFinale().gameObject.GetComponent<IdCubo>().GetId())
+            {
+                arrivato = true;
+            }
+        }
     }
 
     void Morte()
@@ -379,5 +390,6 @@ public class Movimento : MonoBehaviour
         float numStelle = 5f;
         imgTransform.sizeDelta = new Vector2(imgTransform.sizeDelta.x * numStelle, imgTransform.sizeDelta.y);
 
+        lvlController.GetComponent<SceneSetup>().LoadNextScene();
     }
 }
