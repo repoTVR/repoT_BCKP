@@ -10,7 +10,7 @@ public class NavmeshController : MonoBehaviour
     float range;
     int areaNavMesh;
     bool inMovimento;
-    bool morto;
+    bool caduto;
     Vector3 result;
     // Start is called before the first frame update
     void Start()
@@ -38,7 +38,7 @@ public class NavmeshController : MonoBehaviour
         Vector3 randomPoint = transform.position + Random.insideUnitSphere * range;
         NavMeshHit hit;
         //Debug.Log("In movimento = " + inMovimento);
-        if(!morto)
+        if(!caduto)
         {
             if (!inMovimento)
             {
@@ -61,9 +61,9 @@ public class NavmeshController : MonoBehaviour
 
     public void MortePersonaggio()
     {
-        if(player.GetComponent<Movimento>().getMorto())
+        if(player.GetComponent<Movimento>().getCaduto())
         {
-            morto = true;
+            caduto = true;
             navmeshagent.stoppingDistance = 3f;
             navmeshagent.speed = 3f;
             navmeshagent.SetDestination(player.transform.position);

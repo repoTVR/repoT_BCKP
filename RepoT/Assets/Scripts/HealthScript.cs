@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HealthScript : MonoBehaviour
 {
     ParticleSystem piume;
-    Animator anim;
+    [HideInInspector] public Animator anim;
     public Image img;
     RectTransform imgTransform;
     float size;

@@ -14,7 +14,7 @@ public class Movimento : MonoBehaviour
     private Animator anim;
     private GameObject lvlController;
     private AnimationEvent eventPostRotazione;
-    private bool morto;
+    private bool caduto;
 
 
     private GameObject primoCubo;
@@ -69,17 +69,18 @@ public class Movimento : MonoBehaviour
         timeCount = 0f;
 
         uno = true;
-        //azioniList.Add(3);
-        //azioniList.Add(0);
-        //azioniList.Add(3);
-        //azioniList.Add(0);
-        ////azioniList.Add(4);
-        ////azioniList.Add(4);
-        ////azioniList.Add(4);
-        ////azioniList.Add(4);
-        ////azioniList.Add(4);
-        ////azioniList.Add(0);
-        ////azioniList.Add(3);
+
+        azioniList.Add(3);
+        azioniList.Add(0);
+        azioniList.Add(3);
+        azioniList.Add(0);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(4);
+        azioniList.Add(0);
+        azioniList.Add(3);
 
 
         arma = GameObject.FindGameObjectWithTag("Weapon");
@@ -321,12 +322,13 @@ public class Movimento : MonoBehaviour
     {
         if(collision.gameObject.tag.Equals("Terrain"))
         {
+            caduto = true;
             Morte();
         }
 
         if (collision.gameObject.tag.Equals("Enemy"))
         {
-            Debug.Log("Ho toccato rudy");
+            collision.gameObject.GetComponent<HealthScript>().anim.SetBool("playerDead", true);
             Morte();
         }
     }
@@ -336,7 +338,6 @@ public class Movimento : MonoBehaviour
         GameObject menu = GameObject.FindGameObjectWithTag("Menu");
         movimento = Vector3.zero;
         anim.CrossFade("Morte", 0.1f);
-        morto = true;
 
         foreach(Transform tr in menu.transform)
         {
@@ -346,9 +347,9 @@ public class Movimento : MonoBehaviour
 
     }
 
-    public bool getMorto()
+    public bool getCaduto()
     {
-        return morto;
+        return caduto;
     }
 
     public void EliminaUltimaAzione()
