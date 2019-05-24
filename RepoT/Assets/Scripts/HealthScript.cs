@@ -10,11 +10,12 @@ public class HealthScript : MonoBehaviour
     public Image img;
     RectTransform imgTransform;
     float size;
-    public int vite;
+    private int vite;
     float dim;
     // Start is called before the first frame update
     void Start()
     {
+        vite = Random.Range(2, 5);
         anim = GetComponent<Animator>();
         img = GetComponentInChildren<Image>();
         imgTransform = img.rectTransform;

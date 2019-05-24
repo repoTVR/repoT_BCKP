@@ -19,9 +19,16 @@ public class Movimento : MonoBehaviour
 
     public bool play;
 
+    public int lvl;
+
     #endregion
 
     #region Privati
+
+    //Array di azioni per i vari livelli
+    ArrayList azioniLvl1;
+    ArrayList azioniLvl2;
+    private GameObject lvlChanger;
     private bool arrivato;
     private CharacterController characterController;
 
@@ -58,6 +65,7 @@ public class Movimento : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        lvlChanger = GameObject.FindGameObjectWithTag("LvlChanger");
         azioniList = new ArrayList();
         inPosizione = true;
         uno = true;
@@ -66,21 +74,31 @@ public class Movimento : MonoBehaviour
         uno = true;
 
         #region ListaAzioniManuali
-        azioniList.Add(3);
-        azioniList.Add(3);
-        azioniList.Add(3);
-        azioniList.Add(3);
-        azioniList.Add(3);
-        azioniList.Add(3);
-        azioniList.Add(3);
-        azioniList.Add(3);
-        azioniList.Add(3);
-        azioniList.Add(3);
-        azioniList.Add(3);
-        azioniList.Add(3);
-        azioniList.Add(3);
-        azioniList.Add(3);
+        azioniLvl1 = new ArrayList();
+        azioniLvl2 = new ArrayList();
+        azioniLvl2.Add(3);
+        azioniLvl2.Add(0);
+        azioniLvl2.Add(3);
+        azioniLvl2.Add(4);
+        azioniLvl2.Add(4);
+        azioniLvl2.Add(4);
+        azioniLvl2.Add(4);
+        azioniLvl2.Add(4);
+        azioniLvl2.Add(0);
+        azioniLvl2.Add(2);
+        azioniLvl2.Add(0);
+        azioniLvl2.Add(3);
 
+        azioniLvl1.Add(3);
+        azioniLvl1.Add(0);
+        azioniLvl1.Add(3);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(0);
+        azioniLvl1.Add(3);
         #endregion
 
         arma = GameObject.FindGameObjectWithTag("Weapon");
@@ -110,6 +128,14 @@ public class Movimento : MonoBehaviour
         //Inizio movimento 
         if (play)
         {
+            if (lvl == 1)
+            {
+                azioniList = (ArrayList)azioniLvl1.Clone();
+            }
+            if (lvl == 2)
+            {
+                azioniList = (ArrayList)azioniLvl2.Clone();
+            }
             Debug.Log("Play ");
             CambiaAzione();
             play = false;
@@ -319,6 +345,7 @@ public class Movimento : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
         if(collision.gameObject.tag.Equals("Terrain"))
         {
             caduto = true;
@@ -333,14 +360,17 @@ public class Movimento : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Cubo"))
         {
-            if(collision.gameObject.GetComponent<IdCubo>().GetId() == lvlController.GetComponent<Percorso>().GetCuboFinale().gameObject.GetComponent<IdCubo>().GetId())
+            //Debug.Log("Il colore è " + gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color);
+            if (collision.gameObject.GetComponent<IdCubo>().GetId() == lvlController.GetComponent<Percorso>().GetCuboFinale().gameObject.GetComponent<IdCubo>().GetId())
             {
                 arrivato = true;
             }
+
         }
+
     }
 
-    void Morte()
+    public void Morte()
     {
         GameObject menu = GameObject.FindGameObjectWithTag("Menu");
         movimento = Vector3.zero;
@@ -388,10 +418,11 @@ public class Movimento : MonoBehaviour
         //Larghezza dell'immagine
         float size = imgTransform.sizeDelta.x;
 
-        //Numero delle stelle ottenute (da prendere eventualmente dal lvlmanager);
-        float numStelle = 5f;
+        //Numero delle stelle ottenute
+        float numStelle = lvlChanger.GetComponent<SceneSetup>().getPercLvl((float)azioniList.Count);
+        Debug.Log("Num stelle ottenute = " + numStelle);
         imgTransform.sizeDelta = new Vector2(imgTransform.sizeDelta.x * numStelle, imgTransform.sizeDelta.y);
 
-        lvlController.GetComponent<SceneSetup>().LoadNextScene();
+        lvlChanger.GetComponent<SceneSetup>().LoadNextScene();
     }
 }

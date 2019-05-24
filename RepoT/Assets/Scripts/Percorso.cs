@@ -93,6 +93,17 @@ public class Percorso : MonoBehaviour
         }
     }
 
+    public ArrayList getCuboMaggId(int id)
+    {
+        int i;
+        ArrayList cuboList = new ArrayList();
+        for(i = id; i < percorso.Count; i++)
+        {
+            cuboList.Add(GetCuboById(i));
+        }
+        return cuboList;
+    }
+
     private void InizializzaMap()
     {
         foreach(GameObject g in arrayCubi)
@@ -106,4 +117,5 @@ public class Percorso : MonoBehaviour
             }
         }
     }
+
 }
