@@ -66,23 +66,23 @@ public class Movimento : MonoBehaviour
 
         #region ListaAzioniManuali
 
-        azioniList.Add(3);
-        azioniList.Add(0);
-        azioniList.Add(3);
-        azioniList.Add(0);
-        azioniList.Add(2);
+        //azioniList.Add(3);
+        //azioniList.Add(0);
+        //azioniList.Add(3);
+        //azioniList.Add(0);
+        //azioniList.Add(2);
 
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(4);
-        azioniList.Add(0);
-        azioniList.Add(3);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(4);
+        //azioniList.Add(0);
+        //azioniList.Add(3);
 
-        azioniList.Add(2);
-        azioniList.Add(0);
-        azioniList.Add(1);
-        azioniList.Add(0);
-        azioniList.Add(3);
+        //azioniList.Add(2);
+        //azioniList.Add(0);
+        //azioniList.Add(1);
+        //azioniList.Add(0);
+        //azioniList.Add(3);
 
         #endregion
 
