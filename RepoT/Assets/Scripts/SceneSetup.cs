@@ -5,12 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneSetup : MonoBehaviour
 {
-    public static int totScene = 2;
+    private static int totScene = 2;
+    private int[] numMosseLvl;
+    
 
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        numMosseLvl = new int[2] { 6, 8 };
     }
 
     public void LoadNextScene()
@@ -30,5 +33,11 @@ public class SceneSetup : MonoBehaviour
         }
 
     }
+
+    public float getPercLvl(float numMosse)
+    {
+        return (numMosseLvl[SceneManager.GetActiveScene().buildIndex] / numMosse);
+    }
+
 
 }
