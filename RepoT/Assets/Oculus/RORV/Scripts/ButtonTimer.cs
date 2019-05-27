@@ -44,7 +44,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         //do your stuff when highlighted
         NotificationCenter.DefaultCenter().PostNotification(this, "EnBoton");
         //print("en boton");
-        InvokeRepeating("countDown", 1, 1);//llama al cursor
+        InvokeRepeating("countDown", 0f, 1);//llama al cursor
         
 
     }
