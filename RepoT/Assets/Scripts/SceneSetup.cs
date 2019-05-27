@@ -13,7 +13,7 @@ public class SceneSetup : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        numMosseLvl = new int[2] { 6, 8 };
+        numMosseLvl = new int[2] { 7, 10 };
     }
 
     public void LoadNextScene()

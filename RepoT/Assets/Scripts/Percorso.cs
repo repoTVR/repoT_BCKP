@@ -27,7 +27,7 @@ public class Percorso : MonoBehaviour
         posLightBeamIniziale = new Vector3(primoCubo.transform.position.x, primoCubo.transform.position.y + 0.579f, primoCubo.transform.position.z);
         Instantiate(lightBeamIniziale, posLightBeamIniziale, Quaternion.identity);
 
-        posLightBeamFinale = new Vector3(ultimoCubo.transform.position.x, ultimoCubo.transform.position.y + 0.579f, ultimoCubo.transform.position.z);
+        posLightBeamFinale = new Vector3(ultimoCubo.transform.position.x, ultimoCubo.transform.position.y + 0.5f, ultimoCubo.transform.position.z);
         Instantiate(lightBeamFinale, posLightBeamFinale, Quaternion.identity);
     }
 

@@ -74,31 +74,40 @@ public class Movimento : MonoBehaviour
         uno = true;
 
         #region ListaAzioniManuali
-        azioniLvl1 = new ArrayList();
-        azioniLvl2 = new ArrayList();
-        azioniLvl2.Add(3);
-        azioniLvl2.Add(0);
-        azioniLvl2.Add(3);
-        azioniLvl2.Add(4);
-        azioniLvl2.Add(4);
-        azioniLvl2.Add(4);
-        azioniLvl2.Add(4);
-        azioniLvl2.Add(4);
-        azioniLvl2.Add(0);
-        azioniLvl2.Add(2);
-        azioniLvl2.Add(0);
-        azioniLvl2.Add(3);
+        //azioniLvl1 = new ArrayList();
+        //azioniLvl2 = new ArrayList();
+        //azioniLvl2.Add(3);
+        //azioniLvl2.Add(0);
+        //azioniLvl2.Add(3);
+        //azioniLvl2.Add(4);
+        //azioniLvl2.Add(4);
+        //azioniLvl2.Add(4);
+        //azioniLvl2.Add(4);
+        //azioniLvl2.Add(4);
+        //azioniLvl2.Add(0);
+        //azioniLvl2.Add(2);
+        //azioniLvl2.Add(0);
+        //azioniLvl2.Add(3);
 
-        azioniLvl1.Add(3);
-        azioniLvl1.Add(0);
-        azioniLvl1.Add(3);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(0);
-        azioniLvl1.Add(3);
+        //azioniLvl1.Add(3);
+        //azioniLvl1.Add(0);
+        //azioniLvl1.Add(3);
+        //azioniLvl1.Add(0);
+        //azioniLvl1.Add(2);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(0);
+        //azioniLvl1.Add(3);
+        //azioniLvl1.Add(2);
+        //azioniLvl1.Add(0);
+        //azioniLvl1.Add(1);
+        //azioniLvl1.Add(0);
+        //azioniLvl1.Add(3);
+
         #endregion
 
         arma = GameObject.FindGameObjectWithTag("Weapon");
@@ -128,15 +137,15 @@ public class Movimento : MonoBehaviour
         //Inizio movimento 
         if (play)
         {
-            if (lvl == 1)
-            {
-                azioniList = (ArrayList)azioniLvl1.Clone();
-            }
-            if (lvl == 2)
-            {
-                azioniList = (ArrayList)azioniLvl2.Clone();
-            }
-            Debug.Log("Play ");
+            //if (lvl == 1)
+            //{
+            //    azioniList = (ArrayList)azioniLvl1.Clone();
+            //}
+            //if (lvl == 2)
+            //{
+            //    azioniList = (ArrayList)azioniLvl2.Clone();
+            //}
+            //Debug.Log("Play ");
             CambiaAzione();
             play = false;
         }
@@ -156,6 +165,7 @@ public class Movimento : MonoBehaviour
             {
                 if (uno)
                 {
+                    movimento = Vector3.zero;
                     Vittoria();
                     uno = false;
                
@@ -206,7 +216,7 @@ public class Movimento : MonoBehaviour
     //Identificazione nuova azione da svolgere
     void CambiaAzione()
     {
-        Debug.Log("Dentro Cambia Azione");
+        //Debug.Log("Dentro Cambia Azione");
         miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
         posAttuale = transform;
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
@@ -316,7 +326,7 @@ public class Movimento : MonoBehaviour
     {
         float length;
         arma.GetComponent<AxeScript>().isAttacking = true;
-        Debug.Log("Attacco");
+        //Debug.Log("Attacco");
         anim.SetBool("attack", true);
         length = anim.GetCurrentAnimatorClipInfo(0).Length;
         //Debug.Log("length = " + length);
@@ -413,16 +423,16 @@ public class Movimento : MonoBehaviour
         GameObject panelVittoria = GameObject.FindGameObjectWithTag("PanelVittoria");
         //Dimensioni dell'immagine della vittoria
         RectTransform imgTransform = panelVittoria.GetComponentInChildren<Image>().rectTransform;
-        Debug.Log("Img -> " + panelVittoria.GetComponentInChildren<Image>());
+        //Debug.Log("Img -> " + panelVittoria.GetComponentInChildren<Image>());
 
         //Larghezza dell'immagine
         float size = imgTransform.sizeDelta.x;
 
         //Numero delle stelle ottenute
         float numStelle = lvlChanger.GetComponent<SceneSetup>().getPercLvl((float)azioniList.Count);
-        Debug.Log("Num stelle ottenute = " + numStelle);
+        //Debug.Log("Num stelle ottenute = " + numStelle);
         imgTransform.sizeDelta = new Vector2(imgTransform.sizeDelta.x * numStelle, imgTransform.sizeDelta.y);
 
-        lvlChanger.GetComponent<SceneSetup>().LoadNextScene();
+        //lvlChanger.GetComponent<SceneSetup>().LoadNextScene();
     }
 }
