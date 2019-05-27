@@ -65,7 +65,6 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         
         if (timeremain <= 0)
         {
-
             NotificationCenter.DefaultCenter().PostNotification(this, "EnNada");
             _button.onClick.Invoke();
             //reset time
@@ -80,6 +79,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void Play()
     {
+        HideImage(0);
         Debug.Log("Play Dentro");
         if (player.GetComponent<Movimento>().azioniList.Count > 0)
         {
@@ -89,19 +89,62 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
 
     public void Clicked() {
-
+        HideImage(0);
         player.GetComponent<Movimento>().azioniList.Add(idAzione);
         miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
     }
 
-    public void SpecialiClicked()
+    public void SpecialiClicked(int id)
     {
+        
+        ShowPanelPopUp(id);
+    }
+
+    public void HideImage(int id)
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("RawImageBack"))
+        {
+            g.GetComponent<RawImage>().enabled = false;
+        }
+    }
+
+    public void ShowImage(int id)
+    {
+        HideImage(id);
+
+        gameObject.GetComponentInChildren<RawImage>().enabled = true;
+
+        
+    }
+
+    public void HidePanelPopUp(int id)
+    {
+        GameObject panelSpeciale = GameObject.FindGameObjectWithTag("PanelSpecialAction");
+
+        foreach (Transform tr in panelSpeciale.transform)
+        {
+            tr.gameObject.SetActive(false);
+        }
+
+        HideImage(id);
+    }
+
+    public void ShowPanelPopUp(int id)
+    {
+        GameObject panelSpeciale = GameObject.FindGameObjectWithTag("PanelSpecialAction");
+
+        foreach (Transform tr in panelSpeciale.transform)
+        {
+            tr.gameObject.SetActive(true);
+        }
+
+        ShowImage(id);
 
     }
 
     public void BottoneLateraleClicked()
     {
-
+        HideImage(0);
         GameObject[] arrBottoniLaterali = GameObject.FindGameObjectsWithTag("ButtonLaterali");
         GameObject emptyCentrale = GameObject.FindGameObjectWithTag("PanelCentrale");
         
@@ -127,6 +170,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void DelLastClicked()
     {
+        HideImage(0);
         if (player.GetComponent<Movimento>().azioniList.Count > 0)
         {
             player.GetComponent<Movimento>().EliminaUltimaAzione();
@@ -137,6 +181,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void DelTutto()
     {
+        HideImage(0);
         if (player.GetComponent<Movimento>().azioniList.Count > 0)
         {
             player.GetComponent<Movimento>().EliminaTutteLeAzioni();
@@ -147,6 +192,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void Riavvia()
     {
+        HideImage(0);
         lvlManager.GetComponent<InizioLivello>().Riavvia();
     }
 

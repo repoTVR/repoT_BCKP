@@ -23,5 +23,6 @@ public class IdPanelCentrale : MonoBehaviour
     {
         return id == this.id;
     }
+
     
 }
