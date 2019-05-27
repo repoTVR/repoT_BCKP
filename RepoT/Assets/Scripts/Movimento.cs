@@ -21,6 +21,8 @@ public class Movimento : MonoBehaviour
 
     public int lvl;
 
+    public bool riavviaLvl;
+
     #endregion
 
     #region Privati
@@ -28,7 +30,11 @@ public class Movimento : MonoBehaviour
     //Array di azioni per i vari livelli
     ArrayList azioniLvl1;
     ArrayList azioniLvl2;
+
+    //Oggetto per la gestione dei livelli
     private GameObject lvlChanger;
+
+    //Bool che controlla se il player è arrivato al cubo finale
     private bool arrivato;
     private CharacterController characterController;
 
@@ -206,7 +212,7 @@ public class Movimento : MonoBehaviour
     //Identificazione nuova azione da svolgere
     void CambiaAzione()
     {
-        Debug.Log("Dentro Cambia Azione");
+        //Debug.Log("Dentro Cambia Azione");
         miniPanel.GetComponent<MiniPanelScript>().selectButton(indexAzione);
         posAttuale = transform;
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
@@ -315,13 +321,15 @@ public class Movimento : MonoBehaviour
     IEnumerator Attacca()
     {
         float length;
-        arma.GetComponent<AxeScript>().isAttacking = true;
-        Debug.Log("Attacco");
+        //arma.GetComponent<AxeScript>().isAttacking = true;
+        gameObject.GetComponentInChildren<HandAtacck>().isAttacking = true;
+        //Debug.Log("Attacco");
         anim.SetBool("attack", true);
         length = anim.GetCurrentAnimatorClipInfo(0).Length;
         //Debug.Log("length = " + length);
         yield return new WaitForSeconds(length);
-        arma.GetComponent<AxeScript>().isAttacking = false;
+        //arma.GetComponent<AxeScript>().isAttacking = false;
+        gameObject.GetComponentInChildren<HandAtacck>().isAttacking = false;
         anim.SetBool("attack", false);
         yield return new WaitForSeconds(0.5f);
         ResetMovimento();
@@ -376,17 +384,27 @@ public class Movimento : MonoBehaviour
         movimento = Vector3.zero;
         anim.CrossFade("Morte", 0.1f);
 
-        foreach(Transform tr in menu.transform)
+
+        foreach (Transform tr in menu.transform)
         {
             tr.gameObject.SetActive(tr.gameObject.tag.Equals("PanelMorte") || tr.gameObject.tag.Equals("PanelMenu"));
         }
 
-
+        if (riavviaLvl)
+        {
+            lvlChanger.GetComponent<SceneSetup>().Riavvia();
+            riavviaLvl = false;
+        }
     }
 
     public bool getCaduto()
     {
         return caduto;
+    }
+
+    public void setCaduto(bool caduto)
+    {
+        this.caduto = caduto;
     }
 
     public void EliminaUltimaAzione()
@@ -420,7 +438,7 @@ public class Movimento : MonoBehaviour
 
         //Numero delle stelle ottenute
         float numStelle = lvlChanger.GetComponent<SceneSetup>().getPercLvl((float)azioniList.Count);
-        Debug.Log("Num stelle ottenute = " + numStelle);
+        //Debug.Log("Num stelle ottenute = " + numStelle);
         imgTransform.sizeDelta = new Vector2(imgTransform.sizeDelta.x * numStelle, imgTransform.sizeDelta.y);
 
         lvlChanger.GetComponent<SceneSetup>().LoadNextScene();

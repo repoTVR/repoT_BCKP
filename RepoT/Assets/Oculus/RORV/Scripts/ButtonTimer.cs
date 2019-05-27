@@ -18,6 +18,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private bool isButtonLaterale;
     public int tempoSelezione;
     private GameObject lvlManager;
+    private GameObject lvlController;
 
 
 
@@ -30,7 +31,8 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         _button = GetComponent<Button>();
         isButtonLaterale = gameObject.tag.Equals("ButtonLaterali");
         lvlManager = GameObject.FindGameObjectWithTag("GameController");
-   
+        lvlController = GameObject.FindGameObjectWithTag("LvlChanger");
+
     }
 
     void Update()
@@ -147,7 +149,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void Riavvia()
     {
-        lvlManager.GetComponent<InizioLivello>().Riavvia();
+        lvlController.GetComponent<SceneSetup>().Riavvia();
     }
 
 

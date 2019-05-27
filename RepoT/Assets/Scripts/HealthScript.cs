@@ -51,7 +51,7 @@ public class HealthScript : MonoBehaviour
 
         vite--;
         length = anim.GetCurrentAnimatorClipInfo(0).Length;
-        Debug.Log("length = " + length);
+        //Debug.Log("length = " + length);
 
         yield return new WaitForSeconds(length);
         anim.SetBool("hit", false);
