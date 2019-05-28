@@ -18,11 +18,7 @@ public class PlayerColorChanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (debug)
-        {
-            ChangeColor(Color.red);
 
-        }
     }
 
     public void ChangeColor(Color color)

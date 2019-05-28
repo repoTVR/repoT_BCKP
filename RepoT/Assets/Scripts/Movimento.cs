@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Movimento : MonoBehaviour
 {
@@ -26,6 +27,9 @@ public class Movimento : MonoBehaviour
     #endregion
 
     #region Privati
+
+    //Id del cubo su cui si trova il player
+    int idCubo = -1;
 
     //Array di azioni per i vari livelli
     ArrayList azioniLvl1;
@@ -82,9 +86,25 @@ public class Movimento : MonoBehaviour
         #region ListaAzioniManuali
         azioniLvl1 = new ArrayList();
         azioniLvl2 = new ArrayList();
+
+        azioniLvl1.Add(3);
+        azioniLvl1.Add(0);
+        azioniLvl1.Add(5);
+        azioniLvl1.Add(3);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(0);
+        azioniLvl1.Add(3);
+
+
         azioniLvl2.Add(3);
         azioniLvl2.Add(0);
+        azioniLvl2.Add(5);
         azioniLvl2.Add(3);
+
         azioniLvl2.Add(4);
         azioniLvl2.Add(4);
         azioniLvl2.Add(4);
@@ -95,16 +115,6 @@ public class Movimento : MonoBehaviour
         azioniLvl2.Add(0);
         azioniLvl2.Add(3);
 
-        azioniLvl1.Add(3);
-        azioniLvl1.Add(0);
-        azioniLvl1.Add(3);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(0);
-        azioniLvl1.Add(3);
         #endregion
 
         arma = GameObject.FindGameObjectWithTag("Weapon");
@@ -248,6 +258,12 @@ public class Movimento : MonoBehaviour
                         StartCoroutine("Attacca");
                         break;
                     }
+                case 5:
+                    {
+                        //Caso cambia colore, il player diventa dello stesso colore del cubo successivo
+                        CambiaColore();
+                        break;
+                    }
             }
         }else
         {
@@ -368,10 +384,24 @@ public class Movimento : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Cubo"))
         {
+            //Id del cubo con cui sto collidendo
+            idCubo = collision.gameObject.GetComponent<IdCubo>().GetId();
+
             //Debug.Log("Il colore è " + gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color);
-            if (collision.gameObject.GetComponent<IdCubo>().GetId() == lvlController.GetComponent<Percorso>().GetCuboFinale().gameObject.GetComponent<IdCubo>().GetId())
+
+            //Se sono arrivato al cubo finale
+            if (idCubo == lvlController.GetComponent<Percorso>().GetCuboFinale().gameObject.GetComponent<IdCubo>().GetId())
             {
                 arrivato = true;
+            }
+
+            //Se sono arrivato al cubo immediatamente prima di quello da cui parte il cambio colore cambio bool per bloccare funzione
+
+            ColorChangerLvl  colorChangerLvl = lvlController.GetComponent<ColorChangerLvl>();
+            if ((idCubo+1) == colorChangerLvl.cuboPartenza[SceneManager.GetActiveScene().buildIndex])
+            {
+                Debug.Log("Bloccato il cambio colore");
+                colorChangerLvl.play = false;
             }
 
         }
@@ -431,7 +461,7 @@ public class Movimento : MonoBehaviour
         GameObject panelVittoria = GameObject.FindGameObjectWithTag("PanelVittoria");
         //Dimensioni dell'immagine della vittoria
         RectTransform imgTransform = panelVittoria.GetComponentInChildren<Image>().rectTransform;
-        Debug.Log("Img -> " + panelVittoria.GetComponentInChildren<Image>());
+        //Debug.Log("Img -> " + panelVittoria.GetComponentInChildren<Image>());
 
         //Larghezza dell'immagine
         float size = imgTransform.sizeDelta.x;
@@ -442,5 +472,14 @@ public class Movimento : MonoBehaviour
         imgTransform.sizeDelta = new Vector2(imgTransform.sizeDelta.x * numStelle, imgTransform.sizeDelta.y);
 
         lvlChanger.GetComponent<SceneSetup>().LoadNextScene();
+    }
+
+    private void CambiaColore()
+    {
+        //Debug.Log("Case cambia colore ");
+        //Debug.Log("Il colore del cubo successivo è " + lvlController.GetComponent<Percorso>().GetCuboById(idCubo + 1).GetComponent<Renderer>().material.color);
+        Color colorCuboSucc = lvlController.GetComponent<Percorso>().GetCuboById(idCubo + 1).GetComponent<Renderer>().material.color;
+        gameObject.GetComponent<PlayerColorChanger>().ChangeColor(colorCuboSucc);
+        ResetMovimento();
     }
 }

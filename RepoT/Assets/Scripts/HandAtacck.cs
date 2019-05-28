@@ -14,8 +14,8 @@ public class HandAtacck : MonoBehaviour
     void Start()
     {
         startSize = transform.localScale;
-        finalSize = new Vector3(startSize.x + 2f, startSize.y + 2f, startSize.z + 2f);
-        tempoTotale = 5f;
+        finalSize = new Vector3(startSize.x + 3f, startSize.y + 3f, startSize.z + 3f);
+        tempoTotale = 0.5f;
     }
 
     // Update is called once per frame
@@ -23,17 +23,13 @@ public class HandAtacck : MonoBehaviour
     {
         if (isAttacking)
         {
-            Debug.Log("Sto attaccando");
-            tempoPassato = 0f;
             transform.localScale = Vector3.Lerp(startSize, finalSize, tempoPassato / tempoTotale);
             tempoPassato += Time.deltaTime;
         }
         else
         {
-            Debug.Log("Non sto attaccando");
             tempoPassato = 0f;
-            transform.localScale = Vector3.Lerp(finalSize, startSize, tempoPassato / tempoTotale);
-            tempoPassato += Time.deltaTime;
+            transform.localScale = startSize;
         }
     }
 
