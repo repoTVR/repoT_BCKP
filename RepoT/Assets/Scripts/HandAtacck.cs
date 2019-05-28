@@ -10,6 +10,7 @@ public class HandAtacck : MonoBehaviour
     private Vector3 startSize;
     public float tempoPassato;
     public float tempoTotale;
+    public float tempoPassato2;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,13 +24,15 @@ public class HandAtacck : MonoBehaviour
     {
         if (isAttacking)
         {
+            tempoPassato2 = 0f;
             transform.localScale = Vector3.Lerp(startSize, finalSize, tempoPassato / tempoTotale);
             tempoPassato += Time.deltaTime;
         }
         else
         {
             tempoPassato = 0f;
-            transform.localScale = startSize;
+            transform.localScale = Vector3.Lerp(transform.localScale, startSize, tempoPassato2 / tempoTotale);
+            tempoPassato2 += Time.deltaTime;
         }
     }
 
