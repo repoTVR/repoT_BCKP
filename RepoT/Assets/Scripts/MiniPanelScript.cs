@@ -12,6 +12,7 @@ public class MiniPanelScript : MonoBehaviour
     private Button actualButton;
     private SortedDictionary<int, Button> buttons;
     [SerializeField] private Sprite[] arrImg;
+    [SerializeField] private Sprite[] arrNumeri;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,14 @@ public class MiniPanelScript : MonoBehaviour
         buttons.Add(cont, actualButton);
         cont++;
         actualButton.GetComponentInChildren<Image>().sprite = arrImg[id];
+    }
+
+    public void AddButtonSpecial(int id)
+    {
+        actualButton = Instantiate(buttonPrefab, transform, false);
+        buttons.Add(cont, actualButton);
+        cont++;
+        actualButton.GetComponentInChildren<Image>().sprite = arrNumeri[id];
     }
 
     public Button getButtonById(int id)
