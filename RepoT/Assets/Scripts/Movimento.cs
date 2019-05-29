@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Movimento : MonoBehaviour
 {
@@ -21,14 +22,23 @@ public class Movimento : MonoBehaviour
 
     public int lvl;
 
+    public bool riavviaLvl;
+
     #endregion
 
     #region Privati
 
+    //Id del cubo su cui si trova il player
+    int idCubo = -1;
+
     //Array di azioni per i vari livelli
     ArrayList azioniLvl1;
     ArrayList azioniLvl2;
+
+    //Oggetto per la gestione dei livelli
     private GameObject lvlChanger;
+
+    //Bool che controlla se il player è arrivato al cubo finale
     private bool arrivato;
     private CharacterController characterController;
 
@@ -81,6 +91,7 @@ public class Movimento : MonoBehaviour
         uno = true;
 
         #region ListaAzioniManuali
+
         //azioniLvl1 = new ArrayList();
         //azioniLvl2 = new ArrayList();
         //azioniLvl2.Add(3);
@@ -241,6 +252,7 @@ public class Movimento : MonoBehaviour
     void CambiaAzione()
     {
         //Debug.Log("Dentro Cambia Azione");
+
         wasFor = isFor;
         setIsFor(false);
 
@@ -278,10 +290,19 @@ public class Movimento : MonoBehaviour
                         StartCoroutine("Attacca");
                         break;
                     }
+
                 case 64:
                     {
                         setIsFor(true);
                         StartCoroutine("Attacca");
+                        break;
+                    }
+
+                case 5:
+                    {
+                        //Caso cambia colore, il player diventa dello stesso colore del cubo successivo
+                        CambiaColore();
+
                         break;
                     }
             }
@@ -372,13 +393,16 @@ public class Movimento : MonoBehaviour
     IEnumerator Attacca()
     {
         float length;
-        arma.GetComponent<AxeScript>().isAttacking = true;
+
+        //arma.GetComponent<AxeScript>().isAttacking = true;
+        gameObject.GetComponentInChildren<HandAtacck>().isAttacking = true;
         //Debug.Log("Attacco");
         anim.SetBool("attack", true);
         length = anim.GetCurrentAnimatorClipInfo(0).Length;
         //Debug.Log("length = " + length);
         yield return new WaitForSeconds(length);
-        arma.GetComponent<AxeScript>().isAttacking = false;
+        //arma.GetComponent<AxeScript>().isAttacking = false;
+        gameObject.GetComponentInChildren<HandAtacck>().isAttacking = false;
         anim.SetBool("attack", false);
         yield return new WaitForSeconds(0.5f);
         ResetMovimento();
@@ -417,10 +441,24 @@ public class Movimento : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Cubo"))
         {
+            //Id del cubo con cui sto collidendo
+            idCubo = collision.gameObject.GetComponent<IdCubo>().GetId();
+
             //Debug.Log("Il colore è " + gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color);
-            if (collision.gameObject.GetComponent<IdCubo>().GetId() == lvlController.GetComponent<Percorso>().GetCuboFinale().gameObject.GetComponent<IdCubo>().GetId())
+
+            //Se sono arrivato al cubo finale
+            if (idCubo == lvlController.GetComponent<Percorso>().GetCuboFinale().gameObject.GetComponent<IdCubo>().GetId())
             {
                 arrivato = true;
+            }
+
+            //Se sono arrivato al cubo immediatamente prima di quello da cui parte il cambio colore cambio bool per bloccare funzione
+
+            ColorChangerLvl  colorChangerLvl = lvlController.GetComponent<ColorChangerLvl>();
+            if ((idCubo+1) == colorChangerLvl.cuboPartenza[SceneManager.GetActiveScene().buildIndex])
+            {
+                Debug.Log("Bloccato il cambio colore");
+                colorChangerLvl.play = false;
             }
 
         }
@@ -433,17 +471,27 @@ public class Movimento : MonoBehaviour
         movimento = Vector3.zero;
         anim.CrossFade("Morte", 0.1f);
 
-        foreach(Transform tr in menu.transform)
+
+        foreach (Transform tr in menu.transform)
         {
             tr.gameObject.SetActive(tr.gameObject.tag.Equals("PanelMorte") || tr.gameObject.tag.Equals("PanelMenu"));
         }
 
-
+        if (riavviaLvl)
+        {
+            lvlChanger.GetComponent<SceneSetup>().Riavvia();
+            riavviaLvl = false;
+        }
     }
 
     public bool getCaduto()
     {
         return caduto;
+    }
+
+    public void setCaduto(bool caduto)
+    {
+        this.caduto = caduto;
     }
 
     public void EliminaUltimaAzione()
@@ -481,5 +529,14 @@ public class Movimento : MonoBehaviour
         imgTransform.sizeDelta = new Vector2(imgTransform.sizeDelta.x * numStelle, imgTransform.sizeDelta.y);
 
         //lvlChanger.GetComponent<SceneSetup>().LoadNextScene();
+    }
+
+    private void CambiaColore()
+    {
+        //Debug.Log("Case cambia colore ");
+        //Debug.Log("Il colore del cubo successivo è " + lvlController.GetComponent<Percorso>().GetCuboById(idCubo + 1).GetComponent<Renderer>().material.color);
+        Color colorCuboSucc = lvlController.GetComponent<Percorso>().GetCuboById(idCubo + 1).GetComponent<Renderer>().material.color;
+        gameObject.GetComponent<PlayerColorChanger>().ChangeColor(colorCuboSucc);
+        ResetMovimento();
     }
 }

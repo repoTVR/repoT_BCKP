@@ -7,13 +7,14 @@ public class SceneSetup : MonoBehaviour
 {
     private static int totScene = 2;
     private int[] numMosseLvl;
-    
+    private static SceneSetup instance = null;
+
 
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        numMosseLvl = new int[2] { 7, 10 };
+        Initialization();
+        numMosseLvl = new int[2] { 6, 8 };
     }
 
     public void LoadNextScene()
@@ -40,4 +41,22 @@ public class SceneSetup : MonoBehaviour
     }
 
 
+    private void Initialization()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
+
+    public void Riavvia()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }

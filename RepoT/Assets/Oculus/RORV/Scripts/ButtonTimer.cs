@@ -20,6 +20,8 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private GameObject lvlManager;
     private int idPanelNum = 2;
 
+    private GameObject lvlController;
+
 
 
 
@@ -31,7 +33,8 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         _button = GetComponent<Button>();
         isButtonLaterale = gameObject.tag.Equals("ButtonLaterali");
         lvlManager = GameObject.FindGameObjectWithTag("GameController");
-   
+        lvlController = GameObject.FindGameObjectWithTag("LvlChanger");
+
     }
 
     void Update()
@@ -268,10 +271,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void Riavvia()
     {
-        ActivateImageFor();
-        HideImage();
-        HidePanelPopUp();
-        lvlManager.GetComponent<InizioLivello>().Riavvia();
+        lvlController.GetComponent<SceneSetup>().Riavvia();
     }
 
 
