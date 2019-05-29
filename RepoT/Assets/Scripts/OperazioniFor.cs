@@ -52,7 +52,8 @@ public class OperazioniFor : MonoBehaviour
 
         for(int i = 0; i < GetNumVolte(); i++)
         {
-            player.GetComponent<Movimento>().azioniList.Add(GetIdAzione());
+            player.GetComponent<Movimento>().azioniList.Add(60+GetIdAzione());
+            
         }
     }
 }

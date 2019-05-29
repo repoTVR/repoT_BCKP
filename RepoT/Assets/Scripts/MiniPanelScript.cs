@@ -8,6 +8,7 @@ public class MiniPanelScript : MonoBehaviour
 {
     public GameObject player;
     public static int cont;
+    private int contatoreBottoni;
     public Button buttonPrefab;
     private Button actualButton;
     private SortedDictionary<int, Button> buttons;
@@ -17,6 +18,7 @@ public class MiniPanelScript : MonoBehaviour
     void Start()
     {
         buttons = new SortedDictionary<int, Button>();
+        contatoreBottoni = 0;
     }
 
     // Update is called once per frame
@@ -53,19 +55,52 @@ public class MiniPanelScript : MonoBehaviour
         }
 
     }
-    public void selectButton(int id)
+    public void selectButton()
     {
-        if(id > 0 && getButtonById(id-1) != null)
+        if(contatoreBottoni > 0 && getButtonById(contatoreBottoni-1) != null)
         {
-            getButtonById(id-1).GetComponentInChildren<RawImage>().enabled = false;
+            getButtonById(contatoreBottoni-1).GetComponentInChildren<RawImage>().enabled = false;
         }
 
-        if(getButtonById(id) != null && id <= cont)
+        if(getButtonById(contatoreBottoni) != null && contatoreBottoni <= cont)
         {
-            getButtonById(id).GetComponentInChildren<RawImage>().enabled = true;
+            getButtonById(contatoreBottoni).GetComponentInChildren<RawImage>().enabled = true;
         }
+
+        if (getButtonById(contatoreBottoni+1) != null && contatoreBottoni+1 <= cont)
+        {
+            getButtonById(contatoreBottoni+1).GetComponentInChildren<RawImage>().enabled = false;
+        }
+
+        contatoreBottoni++;
         
 
+    }
+
+    public void RefreshIndexButtonAfterFor()
+    {
+        contatoreBottoni += 3;
+    }
+
+    public void ClearAfterFor()
+    {
+        getButtonById(contatoreBottoni - 2).GetComponentInChildren<RawImage>().enabled = false;
+        getButtonById(contatoreBottoni - 3).GetComponentInChildren<RawImage>().enabled = false;
+    }
+
+    public void SelectFor()
+    {
+        if (contatoreBottoni > 0 && getButtonById(contatoreBottoni - 1) != null)
+        {
+            getButtonById(contatoreBottoni - 1).GetComponentInChildren<RawImage>().enabled = false;
+        }
+
+        if (getButtonById(contatoreBottoni) != null && contatoreBottoni <= cont)
+        {
+            getButtonById(contatoreBottoni).GetComponentInChildren<RawImage>().enabled = true;
+            getButtonById(contatoreBottoni+1).GetComponentInChildren<RawImage>().enabled = true;
+            getButtonById(contatoreBottoni+2).GetComponentInChildren<RawImage>().enabled = true;
+        }
     }
 
     public void EliminaUltimoBottone()
