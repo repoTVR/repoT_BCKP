@@ -1,0 +1,59 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class OperazioniFor : MonoBehaviour
+{
+
+    private int idAzione;
+    private int numVolte;
+    [SerializeField] private Sprite[] image;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void SetIdAzione(int id)
+    {
+        idAzione = id;
+    }
+
+    public int GetIdAzione()
+    {
+        return idAzione;
+    }
+
+    public void SetNumVolte(int n)
+    {
+        numVolte = n;
+        AddForAction();
+    }
+
+    public int GetNumVolte()
+    {
+        return numVolte;
+    }
+
+    public void AddForAction()
+    {
+        GameObject panel = GameObject.FindGameObjectWithTag("PanelEsecuzione");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        panel.GetComponent<MiniPanelScript>().addButton(GetIdAzione());
+        panel.GetComponent<MiniPanelScript>().AddButtonSpecial(0);
+        panel.GetComponent<MiniPanelScript>().AddButtonSpecial(GetNumVolte());
+
+        for(int i = 0; i < GetNumVolte(); i++)
+        {
+            player.GetComponent<Movimento>().azioniList.Add(60+GetIdAzione());
+            
+        }
+    }
+}
