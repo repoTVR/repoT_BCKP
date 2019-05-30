@@ -20,6 +20,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private GameObject lvlManager;
     private int idPanelNum = 2;
     private int idPanelIf = 3;
+    private int counterMaxAzioni = 12;
 
     private GameObject lvlController;
 
@@ -97,8 +98,12 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         ActivateImageFor();
         HideImage();
         HidePanelPopUp();
-        player.GetComponent<Movimento>().azioniList.Add(idAzione);
-        miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
+        if(miniPanel.GetComponent<MiniPanelScript>().GetCont() < counterMaxAzioni)
+        {
+            player.GetComponent<Movimento>().azioniList.Add(idAzione);
+            miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
+        }
+        
     }
 
     public void IfButtonClicked()
@@ -106,8 +111,12 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         Movimento movimento = player.GetComponent<Movimento>();
         HideImage();
         //HidePanelPopUp();
-        movimento.azioniList.Add(idAzione);
-        miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
+        if (miniPanel.GetComponent<MiniPanelScript>().GetCont() < counterMaxAzioni)
+        {
+            movimento.azioniList.Add(idAzione);
+            miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
+        }
+            
         
     }
 

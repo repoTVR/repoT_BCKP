@@ -14,11 +14,13 @@ public class MiniPanelScript : MonoBehaviour
     private SortedDictionary<int, Button> buttons;
     [SerializeField] private Sprite[] arrImg;
     [SerializeField] private Sprite[] arrNumeri;
+    private int counterMaxAzioni;
     // Start is called before the first frame update
     void Start()
     {
         buttons = new SortedDictionary<int, Button>();
         contatoreBottoni = 0;
+        counterMaxAzioni = 12;
     }
 
     // Update is called once per frame
@@ -33,6 +35,12 @@ public class MiniPanelScript : MonoBehaviour
         buttons.Add(cont, actualButton);
         cont++;
         actualButton.GetComponentInChildren<Image>().sprite = arrImg[id];
+        
+    }
+
+    public int GetCont()
+    {
+        return cont;
     }
 
     public void AddButtonSpecial(int id)

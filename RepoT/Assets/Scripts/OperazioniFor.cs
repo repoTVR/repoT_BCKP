@@ -7,11 +7,13 @@ public class OperazioniFor : MonoBehaviour
 
     private int idAzione;
     private int numVolte;
+    private GameObject miniPanel;
+    private int counterMaxAzioni = 12;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        miniPanel = GameObject.FindGameObjectWithTag("PanelEsecuzione");
     }
 
     // Update is called once per frame
@@ -45,14 +47,19 @@ public class OperazioniFor : MonoBehaviour
     {
         GameObject panel = GameObject.FindGameObjectWithTag("PanelEsecuzione");
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        panel.GetComponent<MiniPanelScript>().addButton(GetIdAzione());
-        panel.GetComponent<MiniPanelScript>().AddButtonSpecial(0);
-        panel.GetComponent<MiniPanelScript>().AddButtonSpecial(GetNumVolte());
 
-        for(int i = 0; i < GetNumVolte(); i++)
+        if (miniPanel.GetComponent<MiniPanelScript>().GetCont() < counterMaxAzioni-2)
         {
-            player.GetComponent<Movimento>().azioniList.Add(60+GetIdAzione());
-            
+            panel.GetComponent<MiniPanelScript>().addButton(GetIdAzione());
+            panel.GetComponent<MiniPanelScript>().AddButtonSpecial(0);
+            panel.GetComponent<MiniPanelScript>().AddButtonSpecial(GetNumVolte());
+
+            for (int i = 0; i < GetNumVolte(); i++)
+            {
+                player.GetComponent<Movimento>().azioniList.Add(60 + GetIdAzione());
+
+            }
         }
+            
     }
 }
