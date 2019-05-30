@@ -24,6 +24,10 @@ public class Movimento : MonoBehaviour
 
     public bool riavviaLvl;
 
+    public BoolArrayList listIf;
+
+    public int contIf;
+
     //[HideInInspector] public ArrayList ifArrayList;
 
     #endregion
@@ -111,24 +115,25 @@ public class Movimento : MonoBehaviour
         //azioniLvl2.Add(0);
         //azioniLvl2.Add(3);
 
-        //azioniLvl1.Add(3);
-        //azioniLvl1.Add(0);
-        //azioniLvl1.Add(3);
-        //azioniLvl1.Add(0);
-        //azioniLvl1.Add(2);
-        //azioniLvl1.Add(4);
-        //azioniLvl1.Add(4);
-        //azioniLvl1.Add(4);
-        //azioniLvl1.Add(4);
-        //azioniLvl1.Add(4);
-        //azioniLvl1.Add(4);
-        //azioniLvl1.Add(0);
-        //azioniLvl1.Add(3);
-        ////azioniLvl1.Add(2);
-        ////azioniLvl1.Add(0);
-        ////azioniLvl1.Add(1);
-        ////azioniLvl1.Add(0);
-        ////azioniLvl1.Add(3);
+        azioniLvl1.Add(3);
+        azioniLvl1.Add(0);
+        listIf.GetBoolArrayList().Add(true);
+        azioniLvl1.Add(3);
+        azioniLvl1.Add(0);
+        azioniLvl1.Add(2);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(4);
+        azioniLvl1.Add(0);
+        azioniLvl1.Add(3);
+        azioniLvl1.Add(2);
+        azioniLvl1.Add(0);
+        azioniLvl1.Add(1);
+        azioniLvl1.Add(0);
+        azioniLvl1.Add(3);
 
         #endregion
 
@@ -305,6 +310,7 @@ public class Movimento : MonoBehaviour
                 case 5:
                     {
                         //Caso cambia colore, il player diventa dello stesso colore del cubo successivo
+                        if ((bool)listIf.GetBoolArrayList()[contIf])
                         CambiaColore();
 
                         break;
