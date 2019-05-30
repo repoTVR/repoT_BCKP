@@ -19,6 +19,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public int tempoSelezione;
     private GameObject lvlManager;
     private int idPanelNum = 2;
+    private int idPanelIf = 3;
 
     private GameObject lvlController;
 
@@ -86,10 +87,8 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         ActivateImageFor();
         HideImage();
         HidePanelPopUp();
-        Debug.Log("Play Dentro");
         if (player.GetComponent<Movimento>().azioniList.Count > 0)
         {
-            Debug.Log("Play conta azioni " + player.GetComponent<Movimento>().azioniList.Count);
             player.GetComponent<Movimento>().play = true;
         }
     }
@@ -100,6 +99,16 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         HidePanelPopUp();
         player.GetComponent<Movimento>().azioniList.Add(idAzione);
         miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
+    }
+
+    public void IfButtonClicked()
+    {
+        Movimento movimento = player.GetComponent<Movimento>();
+        HideImage();
+        //HidePanelPopUp();
+        movimento.azioniList.Add(idAzione);
+        miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
+        
     }
 
     public void ActivateImageFor()
@@ -126,6 +135,17 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         HidePanelCentrale();
         GameObject.FindGameObjectWithTag("PanelSpeciali").transform.GetChild(idPanelNum).gameObject.SetActive(true);
         GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<OperazioniFor>().SetIdAzione(GetIdAzioneByForPanel(idAzione));
+        DeactivateImageFor();
+    }
+
+    public void ShowPanelIfActions()
+    {
+        HideImage();
+        HidePanelCentrale();
+        GameObject.FindGameObjectWithTag("PanelSpeciali").transform.GetChild(idPanelIf).gameObject.SetActive(true);
+        gameObject.GetComponent<BoolArrayList>().GetBoolArrayList().Add(idAzione!=0);
+
+        //GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<OperazioniFor>().SetIdAzione(GetIdAzioneByForPanel(idAzione));
         DeactivateImageFor();
     }
 
@@ -165,6 +185,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         ShowImage();
         
     }
+
 
     public void HideImage()
     {

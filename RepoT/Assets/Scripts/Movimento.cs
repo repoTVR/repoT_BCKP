@@ -24,9 +24,12 @@ public class Movimento : MonoBehaviour
 
     public bool riavviaLvl;
 
+    //[HideInInspector] public ArrayList ifArrayList;
+
     #endregion
 
     #region Privati
+
 
     //Id del cubo su cui si trova il player
     int idCubo = -1;
@@ -83,6 +86,7 @@ public class Movimento : MonoBehaviour
         azioniList = new ArrayList();
         inPosizione = true;
         indexFor = new ArrayList();
+        //ifArrayList = new ArrayList();
         uno = true;
         isFor = false;
         wasFor = false;
@@ -120,11 +124,11 @@ public class Movimento : MonoBehaviour
         //azioniLvl1.Add(4);
         //azioniLvl1.Add(0);
         //azioniLvl1.Add(3);
-        //azioniLvl1.Add(2);
-        //azioniLvl1.Add(0);
-        //azioniLvl1.Add(1);
-        //azioniLvl1.Add(0);
-        //azioniLvl1.Add(3);
+        ////azioniLvl1.Add(2);
+        ////azioniLvl1.Add(0);
+        ////azioniLvl1.Add(1);
+        ////azioniLvl1.Add(0);
+        ////azioniLvl1.Add(3);
 
         #endregion
 
@@ -443,6 +447,7 @@ public class Movimento : MonoBehaviour
         {
             //Id del cubo con cui sto collidendo
             idCubo = collision.gameObject.GetComponent<IdCubo>().GetId();
+            //Debug.Log("Sono arrivato al cubo n " + idCubo);
 
             //Debug.Log("Il colore è " + gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color);
 

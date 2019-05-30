@@ -110,6 +110,7 @@ public class MiniPanelScript : MonoBehaviour
             buttons.Remove(cont-1);
             Destroy(transform.GetChild(cont-1).gameObject);
             cont--;
+            contatoreBottoni--;
         }
     }
 
@@ -121,5 +122,6 @@ public class MiniPanelScript : MonoBehaviour
             Destroy(tr.gameObject);
         }
         cont = 0;
+        contatoreBottoni = 0;
     }
 }
