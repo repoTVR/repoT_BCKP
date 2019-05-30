@@ -7,7 +7,6 @@ public class OperazioniFor : MonoBehaviour
 
     private int idAzione;
     private int numVolte;
-    [SerializeField] private Sprite[] image;
 
     // Start is called before the first frame update
     void Start()

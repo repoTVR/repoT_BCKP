@@ -174,6 +174,7 @@ public class Movimento : MonoBehaviour
 
             CambiaAzione();
             play = false;
+            GameObject.FindGameObjectWithTag("PanelScelta").SetActive(false);
         }
 
         //Controllo atterraggio

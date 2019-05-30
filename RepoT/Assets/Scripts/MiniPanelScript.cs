@@ -41,6 +41,11 @@ public class MiniPanelScript : MonoBehaviour
         buttons.Add(cont, actualButton);
         cont++;
         actualButton.GetComponentInChildren<Image>().sprite = arrNumeri[id];
+
+        if(id != 0)
+        {
+            actualButton.GetComponent<IdCubo>().SetId(9);
+        }
     }
 
     public Button getButtonById(int id)
@@ -84,8 +89,12 @@ public class MiniPanelScript : MonoBehaviour
 
     public void ClearAfterFor()
     {
-        getButtonById(contatoreBottoni - 2).GetComponentInChildren<RawImage>().enabled = false;
-        getButtonById(contatoreBottoni - 3).GetComponentInChildren<RawImage>().enabled = false;
+        if(getButtonById(contatoreBottoni-2) != null && getButtonById(contatoreBottoni-3) != null)
+        {
+            getButtonById(contatoreBottoni - 2).GetComponentInChildren<RawImage>().enabled = false;
+            getButtonById(contatoreBottoni - 3).GetComponentInChildren<RawImage>().enabled = false;
+        }
+        
     }
 
     public void SelectFor()
@@ -107,10 +116,23 @@ public class MiniPanelScript : MonoBehaviour
     {
         if (buttons.ContainsKey(cont-1))
         {
-            buttons.Remove(cont-1);
-            Destroy(transform.GetChild(cont-1).gameObject);
-            cont--;
-            contatoreBottoni--;
+            if(buttons[cont-1].GetComponent<IdCubo>().GetId() == 9)
+            {
+                for(int i = 0; i<3; i++)
+                {
+                    buttons.Remove(cont - 1);
+                    Destroy(transform.GetChild(cont - 1).gameObject);
+                    cont--;
+                    contatoreBottoni--;
+                }
+            }else
+            {
+                buttons.Remove(cont - 1);
+                Destroy(transform.GetChild(cont - 1).gameObject);
+                cont--;
+                contatoreBottoni--;
+            }
+            
         }
     }
 

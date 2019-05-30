@@ -24,4 +24,8 @@ public class IdCubo : MonoBehaviour
         return id;
     }
 
+    public void SetId(int id)
+    {
+        this.id = id;
+    }
 }
