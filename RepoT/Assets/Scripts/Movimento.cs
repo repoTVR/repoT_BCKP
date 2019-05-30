@@ -80,7 +80,6 @@ public class Movimento : MonoBehaviour
     private int indexAzione; //index dell'array azioni[]
 
     private ArrayList indexFor;
-    float distY;
     #endregion
 
     // Start is called before the first frame update
@@ -115,25 +114,24 @@ public class Movimento : MonoBehaviour
         //azioniLvl2.Add(0);
         //azioniLvl2.Add(3);
 
-        azioniLvl1.Add(3);
-        azioniLvl1.Add(0);
-        listIf.GetBoolArrayList().Add(true);
-        azioniLvl1.Add(3);
-        azioniLvl1.Add(0);
-        azioniLvl1.Add(2);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(4);
-        azioniLvl1.Add(0);
-        azioniLvl1.Add(3);
-        azioniLvl1.Add(2);
-        azioniLvl1.Add(0);
-        azioniLvl1.Add(1);
-        azioniLvl1.Add(0);
-        azioniLvl1.Add(3);
+        //azioniLvl1.Add(3);
+        //azioniLvl1.Add(0);
+        //azioniLvl1.Add(3);
+        //azioniLvl1.Add(0);
+        //azioniLvl1.Add(2);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(0);
+        //azioniLvl1.Add(3);
+        //azioniLvl1.Add(2);
+        //azioniLvl1.Add(0);
+        //azioniLvl1.Add(1);
+        //azioniLvl1.Add(0);
+        //azioniLvl1.Add(3);
 
         #endregion
 
@@ -184,8 +182,6 @@ public class Movimento : MonoBehaviour
             anim.SetBool("is_in_air", false);
         }
 
-        distY = transform.position.y - lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale).transform.position.y;
-        Debug.Log("Dist = " + distY);
 
         //Check fine movimento avanti/salto
         if (IsDestinazioneRaggiunta())
@@ -317,7 +313,6 @@ public class Movimento : MonoBehaviour
                 case 5:
                     {
                         //Caso cambia colore, il player diventa dello stesso colore del cubo successivo
-                        if ((bool)listIf.GetBoolArrayList()[contIf])
                         CambiaColore();
 
                         break;
@@ -471,7 +466,7 @@ public class Movimento : MonoBehaviour
             //Se sono arrivato al cubo immediatamente prima di quello da cui parte il cambio colore cambio bool per bloccare funzione
 
             ColorChangerLvl  colorChangerLvl = lvlController.GetComponent<ColorChangerLvl>();
-            if ((idCubo+1) == colorChangerLvl.cuboPartenza[SceneManager.GetActiveScene().buildIndex])
+            if ((idCubo+1) == colorChangerLvl.cuboPartenza)
             {
                 Debug.Log("Bloccato il cambio colore");
                 colorChangerLvl.play = false;
@@ -549,9 +544,31 @@ public class Movimento : MonoBehaviour
 
     private void CambiaColore()
     {
+        bool cond = listIf.GetBoolArrayList()[contIf];
         //Debug.Log("Case cambia colore ");
         //Debug.Log("Il colore del cubo successivo è " + lvlController.GetComponent<Percorso>().GetCuboById(idCubo + 1).GetComponent<Renderer>().material.color);
+
+        //Colore del cubo successivo
         Color colorCuboSucc = lvlController.GetComponent<Percorso>().GetCuboById(idCubo + 1).GetComponent<Renderer>().material.color;
+
+        if (!cond)
+        {
+            Debug.Log("Diverso");
+            if(colorCuboSucc != gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color && !cond)
+            {
+
+                gameObject.GetComponent<PlayerColorChanger>().ChangeColor(colorCuboSucc);
+            }
+        }
+        else
+        {
+            Debug.Log("Uguale");
+            if (colorCuboSucc == gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color)
+            {
+                gameObject.GetComponent<PlayerColorChanger>().ChangeColor(colorCuboSucc);
+            }
+        }
+        contIf++;
         gameObject.GetComponent<PlayerColorChanger>().ChangeColor(colorCuboSucc);
         ResetMovimento();
     }

@@ -144,6 +144,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         HidePanelCentrale();
         GameObject.FindGameObjectWithTag("PanelSpeciali").transform.GetChild(idPanelIf).gameObject.SetActive(true);
         gameObject.GetComponent<BoolArrayList>().GetBoolArrayList().Add(idAzione!=0);
+        Debug.Log("Ho aggiunto " + (idAzione != 0) + "alla lista");
 
         //GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<OperazioniFor>().SetIdAzione(GetIdAzioneByForPanel(idAzione));
         DeactivateImageFor();

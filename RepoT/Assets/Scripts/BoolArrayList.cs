@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BoolArrayList : MonoBehaviour
 {
-    public static List<bool> boolArrayList;
+    private static List<bool> boolArrayList;
+    public ArrayList list;
 
 
 
