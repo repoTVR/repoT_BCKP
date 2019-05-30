@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class BoolArrayList : MonoBehaviour
 {
-    private static ArrayList boolArrayList;
+    public static List<bool> boolArrayList;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        boolArrayList = new ArrayList();
+        boolArrayList = new List<bool>();
     }
 
     // Update is called once per frame
@@ -20,12 +20,12 @@ public class BoolArrayList : MonoBehaviour
         
     }
 
-    public ArrayList GetBoolArrayList()
+    public List<bool> GetBoolArrayList()
     {
         return boolArrayList;
     }
 
-    public void SetBoolArrayList(ArrayList list)
+    public void SetBoolArrayList(List<bool> list)
     {
         boolArrayList = list;
     }
