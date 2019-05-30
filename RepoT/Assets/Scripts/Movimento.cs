@@ -76,7 +76,7 @@ public class Movimento : MonoBehaviour
     private int indexAzione; //index dell'array azioni[]
 
     private ArrayList indexFor;
-
+    float distY;
     #endregion
 
     // Start is called before the first frame update
@@ -149,7 +149,7 @@ public class Movimento : MonoBehaviour
         posAttuale = transform;
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
         posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);
-
+       
 
     }
 
@@ -179,9 +179,14 @@ public class Movimento : MonoBehaviour
             anim.SetBool("is_in_air", false);
         }
 
+        distY = transform.position.y - lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale).transform.position.y;
+        Debug.Log("Dist = " + distY);
+
         //Check fine movimento avanti/salto
-        if(IsDestinazioneRaggiunta())
+        if (IsDestinazioneRaggiunta())
         {
+
+            
             anim.SetBool("run", false);
             //if (lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale).name.Equals(ultimoCubo.name))
             if(arrivato)
@@ -196,6 +201,7 @@ public class Movimento : MonoBehaviour
             }
             else
             {
+                //Debug.Log("Sono arrivato");
                 lvlController.GetComponent<Percorso>().IncrementIndexPercorso();
                 ResetMovimento();
             }
@@ -291,6 +297,7 @@ public class Movimento : MonoBehaviour
                     }
                 case 4:
                     {
+                        Debug.Log("Attacco");
                         StartCoroutine("Attacca");
                         break;
                     }
@@ -397,10 +404,8 @@ public class Movimento : MonoBehaviour
     IEnumerator Attacca()
     {
         float length;
-
-        //arma.GetComponent<AxeScript>().isAttacking = true;
+        yield return new WaitForSeconds(0.25f);
         gameObject.GetComponentInChildren<HandAtacck>().isAttacking = true;
-        //Debug.Log("Attacco");
         anim.SetBool("attack", true);
         length = anim.GetCurrentAnimatorClipInfo(0).Length;
         //Debug.Log("length = " + length);
@@ -408,7 +413,7 @@ public class Movimento : MonoBehaviour
         //arma.GetComponent<AxeScript>().isAttacking = false;
         gameObject.GetComponentInChildren<HandAtacck>().isAttacking = false;
         anim.SetBool("attack", false);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         ResetMovimento();
     }
 
@@ -420,7 +425,7 @@ public class Movimento : MonoBehaviour
             float z = posDestinazione.transform.position.z - transform.position.z;
             float y = posDestinazione.transform.position.y - transform.position.y;
 
-            return Mathf.Abs(x + z) < .05f && Mathf.Abs(y) < 1.2f;
+            return Mathf.Abs(x + z) < .05f && Mathf.Abs(y) < .25f;
         }else
         {
             return true;

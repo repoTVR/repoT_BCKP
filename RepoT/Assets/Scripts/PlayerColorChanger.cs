@@ -32,8 +32,9 @@ public class PlayerColorChanger : MonoBehaviour
         if (collision.gameObject.CompareTag("Cubo"))
         {
             //Debug.Log("Ho toccato il cubo");
-            if (!collision.gameObject.GetComponent<Renderer>().material.color.Equals(gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color) &&
-                collision.gameObject.GetComponent<Renderer>().material.color != Color.white)
+            Color colorCubo = collision.gameObject.GetComponent<Renderer>().material.color;
+            if (!colorCubo.Equals(gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color) &&
+               colorCubo != Color.white && colorCubo != Color.black)
             {
                 if (!morto)
                 {
