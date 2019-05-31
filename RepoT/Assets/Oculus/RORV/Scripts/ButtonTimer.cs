@@ -102,6 +102,9 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             player.GetComponent<Movimento>().azioniList.Add(idAzione);
             miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
+        }else
+        {
+            Debug.Log("N Max");
         }
         
     }
@@ -115,6 +118,9 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             movimento.azioniList.Add(idAzione);
             miniPanel.GetComponent<MiniPanelScript>().addButton(idAzione);
+        }else
+        {
+            Debug.Log("N Max");
         }
             
         
@@ -302,6 +308,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void Riavvia()
     {
+        lvlController = GameObject.FindGameObjectWithTag("LvlChanger");
         lvlController.GetComponent<SceneSetup>().Riavvia();
     }
 

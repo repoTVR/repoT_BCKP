@@ -59,6 +59,9 @@ public class OperazioniFor : MonoBehaviour
                 player.GetComponent<Movimento>().azioniList.Add(60 + GetIdAzione());
 
             }
+        }else
+        {
+            Debug.Log("N Max");
         }
             
     }

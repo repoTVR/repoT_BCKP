@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class MiniPanelScript : MonoBehaviour
 {
     public GameObject player;
-    public static int cont;
+    public int cont;
     private int contatoreBottoni;
     public Button buttonPrefab;
     private Button actualButton;
@@ -41,6 +41,11 @@ public class MiniPanelScript : MonoBehaviour
     public int GetCont()
     {
         return cont;
+    }
+
+    public void ClearCont()
+    {
+        cont = 0;
     }
 
     public void AddButtonSpecial(int id)

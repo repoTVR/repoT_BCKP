@@ -525,7 +525,7 @@ public class Movimento : MonoBehaviour
         GameObject menu = GameObject.FindGameObjectWithTag("Menu");
         foreach (Transform tr in menu.transform)
         {
-            tr.gameObject.SetActive(tr.CompareTag("PanelVittoria") || tr.gameObject.tag.Equals("PanelMenu"));
+            tr.gameObject.SetActive(tr.CompareTag("PanelVittoria") || tr.gameObject.tag.Equals("PanelMenu") || tr.gameObject.tag.Equals("PanelEsecuzione"));
         }
         GameObject panelVittoria = GameObject.FindGameObjectWithTag("PanelVittoria");
         //Dimensioni dell'immagine della vittoria

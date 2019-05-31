@@ -19,13 +19,16 @@ public class SceneSetup : MonoBehaviour
 
     public void LoadNextScene()
     {
+        Debug.Log("Load next scene");
         //Prendo l'indice della scena
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         int nextSceneIndex = sceneIndex+1;
+        Debug.Log("Siamo nella scena " + sceneIndex);
         //Se esiste una scena successiva la carico
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
+            //GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<MiniPanelScript>().ClearCont();
             SceneManager.LoadScene(nextSceneIndex);
         }
         else
@@ -57,6 +60,7 @@ public class SceneSetup : MonoBehaviour
 
     public void Riavvia()
     {
+        //GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<MiniPanelScript>().ClearCont();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
