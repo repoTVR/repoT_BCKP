@@ -34,6 +34,8 @@ public class Movimento : MonoBehaviour
 
     #region Privati
 
+    //Prova punteggio
+    private int azioni;
 
     //Id del cubo su cui si trova il player
     int idCubo = -1;
