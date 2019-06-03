@@ -14,7 +14,7 @@ public class SceneSetup : MonoBehaviour
     private void Awake()
     {
         Initialization();
-        numMosseLvl = new int[6] { 4, 2, 7, 9, 12, 16 };
+        numMosseLvl = new int[6] { 4, 2, 7, 7, 8, 10 };
     }
 
     public void LoadNextScene()
