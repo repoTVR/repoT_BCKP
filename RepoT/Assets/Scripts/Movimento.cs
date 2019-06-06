@@ -542,6 +542,13 @@ public class Movimento : MonoBehaviour
         //Debug.Log("Num stelle ottenute = " + numStelle);
         imgTransform.sizeDelta = new Vector2(imgTransform.sizeDelta.x * numStelle, imgTransform.sizeDelta.y);
 
+        if(GameObject.FindGameObjectWithTag("Fuochi") != null)
+        {
+            GameObject.FindGameObjectWithTag("Fuochi").transform.GetChild(0).gameObject.SetActive(true);
+            GameObject.FindGameObjectWithTag("Fuochi").GetComponent<AudioSource>().Play();
+        }
+        
+
         //lvlChanger.GetComponent<SceneSetup>().LoadNextScene();
     }
 

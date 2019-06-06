@@ -31,7 +31,7 @@ public class AudioSwitcher : MonoBehaviour
     IEnumerator WaitForSkip()
     {
         autoSwitch = false;
-        yield return new WaitForSeconds(secSkip);
+        yield return new WaitForSeconds(clips[c].length);
         c++;
 
         if (c>=clips.Length)
