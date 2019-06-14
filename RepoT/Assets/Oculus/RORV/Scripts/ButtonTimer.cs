@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 
 
@@ -81,6 +82,19 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
 
         timeremain--;
+    }
+
+    public void MovimentoClicked()
+    {
+
+    }
+
+    public void HideTextPrimoLivello()
+    {
+        foreach(GameObject g in GameObject.FindGameObjectsWithTag("TextPrimo"))
+        {
+            g.GetComponent<TextMeshPro>().set
+        }
     }
 
     public void Play()
