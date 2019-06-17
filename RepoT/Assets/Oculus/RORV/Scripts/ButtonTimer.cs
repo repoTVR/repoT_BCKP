@@ -91,6 +91,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         HideTextSecondoLivello();
         HidePanelSecondoLivello();
         HideTextPrimoLivello();
+
         ShowPanelSecondoLivello(4);
         ShowPanelMovimento();
         ShowTextSecondoLivelloMovimento();
@@ -102,7 +103,8 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         HideTextSecondoLivello();
         HidePanelSecondoLivello();
         HideTextPrimoLivello();
-        ShowPanelSecondoLivello(2);
+
+        ShowPanelSecondoLivello(1);
     }
 
     public void CostruttiClicked()
@@ -111,6 +113,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         HideTextSecondoLivello();
         HidePanelSecondoLivello();
         HideTextPrimoLivello();
+
         ShowPanelSecondoLivello(2);
     }
 
@@ -121,6 +124,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void HideAllPanel()
     {
+        //aggiungere qua tutti gli hide dei 3 pannelli principali
         HidePanelMovimento();
     }
 
