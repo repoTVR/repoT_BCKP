@@ -26,11 +26,11 @@ public class RotazioneSingola : MonoBehaviour
         {
             if (rotDx)
             {
-                targetRot = oldRotation - 90f;
+                targetRot = oldRotation + 90f;
             }
             else
             {
-                targetRot = oldRotation + 90f;
+                targetRot = oldRotation - 90f;
             }
             rotation = Quaternion.Euler(0, targetRot, 0);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, timeCount * 0.1f);

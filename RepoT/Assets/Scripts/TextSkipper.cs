@@ -5,9 +5,9 @@ using TMPro;
 
 public class TextSkipper : MonoBehaviour
 {
-
+    public bool prev, next;
     public TextMeshProUGUI[] textArray;
-    private int cont;
+    public int cont;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +18,16 @@ public class TextSkipper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (next)
+        {
+            NextText();
+            next = false;
+        }
+        if (prev)
+        {
+            PrevText();
+            prev = false;
+        }
     }
 
     public void NextText()
@@ -32,6 +41,33 @@ public class TextSkipper : MonoBehaviour
         cont %=  textArray.Length;
         //Attivo il testo successivo
         textArray[cont].gameObject.SetActive(true);
+
+        foreach (Transform tr in textArray[cont].transform)
+        {
+            tr.gameObject.SetActive(true);
+        }
+
+    }
+
+    public void PrevText()
+    {
+        //Disattivo il testo corrente
+        textArray[cont].gameObject.SetActive(false);
+        //Aumento il contatore
+        if(cont > 0)
+        {
+            cont--;
+        }
+        else
+        {
+            cont = textArray.Length - 1;
+            Debug.Log("Questa cosa non dovrebbe succedere se stai usando l'Oculus");
+        }
+
+        foreach (Transform tr in textArray[cont].transform)
+        {
+            tr.gameObject.SetActive(true);
+        }
 
     }
 
