@@ -19,8 +19,8 @@ public class HighlightPanel : MonoBehaviour, IPointerEnterHandler
     {
         //PanelDaAttivare.GetComponent<Button>().Select();
     }
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        PanelDaAttivare.GetComponent<Button>().OnPointerExit(eventData);
-    }
+    //public void OnPointerExit(PointerEventData eventData)
+    //{
+    //    PanelDaAttivare.GetComponent<Button>().OnPointerExit(eventData);
+    //}
 }

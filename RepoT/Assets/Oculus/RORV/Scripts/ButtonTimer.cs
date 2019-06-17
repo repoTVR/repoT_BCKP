@@ -84,18 +84,104 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         timeremain--;
     }
 
+    #region funzioni pannelli principali
     public void MovimentoClicked()
     {
+        HideAllPanel();
+        HideTextSecondoLivello();
+        HidePanelSecondoLivello();
+        HideTextPrimoLivello();
+        ShowPanelSecondoLivello(4);
+        ShowPanelMovimento();
+        ShowTextSecondoLivelloMovimento();
+    }
 
+    public void AzioneClicked()
+    {
+        HideAllPanel();
+        HideTextSecondoLivello();
+        HidePanelSecondoLivello();
+        HideTextPrimoLivello();
+        ShowPanelSecondoLivello(2);
+    }
+
+    public void CostruttiClicked()
+    {
+        HideAllPanel();
+        HideTextSecondoLivello();
+        HidePanelSecondoLivello();
+        HideTextPrimoLivello();
+        ShowPanelSecondoLivello(2);
+    }
+
+    #endregion
+
+    #region funzioni hide/show
+
+
+    public void HideAllPanel()
+    {
+        HidePanelMovimento();
+    }
+
+    public void ShowPanelMovimento()
+    {
+        foreach(GameObject g in GameObject.FindGameObjectsWithTag("PanelMovimento"))
+        {
+            g.GetComponent<Image>().enabled = true;
+        }
+    }
+
+    public void HidePanelMovimento()
+    {
+        foreach(GameObject g in GameObject.FindGameObjectsWithTag("PanelMovimento"))
+        {
+            g.GetComponent<Image>().enabled = false;
+        }
+    }
+
+    public void HidePanelSecondoLivello()
+    {
+        foreach(GameObject g in GameObject.FindGameObjectsWithTag("PanelSecondo"))
+        {
+            g.transform.GetChild(0).gameObject.GetComponent<Image>().enabled = false;
+        }
+    }
+
+    public void ShowPanelSecondoLivello(int n)
+    {
+        GameObject[] g = GameObject.FindGameObjectsWithTag("PanelSecondo");
+        for(int i = 0; i<n; i++)
+        {
+            g[i].transform.GetChild(0).gameObject.GetComponent<Image>().enabled = true;
+        }
+    }
+
+    public void HideTextSecondoLivello()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("TextSecondo"))
+        {
+            g.GetComponent<TextMeshProUGUI>().enabled = false;
+        }
+    }
+
+    public void ShowTextSecondoLivelloMovimento()
+    {
+        foreach(Transform t in GameObject.FindGameObjectWithTag("TextMovimento").transform)
+        {
+            t.gameObject.GetComponent<TextMeshProUGUI>().enabled = true;
+        }
     }
 
     public void HideTextPrimoLivello()
     {
         foreach(GameObject g in GameObject.FindGameObjectsWithTag("TextPrimo"))
         {
-            g.GetComponent<TextMeshPro>().set
+            g.GetComponent<TextMeshProUGUI>().enabled = false;
         }
     }
+
+    #endregion
 
     public void Play()
     {
@@ -109,9 +195,9 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
 
     public void Clicked() {
-        ActivateImageFor();
-        HideImage();
-        HidePanelPopUp();
+        //ActivateImageFor();
+        //HideImage();
+        //HidePanelPopUp();
         if(miniPanel.GetComponent<MiniPanelScript>().GetCont() < counterMaxAzioni)
         {
             player.GetComponent<Movimento>().azioniList.Add(idAzione);
