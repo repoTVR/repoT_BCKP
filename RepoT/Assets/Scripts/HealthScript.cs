@@ -12,22 +12,22 @@ public class HealthScript : MonoBehaviour
     float size;
     public int vite;
     float dim;
+    public bool tutorial;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
-        img = GetComponentInChildren<Image>();
-        imgTransform = img.rectTransform;
-        size = imgTransform.sizeDelta.x;
-        dim = (size);
+        if (!tutorial)
+        {
+            img = GetComponentInChildren<Image>();
+            imgTransform = img.rectTransform;
+            size = imgTransform.sizeDelta.x;
+            dim = (size);
+            imgTransform.sizeDelta = new Vector2(size * vite, imgTransform.sizeDelta.y);
+        }
         piume = GetComponentInChildren<ParticleSystem>();
-        imgTransform.sizeDelta = new Vector2(size * vite, imgTransform.sizeDelta.y);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
     
     public IEnumerator loseHealth()
     {
@@ -37,18 +37,25 @@ public class HealthScript : MonoBehaviour
             piume.Play();
         }
         float length;
-        imgTransform.sizeDelta = new Vector2(imgTransform.sizeDelta.x - dim, imgTransform.sizeDelta.y);
-        if (vite > 1)
+        if (!tutorial)
         {
-            anim.SetBool("hit", true);
+            imgTransform.sizeDelta = new Vector2(imgTransform.sizeDelta.x - dim, imgTransform.sizeDelta.y);
+            if (vite > 1)
+            {
+                anim.SetBool("hit", true);
+            }
+            else
+            {
+                anim.SetTrigger("dead");
+                Destroy(gameObject, 0.5f);
+            }
+
+            vite--;
         }
         else
         {
-            anim.SetTrigger("dead");
-            Destroy(gameObject, 0.5f);
+            anim.SetBool("hit", true);
         }
-
-        vite--;
         length = anim.GetCurrentAnimatorClipInfo(0).Length;
         //Debug.Log("length = " + length);
 

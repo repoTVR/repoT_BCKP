@@ -178,6 +178,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         foreach(GameObject g in GameObject.FindGameObjectsWithTag("TextPrimo"))
         {
             g.GetComponent<TextMeshProUGUI>().enabled = false;
+
         }
     }
 
