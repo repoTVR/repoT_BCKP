@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaltoSingolo : MonoBehaviour
+public class CamminataSingola : MonoBehaviour
 {
     public GameObject cuboFinale;
     public bool isDestinazioneRaggiunta;
@@ -25,34 +25,25 @@ public class SaltoSingolo : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
-        if (play)
+        if (!isDestinazioneRaggiunta)
         {
-            anim.SetBool("is_in_air", true);
             movimento = transform.forward * speed;
-            movimento.y = jumpForce;
-            play = false;
+            anim.SetBool("run", true);
+            characterController.Move(movimento * Time.deltaTime);
         }
-
-        if (isDestinazioneRaggiunta)
+        else
         {
-            anim.SetBool("is_in_air", false);
+            anim.SetBool("run", false);
             movimento = Vector3.zero;
             StartCoroutine("WaitBeforeNextAction");
         }
-
-        //Applicazione gravità
-        movimento.y -= gravity * Time.deltaTime;
-
-        //Applicazione movimento
-        characterController.Move(movimento * Time.deltaTime);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("CuboFinale"))
+        if (other.gameObject.CompareTag("CuboFinale"))
         {
             Debug.Log("Ho toccato il cubo finale");
             isDestinazioneRaggiunta = true;
@@ -63,13 +54,12 @@ public class SaltoSingolo : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         ResetPosizione();
+        yield return new WaitForSeconds(0.5f);
+        isDestinazioneRaggiunta = false;
     }
 
     private void ResetPosizione()
     {
-        play = true;
-        isDestinazioneRaggiunta = false;
         gameObject.transform.position = posPartenza;
     }
-
 }

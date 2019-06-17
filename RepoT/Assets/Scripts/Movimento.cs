@@ -101,7 +101,7 @@ public class Movimento : MonoBehaviour
 
         #region ListaAzioniManuali
 
-        //azioniLvl1 = new ArrayList();
+        azioniLvl1 = new ArrayList();
         //azioniLvl2 = new ArrayList();
         //azioniLvl2.Add(3);
         //azioniLvl2.Add(0);
@@ -117,9 +117,8 @@ public class Movimento : MonoBehaviour
         //azioniLvl2.Add(3);
 
         //azioniLvl1.Add(3);
-        //azioniLvl1.Add(0);
-        //azioniLvl1.Add(3);
-        //azioniLvl1.Add(0);
+        azioniLvl1.Add(0);
+        azioniLvl1.Add(3);
         //azioniLvl1.Add(2);
         //azioniLvl1.Add(4);
         //azioniLvl1.Add(4);
@@ -133,7 +132,7 @@ public class Movimento : MonoBehaviour
         //azioniLvl1.Add(0);
         //azioniLvl1.Add(1);
         //azioniLvl1.Add(0);
-        //azioniLvl1.Add(3);
+        azioniLvl1.Add(3);
 
         #endregion
 
@@ -166,7 +165,7 @@ public class Movimento : MonoBehaviour
         {
             //if (lvl == 1)
             //{
-            //    azioniList = (ArrayList)azioniLvl1.Clone();
+                azioniList = (ArrayList)azioniLvl1.Clone();
             //}
             //if (lvl == 2)
             //{

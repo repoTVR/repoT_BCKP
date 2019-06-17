@@ -93,7 +93,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         foreach(GameObject g in GameObject.FindGameObjectsWithTag("TextPrimo"))
         {
-            g.GetComponent<TextMeshPro>().set
+            //g.GetComponent<TextMeshPro>().set
         }
     }
 
