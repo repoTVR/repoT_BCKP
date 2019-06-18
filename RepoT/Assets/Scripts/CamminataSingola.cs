@@ -25,7 +25,7 @@ public class CamminataSingola : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (!isDestinazioneRaggiunta)
         {
@@ -34,8 +34,6 @@ public class CamminataSingola : MonoBehaviour
         }
         else
         {
-            anim.SetBool("run", false);
-            movimento = Vector3.zero;
             StartCoroutine("WaitBeforeNextAction");
         }
         characterController.Move(movimento * Time.deltaTime);
@@ -52,13 +50,15 @@ public class CamminataSingola : MonoBehaviour
 
     private IEnumerator WaitBeforeNextAction()
     {
+        anim.SetBool("run", false);
+        movimento = Vector3.zero;
         yield return new WaitForSeconds(0.5f);
         ResetPosizione();
-        isDestinazioneRaggiunta = false;
     }
 
     private void ResetPosizione()
     {
         gameObject.transform.position = posPartenza;
+        isDestinazioneRaggiunta = false;
     }
 }

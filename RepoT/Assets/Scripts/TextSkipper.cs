@@ -5,13 +5,21 @@ using TMPro;
 
 public class TextSkipper : MonoBehaviour
 {
-    public bool prev, next;
+    //Per debugging senza oculus
+    public bool prev, next, repeat;
+
+    //Array di testi
     public TextMeshProUGUI[] textArray;
+
+    //Contatore
     public int cont;
-    // Start is called before the first frame update
+
+
     void Start()
     {
         cont = 0;
+
+        //Si fa partire il primo testo
         textArray[cont].gameObject.SetActive(true);
     }
 
@@ -28,6 +36,11 @@ public class TextSkipper : MonoBehaviour
             PrevText();
             prev = false;
         }
+        if (repeat)
+        {
+            RepeatPanel();
+            repeat = false;
+        }
     }
 
     public void NextText()
@@ -39,9 +52,11 @@ public class TextSkipper : MonoBehaviour
 
         //Controllo se sono arrivato alla fine dell'array e in tal caso azzero
         cont %=  textArray.Length;
+
+
         //Attivo il testo successivo
         textArray[cont].gameObject.SetActive(true);
-
+        //Attivo tutti i figli
         foreach (Transform tr in textArray[cont].transform)
         {
             tr.gameObject.SetActive(true);
@@ -53,7 +68,7 @@ public class TextSkipper : MonoBehaviour
     {
         //Disattivo il testo corrente
         textArray[cont].gameObject.SetActive(false);
-        //Aumento il contatore
+
         if(cont > 0)
         {
             cont--;
@@ -64,6 +79,10 @@ public class TextSkipper : MonoBehaviour
             Debug.Log("Questa cosa non dovrebbe succedere se stai usando l'Oculus");
         }
 
+        //Attivo il padre
+        textArray[cont].gameObject.SetActive(true);
+
+        //Attivo tutti i figli
         foreach (Transform tr in textArray[cont].transform)
         {
             tr.gameObject.SetActive(true);
@@ -71,7 +90,7 @@ public class TextSkipper : MonoBehaviour
 
     }
 
-    public void RepeatAudio()
+    public void RepeatPanel()
     {
         foreach (Transform tr in gameObject.transform)
         {

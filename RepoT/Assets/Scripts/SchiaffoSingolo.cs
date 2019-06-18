@@ -25,18 +25,22 @@ public class SchiaffoSingolo : MonoBehaviour
 
     IEnumerator Attacca()
     {
-        for(int i =0; i < 200; i++)
+        while(true)
         {
+            //Durata dell'animazione
             float length;
+
             yield return new WaitForSeconds(0.25f);
             gameObject.GetComponentInChildren<HandAtacck>().isAttacking = true;
             anim.SetBool("attack", true);
             length = anim.GetCurrentAnimatorClipInfo(0).Length;
-            //Debug.Log("length = " + length);
+
+            //Aspetta per la durata dell'attacco
             yield return new WaitForSeconds(length);
-            //arma.GetComponent<AxeScript>().isAttacking = false;
+
             gameObject.GetComponentInChildren<HandAtacck>().isAttacking = false;
             anim.SetBool("attack", false);
+
             yield return new WaitForSeconds(0.25f);
         }
     }
