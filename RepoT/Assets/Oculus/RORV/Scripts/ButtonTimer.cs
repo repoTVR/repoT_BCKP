@@ -134,6 +134,8 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         HidePanelExtra();
         HidePanelFor();
         HidePanelNumber();
+        HidePanelIf();
+        HidePanelIfAzioni();
     }
 
     public void ShowPanelFor()
@@ -274,11 +276,61 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
+    public void ShowTextIf()
+    {
+        foreach (Transform t in GameObject.FindGameObjectWithTag("TextIf").transform)
+        {
+            t.gameObject.GetComponent<TextMeshProUGUI>().enabled = true;
+        }
+    }
+
+    public void ShowTextIfAzioni()
+    {
+        foreach (Transform t in GameObject.FindGameObjectWithTag("TextIf2Lvl").transform)
+        {
+            t.gameObject.GetComponent<TextMeshProUGUI>().enabled = true;
+        }
+    }
+
     public void ShowPanelNumber()
     {
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("PanelNumeri"))
         {
             g.GetComponent<Image>().enabled = true;
+        }
+    }
+
+    public void ShowPanelIf()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("PanelIf"))
+        {
+            g.GetComponent<Image>().enabled = true;
+        }
+    }
+
+    public void ShowPanelIfAzioni()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("PanelIfAzioni"))
+        {
+            g.GetComponent<Image>().enabled = true;
+        }
+    }
+
+    public void HidePanelIfAzioni()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("PanelIfAzioni"))
+        {
+            g.GetComponent<Image>().enabled = false;
+        }
+    }
+
+
+
+    public void HidePanelIf()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("PanelIf"))
+        {
+            g.GetComponent<Image>().enabled = false;
         }
     }
 
@@ -344,10 +396,36 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         ShowTextFor2Livello();
     }
 
+    public void IfClicked()
+    {
+        HideAllPanel();
+        HideTextSecondoLivello();
+        HidePanelSecondoLivello();
+        HideTextPrimoLivello();
+
+        ShowPanelSecondoLivello(2);
+        ShowPanelIf();
+        ShowTextIf();  
+    }
+
+    public void IfActionClicked()
+    {
+        HideAllPanel();
+        HideTextSecondoLivello();
+        HidePanelSecondoLivello();
+        HideTextPrimoLivello();
+
+        ShowPanelSecondoLivello(1);
+        ShowPanelIfAzioni();
+        ShowTextIfAzioni();
+
+        gameObject.GetComponent<BoolArrayList>().GetBoolArrayList().Add(idAzione != 0);
+    }
+
     public void IfButtonClicked()
     {
         Movimento movimento = player.GetComponent<Movimento>();
-        HideImage();
+        //HideImage();
         //HidePanelPopUp();
         if (miniPanel.GetComponent<MiniPanelScript>().GetCont() < counterMaxAzioni)
         {
@@ -388,43 +466,43 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     //    DeactivateImageFor();
     //}
 
-    public void ShowPanelIfActions()
-    {
-        HideImage();
-        HidePanelCentrale();
-        GameObject.FindGameObjectWithTag("PanelSpeciali").transform.GetChild(idPanelIf).gameObject.SetActive(true);
-        gameObject.GetComponent<BoolArrayList>().GetBoolArrayList().Add(idAzione!=0);
-        Debug.Log("Ho aggiunto " + (idAzione != 0) + "alla lista");
+    //public void ShowPanelIfActions()
+    //{
+    //    //HideImage();
+    //    //HidePanelCentrale();
+    //    GameObject.FindGameObjectWithTag("PanelSpeciali").transform.GetChild(idPanelIf).gameObject.SetActive(true);
+    //    gameObject.GetComponent<BoolArrayList>().GetBoolArrayList().Add(idAzione!=0);
+    //    Debug.Log("Ho aggiunto " + (idAzione != 0) + "alla lista");
 
-        //GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<OperazioniFor>().SetIdAzione(GetIdAzioneByForPanel(idAzione));
-        DeactivateImageFor();
-    }
+    //    //GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<OperazioniFor>().SetIdAzione(GetIdAzioneByForPanel(idAzione));
+    //    DeactivateImageFor();
+    //}
 
     public void SelectNumTimesAction()
     {
         GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<OperazioniFor>().SetNumVolte(idAzione);
     }
 
-    public int GetIdAzioneByForPanel(int id)
-    {
-        int azione = id;
+    //public int GetIdAzioneByForPanel(int id)
+    //{
+    //    int azione = id;
 
-        switch(id)
-        {
-            case 0:
-                {
-                    azione = 4;
-                    break;
-                }
-            case 1:
-                {
-                    azione = 5;
-                    break;
-                }
-        }
+    //    switch(id)
+    //    {
+    //        case 0:
+    //            {
+    //                azione = 4;
+    //                break;
+    //            }
+    //        case 1:
+    //            {
+    //                azione = 5;
+    //                break;
+    //            }
+    //    }
 
-        return azione;
-    }
+    //    return azione;
+    //}
 
     
 
