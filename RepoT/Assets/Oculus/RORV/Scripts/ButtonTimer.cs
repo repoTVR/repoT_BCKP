@@ -133,6 +133,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         HidePanelAzioni();
         HidePanelExtra();
         HidePanelFor();
+        HidePanelNumber();
     }
 
     public void ShowPanelFor()
@@ -265,6 +266,30 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
+    public void ShowTextFor2Livello()
+    {
+        foreach (Transform t in GameObject.FindGameObjectWithTag("TextFor2Lvl").transform)
+        {
+            t.gameObject.GetComponent<TextMeshProUGUI>().enabled = true;
+        }
+    }
+
+    public void ShowPanelNumber()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("PanelNumeri"))
+        {
+            g.GetComponent<Image>().enabled = true;
+        }
+    }
+
+    public void HidePanelNumber()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("PanelNumeri"))
+        {
+            g.GetComponent<Image>().enabled = false;
+        }
+    }
+
     #endregion
 
     public void Play()
@@ -305,6 +330,20 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         ShowTextFor();
     }
 
+    public void ForActionClicked()
+    {
+        GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<OperazioniFor>().SetIdAzione(idAzione);
+
+        HideAllPanel();
+        HideTextSecondoLivello();
+        HidePanelSecondoLivello();
+        HideTextPrimoLivello();
+
+        ShowPanelSecondoLivello(4);
+        ShowPanelNumber();
+        ShowTextFor2Livello();
+    }
+
     public void IfButtonClicked()
     {
         Movimento movimento = player.GetComponent<Movimento>();
@@ -340,14 +379,14 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
-    public void ShowPanelNumber()
-    {
-        HideImage();
-        HidePanelCentrale();
-        GameObject.FindGameObjectWithTag("PanelSpeciali").transform.GetChild(idPanelNum).gameObject.SetActive(true);
-        GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<OperazioniFor>().SetIdAzione(GetIdAzioneByForPanel(idAzione));
-        DeactivateImageFor();
-    }
+    //public void ShowPanelNumber()
+    //{
+    //    HideImage();
+    //    HidePanelCentrale();
+    //    GameObject.FindGameObjectWithTag("PanelSpeciali").transform.GetChild(idPanelNum).gameObject.SetActive(true);
+    //    GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<OperazioniFor>().SetIdAzione(GetIdAzioneByForPanel(idAzione));
+    //    DeactivateImageFor();
+    //}
 
     public void ShowPanelIfActions()
     {
@@ -363,7 +402,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void SelectNumTimesAction()
     {
-        GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<OperazioniFor>().SetNumVolte(idAzione + 1);
+        GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<OperazioniFor>().SetNumVolte(idAzione);
     }
 
     public int GetIdAzioneByForPanel(int id)
