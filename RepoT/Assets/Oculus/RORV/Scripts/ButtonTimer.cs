@@ -105,6 +105,8 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         HideTextPrimoLivello();
 
         ShowPanelSecondoLivello(1);
+        ShowPanelAzioni();
+        ShowTextSecondoLivelloAzione();
     }
 
     public void CostruttiClicked()
@@ -115,6 +117,9 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         HideTextPrimoLivello();
 
         ShowPanelSecondoLivello(2);
+        ShowPanelExtra();
+        ShowTextSecondoLivelloExtra();
+
     }
 
     #endregion
@@ -124,8 +129,58 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void HideAllPanel()
     {
-        //aggiungere qua tutti gli hide dei 3 pannelli principali
         HidePanelMovimento();
+        HidePanelAzioni();
+        HidePanelExtra();
+        HidePanelFor();
+    }
+
+    public void ShowPanelFor()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("PanelFor"))
+        {
+            g.GetComponent<Image>().enabled = true;
+        }
+    }
+
+    public void HidePanelFor()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("PanelFor"))
+        {
+            g.GetComponent<Image>().enabled = false;
+        }
+    }
+
+    public void ShowPanelExtra()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("PanelExtra"))
+        {
+            g.GetComponent<Image>().enabled = true;
+        }
+    }
+
+    public void HidePanelExtra()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("PanelExtra"))
+        {
+            g.GetComponent<Image>().enabled = false;
+        }
+    }
+
+    public void ShowPanelAzioni()
+    {
+        foreach(GameObject g in GameObject.FindGameObjectsWithTag("PanelAzione"))
+        {
+            g.GetComponent<Image>().enabled = true;
+        }
+    }
+
+    public void HidePanelAzioni()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("PanelAzione"))
+        {
+            g.GetComponent<Image>().enabled = false;
+        }
     }
 
     public void ShowPanelMovimento()
@@ -169,9 +224,33 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
+    public void ShowTextFor()
+    {
+        foreach (Transform t in GameObject.FindGameObjectWithTag("TextFor").transform)
+        {
+            t.gameObject.GetComponent<TextMeshProUGUI>().enabled = true;
+        }
+    }
+
     public void ShowTextSecondoLivelloMovimento()
     {
         foreach(Transform t in GameObject.FindGameObjectWithTag("TextMovimento").transform)
+        {
+            t.gameObject.GetComponent<TextMeshProUGUI>().enabled = true;
+        }
+    }
+
+    public void ShowTextSecondoLivelloExtra()
+    {
+        foreach (Transform t in GameObject.FindGameObjectWithTag("TextExtra").transform)
+        {
+            t.gameObject.GetComponent<TextMeshProUGUI>().enabled = true;
+        }
+    }
+
+    public void ShowTextSecondoLivelloAzione()
+    {
+        foreach (Transform t in GameObject.FindGameObjectWithTag("TextAzione").transform)
         {
             t.gameObject.GetComponent<TextMeshProUGUI>().enabled = true;
         }
@@ -190,9 +269,9 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void Play()
     {
-        ActivateImageFor();
-        HideImage();
-        HidePanelPopUp();
+        //ActivateImageFor();
+        //HideImage();
+        //HidePanelPopUp();
         if (player.GetComponent<Movimento>().azioniList.Count > 0)
         {
             player.GetComponent<Movimento>().play = true;
@@ -212,6 +291,18 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             Debug.Log("N Max");
         }
         
+    }
+
+    public void ForClicked()
+    {
+        HideAllPanel();
+        HideTextSecondoLivello();
+        HidePanelSecondoLivello();
+        HideTextPrimoLivello();
+
+        ShowPanelSecondoLivello(1);
+        ShowPanelFor();
+        ShowTextFor();
     }
 
     public void IfButtonClicked()
@@ -301,7 +392,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void SpecialiClicked()
     {
-        ActivateImageFor();
+        //ActivateImageFor();
         ShowPanelPopUp(idAzione);
         ShowImage();
         
