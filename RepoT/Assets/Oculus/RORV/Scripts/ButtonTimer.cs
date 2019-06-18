@@ -342,6 +342,24 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
+    public void HideMenu()
+    {
+        foreach(GameObject g in GameObject.FindGameObjectsWithTag("HideMenu"))
+        {
+            g.GetComponent<Image>().enabled = false;
+        }
+
+        HideTextPrimoLivello();
+        HideAllPanel();
+        HideTextSecondoLivello();
+        HidePanelSecondoLivello();
+
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("CanvasPrimo"))
+        {
+            g.GetComponent<Canvas>().enabled = false;
+        }
+    }
+
     #endregion
 
     public void Play()

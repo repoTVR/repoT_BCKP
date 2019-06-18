@@ -22,7 +22,7 @@ public class ColorChangerLvl : MonoBehaviour
     void Start()
     {
         play = true;
-        lvlChanger = GameObject.FindGameObjectWithTag("LvlChanger");
+        //lvlChanger = GameObject.FindGameObjectWithTag("LvlChanger");
         //indexLivello = SceneManager.GetActiveScene().buildIndex;
         cubi = new ArrayList();
         cubi = GetComponent<Percorso>().getCuboMaggId(cuboPartenza);
