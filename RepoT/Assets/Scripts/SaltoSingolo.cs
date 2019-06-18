@@ -61,8 +61,9 @@ public class SaltoSingolo : MonoBehaviour
 
     private IEnumerator WaitBeforeNextAction()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         ResetPosizione();
+
     }
 
     private void ResetPosizione()

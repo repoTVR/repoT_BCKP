@@ -29,9 +29,8 @@ public class CamminataSingola : MonoBehaviour
     {
         if (!isDestinazioneRaggiunta)
         {
-            movimento = transform.forward * speed;
             anim.SetBool("run", true);
-            characterController.Move(movimento * Time.deltaTime);
+            movimento = transform.forward * speed;
         }
         else
         {
@@ -39,6 +38,7 @@ public class CamminataSingola : MonoBehaviour
             movimento = Vector3.zero;
             StartCoroutine("WaitBeforeNextAction");
         }
+        characterController.Move(movimento * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -54,7 +54,6 @@ public class CamminataSingola : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         ResetPosizione();
-        yield return new WaitForSeconds(0.5f);
         isDestinazioneRaggiunta = false;
     }
 
