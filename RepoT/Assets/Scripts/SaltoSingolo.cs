@@ -73,4 +73,10 @@ public class SaltoSingolo : MonoBehaviour
         gameObject.transform.position = posPartenza;
     }
 
+    //Se l'oggetto viene disattivato resetto la posizione così riparte dall'inizio
+    private void OnDisable()
+    {
+        ResetPosizione();
+    }
+
 }

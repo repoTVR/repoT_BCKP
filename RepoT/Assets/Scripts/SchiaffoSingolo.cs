@@ -7,6 +7,7 @@ public class SchiaffoSingolo : MonoBehaviour
     public bool play = true;
     private Animator anim;
     // Start is called before the first frame update
+
     void Start()
     {
         play = true;
@@ -43,5 +44,18 @@ public class SchiaffoSingolo : MonoBehaviour
 
             yield return new WaitForSeconds(0.25f);
         }
+    }
+
+
+    //Quando l'oggetto viene disabilitato stoppo la coroutine
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    //Quando l'oggetto viene riabilitato do il play
+    private void OnEnable()
+    {
+        play = true;
     }
 }

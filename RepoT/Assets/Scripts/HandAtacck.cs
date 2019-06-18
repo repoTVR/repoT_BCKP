@@ -10,7 +10,6 @@ public class HandAtacck : MonoBehaviour
     private Vector3 startSize;
     public float tempoPassato = 0f;
     public float tempoTotale;
-    public float tempoPassato2;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,5 +55,11 @@ public class HandAtacck : MonoBehaviour
                 other.GetComponent<HealthScript>().StartCoroutine("loseHealth");
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        transform.localScale = startSize;
+        tempoPassato = 0f;
     }
 }

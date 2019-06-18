@@ -76,7 +76,6 @@ public class TextSkipper : MonoBehaviour
         else
         {
             cont = textArray.Length - 1;
-            Debug.Log("Questa cosa non dovrebbe succedere se stai usando l'Oculus");
         }
 
         //Attivo il padre
