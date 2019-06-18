@@ -8,7 +8,7 @@ public class HandAtacck : MonoBehaviour
     public bool isAttacking;
     private Vector3 finalSize;
     private Vector3 startSize;
-    public float tempoPassato;
+    public float tempoPassato = 0f;
     public float tempoTotale;
     public float tempoPassato2;
     // Start is called before the first frame update
