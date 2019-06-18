@@ -59,4 +59,10 @@ public class RotazioneSingola : MonoBehaviour
     {
         gameObject.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
     }
+
+    //Se l'oggetto viene disattivato resetto la posizione così riparte dall'inizio
+    private void OnDisable()
+    {
+        ResetPosizione();
+    }
 }

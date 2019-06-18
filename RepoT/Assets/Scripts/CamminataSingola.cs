@@ -61,4 +61,11 @@ public class CamminataSingola : MonoBehaviour
         gameObject.transform.position = posPartenza;
         isDestinazioneRaggiunta = false;
     }
+
+
+    //Se l'oggetto viene disattivato resetto la posizione così riparte dall'inizio
+    private void OnDisable()
+    {
+        ResetPosizione();
+    }
 }
