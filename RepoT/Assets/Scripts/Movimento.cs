@@ -175,7 +175,7 @@ public class Movimento : MonoBehaviour
 
             CambiaAzione();
             play = false;
-            GameObject.FindGameObjectWithTag("PanelScelta").SetActive(false);
+            //GameObject.FindGameObjectWithTag("PanelScelta").SetActive(false);
         }
 
         //Controllo atterraggio
@@ -487,7 +487,7 @@ public class Movimento : MonoBehaviour
 
         foreach (Transform tr in menu.transform)
         {
-            tr.gameObject.SetActive(tr.gameObject.tag.Equals("PanelMorte") || tr.gameObject.tag.Equals("PanelMenu"));
+            //tr.gameObject.SetActive(tr.gameObject.tag.Equals("PanelMorte") || tr.gameObject.tag.Equals("PanelMenu"));
         }
 
         if (riavviaLvl)

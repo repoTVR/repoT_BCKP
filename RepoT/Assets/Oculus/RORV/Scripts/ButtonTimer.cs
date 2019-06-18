@@ -595,9 +595,9 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void DelLastClicked()
     {
-        ActivateImageFor();
-        HideImage();
-        HidePanelPopUp();
+        //ActivateImageFor();
+        //HideImage();
+        //HidePanelPopUp();
         if (player.GetComponent<Movimento>().azioniList.Count > 0)
         {
             player.GetComponent<Movimento>().EliminaUltimaAzione();
@@ -608,9 +608,9 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void DelTutto()
     {
-        ActivateImageFor();
-        HideImage();
-        HidePanelPopUp();
+        //ActivateImageFor();
+        //HideImage();
+        //HidePanelPopUp();
         if (player.GetComponent<Movimento>().azioniList.Count > 0)
         {
             player.GetComponent<Movimento>().EliminaTutteLeAzioni();
