@@ -117,8 +117,8 @@ public class Movimento : MonoBehaviour
         //azioniLvl2.Add(3);
 
         //azioniLvl1.Add(3);
-        azioniLvl1.Add(0);
-        azioniLvl1.Add(3);
+        //azioniLvl1.Add(0);
+        //azioniLvl1.Add(3);
         //azioniLvl1.Add(2);
         //azioniLvl1.Add(4);
         //azioniLvl1.Add(4);
@@ -132,7 +132,7 @@ public class Movimento : MonoBehaviour
         //azioniLvl1.Add(0);
         //azioniLvl1.Add(1);
         //azioniLvl1.Add(0);
-        azioniLvl1.Add(3);
+        //azioniLvl1.Add(3);
 
         #endregion
 
@@ -165,7 +165,7 @@ public class Movimento : MonoBehaviour
         {
             //if (lvl == 1)
             //{
-                azioniList = (ArrayList)azioniLvl1.Clone();
+                //azioniList = (ArrayList)azioniLvl1.Clone();
             //}
             //if (lvl == 2)
             //{
@@ -175,7 +175,11 @@ public class Movimento : MonoBehaviour
 
             CambiaAzione();
             play = false;
-            //GameObject.FindGameObjectWithTag("PanelScelta").SetActive(false);
+
+            
+
+            GameObject.FindGameObjectWithTag("ButtonT").GetComponent<ButtonTimer>().HideMenu();
+
         }
 
         //Controllo atterraggio
@@ -480,15 +484,13 @@ public class Movimento : MonoBehaviour
 
     public void Morte()
     {
-        GameObject menu = GameObject.FindGameObjectWithTag("Menu");
         movimento = Vector3.zero;
         anim.CrossFade("Morte", 0.1f);
 
+        GameObject.FindGameObjectWithTag("ButtonT").GetComponent<ButtonTimer>().HideMenu();
 
-        foreach (Transform tr in menu.transform)
-        {
-            //tr.gameObject.SetActive(tr.gameObject.tag.Equals("PanelMorte") || tr.gameObject.tag.Equals("PanelMenu"));
-        }
+        GameObject.FindGameObjectWithTag("PanelMorte").GetComponent<Canvas>().enabled = true;
+
 
         if (riavviaLvl)
         {
@@ -523,11 +525,10 @@ public class Movimento : MonoBehaviour
         Instantiate(partVittoria, light.position, Quaternion.Euler(-90f, 0f, 0f));
         anim.CrossFade("Vittoria", .1f);
 
-        GameObject menu = GameObject.FindGameObjectWithTag("Menu");
-        foreach (Transform tr in menu.transform)
-        {
-            tr.gameObject.SetActive(tr.CompareTag("PanelVittoria") || tr.gameObject.tag.Equals("PanelMenu") || tr.gameObject.tag.Equals("PanelEsecuzione"));
-        }
+        GameObject.FindGameObjectWithTag("ButtonT").GetComponent<ButtonTimer>().HideMenu();
+        GameObject.FindGameObjectWithTag("CVittoria").GetComponent<Canvas>().enabled = true;
+
+
         GameObject panelVittoria = GameObject.FindGameObjectWithTag("PanelVittoria");
         //Dimensioni dell'immagine della vittoria
         RectTransform imgTransform = panelVittoria.GetComponentInChildren<Image>().rectTransform;

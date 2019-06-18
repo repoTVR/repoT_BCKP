@@ -25,6 +25,7 @@ public class OperazioniFor : MonoBehaviour
     public void SetIdAzione(int id)
     {
         idAzione = id;
+        Debug.Log("ID SetIdAzione" + id);
     }
 
     public int GetIdAzione()
