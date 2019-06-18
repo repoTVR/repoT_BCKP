@@ -31,12 +31,14 @@ public class HealthScript : MonoBehaviour
     
     public IEnumerator loseHealth()
     {
+        float length;
 
         if (!piume.isPlaying)
         {
             piume.Play();
         }
-        float length;
+
+        //La gallina del tutorial non perde vite
         if (!tutorial)
         {
             imgTransform.sizeDelta = new Vector2(imgTransform.sizeDelta.x - dim, imgTransform.sizeDelta.y);
@@ -52,12 +54,15 @@ public class HealthScript : MonoBehaviour
 
             vite--;
         }
+
+        //Altrimenti fai partire comunque l'animazione
         else
         {
             anim.SetBool("hit", true);
         }
+
+
         length = anim.GetCurrentAnimatorClipInfo(0).Length;
-        //Debug.Log("length = " + length);
 
         yield return new WaitForSeconds(length);
         anim.SetBool("hit", false);

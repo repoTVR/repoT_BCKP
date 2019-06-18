@@ -17,22 +17,32 @@ public class HandAtacck : MonoBehaviour
         startSize = transform.localScale;
         finalSize = new Vector3(startSize.x + 3f, startSize.y + 3f, startSize.z + 3f);
         tempoTotale = 0.5f;
+        tempoPassato = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Tempo passato = " + tempoPassato);
         if (isAttacking)
         {
-            tempoPassato2 = 0f;
+
+            //Lerpo dalla grandezza iniziale alla grandezza finale
             transform.localScale = Vector3.Lerp(startSize, finalSize, tempoPassato / tempoTotale);
             tempoPassato += Time.deltaTime;
+            if(tempoPassato > 0.5f)
+            {
+                tempoPassato = 0.5f;
+            }
         }
         else
         {
-            tempoPassato = 0f;
-            transform.localScale = Vector3.Lerp(transform.localScale, startSize, tempoPassato2 / tempoTotale);
-            tempoPassato2 += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(startSize, finalSize, tempoPassato / tempoTotale);
+            tempoPassato -= Time.deltaTime;
+            if (tempoPassato < 0f)
+            {
+                tempoPassato = 0f;
+            }
         }
     }
 
