@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SchiaffoSingolo : MonoBehaviour
 {
-    public bool play;
+    public bool play = true;
     private Animator anim;
     // Start is called before the first frame update
     void Start()
