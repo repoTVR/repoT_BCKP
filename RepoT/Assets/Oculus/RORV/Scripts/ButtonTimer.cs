@@ -360,6 +360,48 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
+    public void HidePanelEsecuzione()
+    {
+        GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<Image>().enabled = false;
+    }
+
+    public void ShowPanelEsecuzione()
+    {
+        GameObject.FindGameObjectWithTag("PanelEsecuzione").GetComponent<Image>().enabled = true;
+    }
+
+    public void HideOptionPanel()
+    {
+        foreach(GameObject g in GameObject.FindGameObjectsWithTag("PanelSpeciali"))
+        {
+            g.GetComponent<Canvas>().enabled = false;
+        }
+    }
+
+    public void ShowOptionPanel()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("PanelSpeciali"))
+        {
+            g.GetComponent<Canvas>().enabled = true;
+        }
+    }
+
+    public void ShowTutorial()
+    {
+        foreach(GameObject g in GameObject.FindGameObjectsWithTag("PanelTutorial"))
+        {
+            g.GetComponent<Canvas>().enabled = true;
+        }
+    }
+
+    public void HideTutorial()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("PanelTutorial"))
+        {
+            g.GetComponent<Canvas>().enabled = false;
+        }
+    }
+
     #endregion
 
     public void Play()
@@ -455,6 +497,23 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
             
         
+    }
+
+    public void TutorialClicked()
+    {
+        HideAllPanel();
+        HidePanelEsecuzione();
+        HideOptionPanel();
+
+        ShowTutorial();
+    }
+
+    public void ExitTutorialClicked()
+    {
+        ShowPanelEsecuzione();
+        ShowOptionPanel();
+
+        HideTutorial();
     }
 
     public void ActivateImageFor()
