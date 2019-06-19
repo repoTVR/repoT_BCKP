@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class OnClickAttack : MonoBehaviour
 {
-
+    //Bool debugging senza oculus
+    public bool nextScene;
     private GameObject lvlChanger;
     // Start is called before the first frame update
     void Start()
@@ -15,7 +16,11 @@ public class OnClickAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (nextScene)
+        {
+            Call();
+            nextScene = false;
+        }
     }
 
     public void Call()
