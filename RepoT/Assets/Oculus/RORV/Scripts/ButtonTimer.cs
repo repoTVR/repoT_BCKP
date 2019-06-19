@@ -213,9 +213,14 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void ShowPanelSecondoLivello(int n)
     {
         GameObject[] g = GameObject.FindGameObjectsWithTag("PanelSecondo");
+        int count = g.Length;
         for(int i = 0; i<n; i++)
         {
-            g[i].transform.GetChild(0).gameObject.GetComponent<Image>().enabled = true;
+            if(i<count)
+            {
+                g[i].transform.GetChild(0).gameObject.GetComponent<Image>().enabled = true;
+            }
+            
         }
     }
 
@@ -504,6 +509,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         HideAllPanel();
         HidePanelEsecuzione();
         HideOptionPanel();
+        HideTextSecondoLivello();
 
         ShowTutorial();
     }
