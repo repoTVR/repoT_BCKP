@@ -60,6 +60,7 @@ public class Movimento : MonoBehaviour
     private GameObject ultimoCubo;
     private GameObject arma;
     private GameObject posDestinazione; //transform posizione cubo successivo (aggiornamento)
+    private GameObject posDestinazioneJump;
 
     private Transform posAttuale; //transform posizione attuale (aggiornamento)
 
@@ -161,7 +162,9 @@ public class Movimento : MonoBehaviour
         posAttuale = transform;
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
         posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);
-       
+        posDestinazioneJump = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 2);
+
+
 
     }
 
@@ -223,6 +226,30 @@ public class Movimento : MonoBehaviour
                 //Debug.Log("Sono arrivato");
                 lvlController.GetComponent<Percorso>().IncrementIndexPercorso();
                 ResetMovimento();
+            }
+        }else
+        {
+            if(IsDestinazioneRaggiuntaPostSalto())
+            {
+                anim.SetBool("run", false);
+                //if (lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale).name.Equals(ultimoCubo.name))
+                if (arrivato)
+                {
+                    if (uno)
+                    {
+                        movimento = Vector3.zero;
+                        Vittoria();
+                        uno = false;
+
+                    }
+                }
+                else
+                {
+                    //Debug.Log("Sono arrivato");
+                    lvlController.GetComponent<Percorso>().IncrementIndexPercorso();
+                    lvlController.GetComponent<Percorso>().IncrementIndexPercorso();
+                    ResetMovimento();
+                }
             }
         }
 
@@ -288,7 +315,7 @@ public class Movimento : MonoBehaviour
         posAttuale = transform;
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
         posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);
-        
+        posDestinazioneJump = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 2);
 
         if (indexAzione < azioniList.Count)
         {
@@ -325,6 +352,20 @@ public class Movimento : MonoBehaviour
                     {
                         setIsFor(true);
                         StartCoroutine("Attacca");
+                        break;
+                    }
+
+                    case 63:
+                    {
+                        setIsFor(true);
+                        Salta();
+                        break;
+                    }
+
+                    case 60:
+                    {
+                        setIsFor(true);
+                        Cammina();
                         break;
                     }
 
@@ -451,6 +492,23 @@ public class Movimento : MonoBehaviour
             return true;
         }
         
+    }
+
+    private bool IsDestinazioneRaggiuntaPostSalto()
+    {
+        if (posDestinazioneJump != null)
+        {
+            float x = posDestinazioneJump.transform.position.x - transform.position.x;
+            float z = posDestinazioneJump.transform.position.z - transform.position.z;
+            float y = posDestinazioneJump.transform.position.y - transform.position.y;
+
+            return Mathf.Abs(x + z) < .05f && Mathf.Abs(y) < .25f;
+        }
+        else
+        {
+            return true;
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)

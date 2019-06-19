@@ -442,7 +442,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         HidePanelSecondoLivello();
         HideTextPrimoLivello();
 
-        ShowPanelSecondoLivello(1);
+        ShowPanelSecondoLivello(3);
         ShowPanelFor();
         ShowTextFor();
     }
