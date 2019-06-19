@@ -116,21 +116,29 @@ public class Movimento : MonoBehaviour
         //azioniLvl2.Add(0);
         //azioniLvl2.Add(3);
 
-        //azioniLvl1.Add(3);
         //azioniLvl1.Add(0);
         //azioniLvl1.Add(3);
-        //azioniLvl1.Add(2);
         //azioniLvl1.Add(4);
         //azioniLvl1.Add(4);
         //azioniLvl1.Add(4);
         //azioniLvl1.Add(4);
         //azioniLvl1.Add(4);
         //azioniLvl1.Add(4);
-        //azioniLvl1.Add(0);
-        //azioniLvl1.Add(3);
-        //azioniLvl1.Add(2);
-        //azioniLvl1.Add(0);
-        //azioniLvl1.Add(1);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(4);
+        //azioniLvl1.Add(5);
         //azioniLvl1.Add(0);
         //azioniLvl1.Add(3);
 
@@ -412,6 +420,7 @@ public class Movimento : MonoBehaviour
     {
         float length;
         yield return new WaitForSeconds(0.25f);
+
         gameObject.GetComponentInChildren<HandAtacck>().isAttacking = true;
         anim.SetBool("attack", true);
         length = anim.GetCurrentAnimatorClipInfo(0).Length;

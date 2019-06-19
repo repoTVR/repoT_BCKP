@@ -1,18 +1,16 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ColorChangerLvl : MonoBehaviour
 {
     //Bool per decidere quando far partire/fermare la funzione
     public bool play;
-    //Parametro per decidere da che cubo iniziare a colorare, eventualmente da prendere in base al livello
+
+
+    //Parametro per decidere da che cubo iniziare a colorare
     public int cuboPartenza = 3;
     ArrayList cubi;
-    GameObject lvlChanger;
-    int indexLivello;
-    private Color[] colorArray = new Color[4] { Color.green, Color.red, Color.yellow, Color.cyan }; //Array di colori per i cubi
+    private readonly Color[] colorArray = new Color[6] { Color.green, Color.red, Color.yellow, Color.cyan, Color.blue, Color.magenta }; //Array di colori per i cubi
 
     //Gestione del tempo per la chiamata della funzione per cambio colore cubi
     float nextTime;
@@ -22,8 +20,6 @@ public class ColorChangerLvl : MonoBehaviour
     void Start()
     {
         play = true;
-        //lvlChanger = GameObject.FindGameObjectWithTag("LvlChanger");
-        //indexLivello = SceneManager.GetActiveScene().buildIndex;
         cubi = new ArrayList();
         cubi = GetComponent<Percorso>().getCuboMaggId(cuboPartenza);
 

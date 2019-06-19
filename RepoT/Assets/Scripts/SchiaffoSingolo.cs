@@ -31,9 +31,12 @@ public class SchiaffoSingolo : MonoBehaviour
             //Durata dell'animazione
             float length;
 
+            //Attesa 0.25f per problema atterraggio character
             yield return new WaitForSeconds(0.25f);
             gameObject.GetComponentInChildren<HandAtacck>().isAttacking = true;
             anim.SetBool("attack", true);
+
+            //Durata clip in play
             length = anim.GetCurrentAnimatorClipInfo(0).Length;
 
             //Aspetta per la durata dell'attacco

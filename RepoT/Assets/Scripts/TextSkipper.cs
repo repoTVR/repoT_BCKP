@@ -75,6 +75,7 @@ public class TextSkipper : MonoBehaviour
         }
         else
         {
+            //Se sono arrivato al primo riparto dall'ultimo
             cont = textArray.Length - 1;
         }
 
@@ -89,6 +90,7 @@ public class TextSkipper : MonoBehaviour
 
     }
 
+    //Ripeti audio
     public void RepeatPanel()
     {
         foreach (Transform tr in gameObject.transform)
