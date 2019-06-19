@@ -184,9 +184,13 @@ public class Movimento : MonoBehaviour
             CambiaAzione();
             play = false;
 
-            
 
-            GameObject.FindGameObjectWithTag("ButtonT").GetComponent<ButtonTimer>().HideMenu();
+
+            if (GameObject.FindGameObjectWithTag("ButtonT") != null)
+            {
+                Debug.Log("Nome " + GameObject.FindGameObjectWithTag("ButtonT"));
+                GameObject.FindGameObjectWithTag("ButtonT").GetComponent<ButtonTimer>().HideMenu();
+            }
 
         }
 
@@ -534,7 +538,11 @@ public class Movimento : MonoBehaviour
         Instantiate(partVittoria, light.position, Quaternion.Euler(-90f, 0f, 0f));
         anim.CrossFade("Vittoria", .1f);
 
-        GameObject.FindGameObjectWithTag("ButtonT").GetComponent<ButtonTimer>().HideMenu();
+        if(GameObject.FindGameObjectWithTag("ButtonT") != null)
+        {
+            GameObject.FindGameObjectWithTag("ButtonT").GetComponent<ButtonTimer>().HideMenu();
+        }
+        
         GameObject.FindGameObjectWithTag("CVittoria").GetComponent<Canvas>().enabled = true;
 
 
