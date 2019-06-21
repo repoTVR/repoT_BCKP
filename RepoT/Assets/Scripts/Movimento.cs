@@ -83,6 +83,9 @@ public class Movimento : MonoBehaviour
     private int indexAzione; //index dell'array azioni[]
 
     private ArrayList indexFor;
+
+    //Prova per fix salto
+    private bool isJumping;
     #endregion
 
     // Start is called before the first frame update
@@ -229,9 +232,10 @@ public class Movimento : MonoBehaviour
             }
         }else
         {
-            if(IsDestinazioneRaggiuntaPostSalto())
+            if(IsDestinazioneRaggiuntaPostSalto() && isJumping)
             {
                 anim.SetBool("run", false);
+                isJumping = false;
                 //if (lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale).name.Equals(ultimoCubo.name))
                 if (arrivato)
                 {
@@ -316,6 +320,7 @@ public class Movimento : MonoBehaviour
         idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
         posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);
         posDestinazioneJump = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 2);
+        Debug.Log("Pos destinazione jump = " + posDestinazioneJump);
 
         if (indexAzione < azioniList.Count)
         {
@@ -406,6 +411,7 @@ public class Movimento : MonoBehaviour
 
     void Salta()
     {
+        isJumping = true;
         JumpToTarget(posDestinazione.transform.position);
     }
 
@@ -506,7 +512,7 @@ public class Movimento : MonoBehaviour
         }
         else
         {
-            return true;
+            return false;
         }
 
     }
@@ -555,19 +561,30 @@ public class Movimento : MonoBehaviour
 
     public void Morte()
     {
+        //Fermo il movimento del player
         movimento = Vector3.zero;
+
+        //Animazione della morte
         anim.CrossFade("Morte", 0.1f);
+
+        //Pannello per il gameover
+        GameObject panelMorte = GameObject.FindGameObjectWithTag("PanelMorte");
 
         GameObject.FindGameObjectWithTag("ButtonT").GetComponent<ButtonTimer>().HideMenu();
 
-        GameObject.FindGameObjectWithTag("PanelMorte").GetComponent<Canvas>().enabled = true;
+        //Attivo il canvas
+        panelMorte.GetComponent<Canvas>().enabled = true;
 
 
-        if (riavviaLvl)
-        {
-            lvlChanger.GetComponent<SceneSetup>().Riavvia();
-            riavviaLvl = false;
-        }
+        //Faccio partire la musichetta
+        panelMorte.GetComponent<AudioSource>().Play();
+
+
+        //if (riavviaLvl)
+        //{
+        //    lvlChanger.GetComponent<SceneSetup>().Riavvia();
+        //    riavviaLvl = false;
+        //}
     }
 
     public bool getCaduto()

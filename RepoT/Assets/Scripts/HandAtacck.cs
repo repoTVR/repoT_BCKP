@@ -35,7 +35,7 @@ public class HandAtacck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Is attacking + " + isAttacking);
+        //Debug.Log("Is attacking + " + isAttacking);
         if (isAttacking)
         {
 
