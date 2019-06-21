@@ -10,7 +10,7 @@ public class ColorChangerLvl : MonoBehaviour
     //Parametro per decidere da che cubo iniziare a colorare
     public int cuboPartenza = 3;
     ArrayList cubi;
-    private readonly Color[] colorArray = new Color[6] { Color.green, Color.red, Color.yellow, Color.cyan, Color.blue, Color.magenta }; //Array di colori per i cubi
+    private readonly Color[] colorArray = new Color[] { Color.green, Color.red, Color.yellow, Color.blue, Color.magenta }; //Array di colori per i cubi
 
     //Gestione del tempo per la chiamata della funzione per cambio colore cubi
     float nextTime;

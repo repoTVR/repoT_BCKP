@@ -508,7 +508,7 @@ public class Movimento : MonoBehaviour
             float z = posDestinazioneJump.transform.position.z - transform.position.z;
             float y = posDestinazioneJump.transform.position.y - transform.position.y;
 
-            return Mathf.Abs(x + z) < .05f && Mathf.Abs(y) < .25f;
+            return Mathf.Abs(x + z) < .05f && Mathf.Abs(y) < .2f;
         }
         else
         {
