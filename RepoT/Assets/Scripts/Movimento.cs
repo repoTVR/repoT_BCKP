@@ -13,7 +13,7 @@ public class Movimento : MonoBehaviour
     [SerializeField] private float jumpForce; //forza di salto
 
     public GameObject miniPanel; //Pannello esecuzione comandi
-    
+
     public GameObject partVittoria;
 
     public ArrayList azioniList;
@@ -174,12 +174,12 @@ public class Movimento : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Inizio movimento 
+        //Inizio movimento
         if (play)
         {
             //if (lvl == 1)
             //{
-                //azioniList = (ArrayList)azioniLvl1.Clone();
+            //azioniList = (ArrayList)azioniLvl1.Clone();
             //}
             //if (lvl == 2)
             //{
@@ -201,7 +201,7 @@ public class Movimento : MonoBehaviour
         }
 
         //Controllo atterraggio
-        if(characterController.isGrounded)
+        if (characterController.isGrounded)
         {
             anim.SetBool("is_in_air", false);
         }
@@ -211,17 +211,17 @@ public class Movimento : MonoBehaviour
         if (IsDestinazioneRaggiunta())
         {
 
-            
+
             anim.SetBool("run", false);
             //if (lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale).name.Equals(ultimoCubo.name))
-            if(arrivato)
+            if (arrivato)
             {
                 if (uno)
                 {
                     movimento = Vector3.zero;
                     Vittoria();
                     uno = false;
-               
+
                 }
             }
             else
@@ -230,9 +230,10 @@ public class Movimento : MonoBehaviour
                 lvlController.GetComponent<Percorso>().IncrementIndexPercorso();
                 ResetMovimento();
             }
-        }else
+        }
+        else
         {
-            if(IsDestinazioneRaggiuntaPostSalto() && isJumping)
+            if (IsDestinazioneRaggiuntaPostSalto() && isJumping)
             {
                 anim.SetBool("run", false);
                 isJumping = false;
@@ -272,7 +273,7 @@ public class Movimento : MonoBehaviour
         {
             inPosizione = true;
             ResetMovimento();
-            
+
         }
 
     }
@@ -285,7 +286,7 @@ public class Movimento : MonoBehaviour
 
     //Fine azione, switch nuova azione
     public void ResetMovimento()
-    { 
+    {
         movimento = Vector3.zero;
         indexAzione++;
         CambiaAzione();
@@ -300,9 +301,9 @@ public class Movimento : MonoBehaviour
 
     public void ForActionCalled(int n)
     {
-        int c = azioniList.Count-1;
+        int c = azioniList.Count - 1;
 
-        for(int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
         {
             indexFor.Add(c + i);
         }
@@ -360,14 +361,14 @@ public class Movimento : MonoBehaviour
                         break;
                     }
 
-                    case 63:
+                case 63:
                     {
                         setIsFor(true);
                         Salta();
                         break;
                     }
 
-                    case 60:
+                case 60:
                     {
                         setIsFor(true);
                         Cammina();
@@ -382,17 +383,19 @@ public class Movimento : MonoBehaviour
                         break;
                     }
             }
-        }else
+        }
+        else
         {
             movimento = Vector3.zero;
         }
 
-        if(isFor)
+        if (isFor)
         {
             miniPanel.GetComponent<MiniPanelScript>().SelectFor();
-        }else
+        }
+        else
         {
-            if(wasFor)
+            if (wasFor)
             {
                 miniPanel.GetComponent<MiniPanelScript>().RefreshIndexButtonAfterFor();
                 miniPanel.GetComponent<MiniPanelScript>().ClearAfterFor();
@@ -435,7 +438,7 @@ public class Movimento : MonoBehaviour
         inPosizione = false;
         oldRotation = transform.localEulerAngles.y;
         targetRot = oldRotation - 90f;
-        if(targetRot < 0)
+        if (targetRot < 0)
         {
             targetRot += 360f;
         }
@@ -447,7 +450,7 @@ public class Movimento : MonoBehaviour
     {
         distanzaCubi = target - transform.position;
 
-        if(!IsDestinazioneRaggiunta())
+        if (!IsDestinazioneRaggiunta())
         {
             anim.SetBool("run", true);
             movimento = transform.forward * speed;
@@ -465,7 +468,7 @@ public class Movimento : MonoBehaviour
             movimento.y = jumpForce;
         }
     }
-    
+
 
     IEnumerator Attacca()
     {
@@ -486,18 +489,19 @@ public class Movimento : MonoBehaviour
 
     private bool IsDestinazioneRaggiunta()
     {
-        if(posDestinazione != null)
+        if (posDestinazione != null)
         {
             float x = posDestinazione.transform.position.x - transform.position.x;
             float z = posDestinazione.transform.position.z - transform.position.z;
             float y = posDestinazione.transform.position.y - transform.position.y;
 
             return Mathf.Abs(x + z) < .05f && Mathf.Abs(y) < .25f;
-        }else
+        }
+        else
         {
             return true;
         }
-        
+
     }
 
     private bool IsDestinazioneRaggiuntaPostSalto()
@@ -520,7 +524,7 @@ public class Movimento : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        if(collision.gameObject.tag.Equals("Terrain"))
+        if (collision.gameObject.tag.Equals("Terrain"))
         {
             caduto = true;
             Morte();
@@ -548,8 +552,8 @@ public class Movimento : MonoBehaviour
 
             //Se sono arrivato al cubo immediatamente prima di quello da cui parte il cambio colore cambio bool per bloccare funzione
 
-            ColorChangerLvl  colorChangerLvl = lvlController.GetComponent<ColorChangerLvl>();
-            if ((idCubo+1) == colorChangerLvl.cuboPartenza)
+            ColorChangerLvl colorChangerLvl = lvlController.GetComponent<ColorChangerLvl>();
+            if ((idCubo + 1) == colorChangerLvl.cuboPartenza)
             {
                 Debug.Log("Bloccato il cambio colore");
                 colorChangerLvl.play = false;
@@ -613,11 +617,11 @@ public class Movimento : MonoBehaviour
         Instantiate(partVittoria, light.position, Quaternion.Euler(-90f, 0f, 0f));
         anim.CrossFade("Vittoria", .1f);
 
-        if(GameObject.FindGameObjectWithTag("ButtonT") != null)
+        if (GameObject.FindGameObjectWithTag("ButtonT") != null)
         {
             GameObject.FindGameObjectWithTag("ButtonT").GetComponent<ButtonTimer>().HideMenu();
         }
-        
+
         GameObject.FindGameObjectWithTag("CVittoria").GetComponent<Canvas>().enabled = true;
 
 
@@ -634,12 +638,12 @@ public class Movimento : MonoBehaviour
         //Debug.Log("Num stelle ottenute = " + numStelle);
         imgTransform.sizeDelta = new Vector2(imgTransform.sizeDelta.x * numStelle, imgTransform.sizeDelta.y);
 
-        if(GameObject.FindGameObjectWithTag("Fuochi") != null)
+        if (GameObject.FindGameObjectWithTag("Fuochi") != null)
         {
             GameObject.FindGameObjectWithTag("Fuochi").transform.GetChild(0).gameObject.SetActive(true);
             GameObject.FindGameObjectWithTag("Fuochi").GetComponent<AudioSource>().Play();
         }
-        
+
 
         //lvlChanger.GetComponent<SceneSetup>().LoadNextScene();
     }
@@ -656,7 +660,7 @@ public class Movimento : MonoBehaviour
         if (!cond)
         {
             Debug.Log("Diverso");
-            if(colorCuboSucc != gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color && !cond)
+            if (colorCuboSucc != gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color && !cond)
             {
 
                 gameObject.GetComponent<PlayerColorChanger>().ChangeColor(colorCuboSucc);

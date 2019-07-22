@@ -20,7 +20,7 @@ public class ChangeCameraPos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonUp("Jump")) {
+        if(Input.anyKeyDown) {
             if(cont >= cameraPos.Length)
             {
                 cont = 0;

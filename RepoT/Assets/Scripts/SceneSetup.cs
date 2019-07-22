@@ -14,7 +14,7 @@ public class SceneSetup : MonoBehaviour
     private void Awake()
     {
         Initialization();
-        numMosseLvl = new int[7] { 0, 4, 2, 7, 8, 10, 10 };
+        numMosseLvl = new int[7] { 0, 3, 2, 4, 7, 7, 9 };
     }
 
     public void LoadNextScene()
@@ -40,7 +40,7 @@ public class SceneSetup : MonoBehaviour
 
     public float getPercLvl(float numMosse)
     {
-        return (numMosseLvl[SceneManager.GetActiveScene().buildIndex] / numMosse);
+        return (numMosseLvl[SceneManager.GetActiveScene().buildIndex] / numMosse) > 1 ? 1 : (numMosseLvl[SceneManager.GetActiveScene().buildIndex] / numMosse);
     }
 
 
