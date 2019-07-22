@@ -88,7 +88,7 @@ public class Percorso : MonoBehaviour
         }
         else
         {
-            Debug.Log("Chiave Non Trovata " + this.name);
+            //Debug.Log("Chiave Non Trovata " + this.name);
             return null;
         }
     }
