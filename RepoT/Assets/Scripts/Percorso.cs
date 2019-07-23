@@ -29,6 +29,7 @@ public class Percorso : MonoBehaviour
 
         posLightBeamFinale = new Vector3(ultimoCubo.transform.position.x, ultimoCubo.transform.position.y + 0.5f, ultimoCubo.transform.position.z);
         Instantiate(lightBeamFinale, posLightBeamFinale, Quaternion.identity);
+
     }
 
     // Start is called before the first frame update
@@ -88,7 +89,7 @@ public class Percorso : MonoBehaviour
         }
         else
         {
-            //Debug.Log("Chiave Non Trovata " + this.name);
+            Debug.Log("Chiave Non Trovata " + this.name);
             return null;
         }
     }
