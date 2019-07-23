@@ -148,9 +148,9 @@ public class Movimento : MonoBehaviour
 
         #endregion
 
-        arma = GameObject.FindGameObjectWithTag("Weapon");
+        arma = GameObject.FindGameObjectWithTag("Weapon");  //?togliere
 
-        rotation = Quaternion.Euler(0f, 0f, 0f);
+        rotation = Quaternion.Euler(0f, 0f, 0f); //?togliere
 
         rotation = transform.rotation;
         lvlController = GameObject.FindGameObjectWithTag("GameController");
@@ -160,12 +160,12 @@ public class Movimento : MonoBehaviour
         characterController = gameObject.GetComponent<CharacterController>();
         anim = gameObject.GetComponent<Animator>();
         movimento = Vector3.zero;
-        distanzaCubi = Vector3.zero;
+        distanzaCubi = Vector3.zero;  //da riciclare mai usato
 
-        posAttuale = transform;
-        idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso();
-        posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);
-        posDestinazioneJump = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 2);
+        posAttuale = transform; //mai usato
+        idCuboAttuale = lvlController.GetComponent<Percorso>().GetIndexPercorso(); //da gestire
+        posDestinazione = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 1);//da gestire
+        posDestinazioneJump = lvlController.GetComponent<Percorso>().GetCuboById(idCuboAttuale + 2); //da gestire o eliminare
 
 
 
