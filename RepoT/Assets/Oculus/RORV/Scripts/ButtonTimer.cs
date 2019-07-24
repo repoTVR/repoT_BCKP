@@ -37,7 +37,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     // Use this for initialization
     void Start () {
-        confirmationImage = GameObject.FindGameObjectWithTag("ConfirmationImage").GetComponent<Image>();
+        //confirmationImage = GameObject.FindGameObjectWithTag("ConfirmationImage").GetComponent<Image>();
         Debug.Log("Confirmation image = " + confirmationImage);
         //azioniListTmp = new ArrayList();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -53,14 +53,22 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         float a = 0.1f;
         float d = 0.02f;
-        confirmationImage.color = new Color(0f, 1f, 0f, a);
+        if(confirmationImage != null)
+        {
+            confirmationImage.color = new Color(0f, 1f, 0f, a);
+        }
+        
         a -= d;
 
         yield return new WaitForSeconds(0.2f);
 
         while(a > 0f)
         {
-            confirmationImage.color = new Color(0f, 1f, 0f, a);
+            if (confirmationImage != null)
+            {
+                confirmationImage.color = new Color(0f, 1f, 0f, a);
+            }
+            
             a -= d;
             yield return new WaitForSeconds(0.2f);
         }
