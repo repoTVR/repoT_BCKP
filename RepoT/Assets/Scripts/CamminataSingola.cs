@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class CamminataSingola : MonoBehaviour
 {
+    //private SkinnedMeshRenderer rend;
+    private bool once;
+    Color colorPartenza;
+    public bool playerColorato;
+    public bool morto = false;
     public GameObject cuboFinale;
     public bool isDestinazioneRaggiunta;
     private Animator anim;
@@ -17,6 +22,9 @@ public class CamminataSingola : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        once = true;
+        colorPartenza = GetComponentInChildren<SkinnedMeshRenderer>().material.color;
+        playerColorato = false;
         characterController = gameObject.GetComponent<CharacterController>();
         posPartenza = gameObject.transform.position;
         anim = GetComponent<Animator>();
@@ -34,7 +42,11 @@ public class CamminataSingola : MonoBehaviour
         }
         else
         {
-            StartCoroutine("WaitBeforeNextAction");
+            if (once)
+            {
+                StartCoroutine("WaitBeforeNextAction");
+                once = false;
+            }
         }
         characterController.Move(movimento * Time.deltaTime);
     }
@@ -52,13 +64,38 @@ public class CamminataSingola : MonoBehaviour
     {
         anim.SetBool("run", false);
         movimento = Vector3.zero;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         ResetPosizione();
     }
 
     private void ResetPosizione()
     {
         gameObject.transform.position = posPartenza;
+        if (morto)
+        {
+            anim.CrossFade("Idle", 0.1f);
+            morto = false;
+        }
+        if(GetComponent<PlayerColorChangerTutorial>() != null)
+        {
+            if (playerColorato)
+            {
+                GetComponentInChildren<SkinnedMeshRenderer>().material.color = colorPartenza;
+                playerColorato = false;
+            }
+            Debug.Log("Change color = " + GetComponent<PlayerColorChangerTutorial>().changeColor);
+            if (GetComponent<PlayerColorChangerTutorial>().changeColor)
+            {
+                GetComponent<PlayerColorChangerTutorial>().changeColor = false;
+            }
+            else if(!GetComponent<PlayerColorChangerTutorial>().changeColor)
+            {
+                GetComponent<PlayerColorChangerTutorial>().changeColor = true;
+            }
+
+            GetComponent<ChangeColorLvlTutorial>().play = true;
+        }
+        once = true;
         isDestinazioneRaggiunta = false;
     }
 
@@ -66,6 +103,21 @@ public class CamminataSingola : MonoBehaviour
     //Se l'oggetto viene disattivato resetto la posizione così riparte dall'inizio
     private void OnDisable()
     {
+        if (morto)
+        {
+            anim.CrossFade("Idle", 0.1f);
+            morto = false;
+        }
+        
         ResetPosizione();
+    }
+
+
+    public void Morte()
+    {
+        isDestinazioneRaggiunta = true;
+        morto = true;
+        anim.CrossFade("Morte", 0.1f);
+
     }
 }
