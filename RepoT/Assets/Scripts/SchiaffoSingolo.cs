@@ -7,8 +7,7 @@ using TMPro;
 public class SchiaffoSingolo : MonoBehaviour
 {
     public TextMeshProUGUI textNumAttacco;
-    public bool isFor;
-    public int forTimes = 5;
+    public int forTimes;
     public bool play = true;
     private Animator anim;
     // Start is called before the first frame update
@@ -31,58 +30,40 @@ public class SchiaffoSingolo : MonoBehaviour
 
     IEnumerator Attacca()
     {
-        if (!isFor)
+        if(textNumAttacco != null)
         {
-            while (true)
-            {
-                //Durata dell'animazione
-                float length;
-
-                //Attesa 0.25f per problema atterraggio character
-                yield return new WaitForSeconds(0.25f);
-                gameObject.GetComponentInChildren<HandAtacck>().isAttacking = true;
-                anim.SetBool("attack", true);
-
-                //Durata clip in play
-                length = anim.GetCurrentAnimatorClipInfo(0).Length;
-
-                //Aspetta per la durata dell'attacco
-                yield return new WaitForSeconds(length);
-
-                gameObject.GetComponentInChildren<HandAtacck>().isAttacking = false;
-                anim.SetBool("attack", false);
-
-                yield return new WaitForSeconds(0.25f);
-            }
+            forTimes = 5;
         }
         else
         {
-            for(int i = 0; i < forTimes; i++)
+            forTimes = 200;
+        }
+
+        for(int i = 0; i < forTimes; i++)
+        {
+            if(textNumAttacco != null)
             {
-                if(textNumAttacco != null)
-                {
-                    textNumAttacco.SetText((i + 1) + "");
-                    textNumAttacco.fontSize = (i+1)*10;
-                }
-                //Durata dell'animazione
-                float length;
-
-                //Attesa 0.25f per problema atterraggio character
-                yield return new WaitForSeconds(0.25f);
-                gameObject.GetComponentInChildren<HandAtacck>().isAttacking = true;
-                anim.SetBool("attack", true);
-
-                //Durata clip in play
-                length = anim.GetCurrentAnimatorClipInfo(0).Length;
-
-                //Aspetta per la durata dell'attacco
-                yield return new WaitForSeconds(length);
-
-                gameObject.GetComponentInChildren<HandAtacck>().isAttacking = false;
-                anim.SetBool("attack", false);
-
-                yield return new WaitForSeconds(0.25f);
+                textNumAttacco.SetText((i + 1) + "");
+                textNumAttacco.fontSize = (i+1)*10;
             }
+            //Durata dell'animazione
+            float length;
+
+            //Attesa 0.25f per problema atterraggio character
+            yield return new WaitForSeconds(0.25f);
+            gameObject.GetComponentInChildren<HandAtacck>().isAttacking = true;
+            anim.SetBool("attack", true);
+
+            //Durata clip in play
+            length = anim.GetCurrentAnimatorClipInfo(0).Length;
+
+            //Aspetta per la durata dell'attacco
+            yield return new WaitForSeconds(length);
+
+            gameObject.GetComponentInChildren<HandAtacck>().isAttacking = false;
+            anim.SetBool("attack", false);
+
+            yield return new WaitForSeconds(0.25f);
         }
 
     }
