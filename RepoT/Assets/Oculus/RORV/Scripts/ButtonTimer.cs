@@ -11,8 +11,10 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     public bool flash;
     private Image confirmationImage;
-    public Color flashColour = new Color(0f, 1f, 0f, 0.1f);
-    public float flashSpeed = 5f;
+    public Color flashColour = new Color(0f, 1f, 0f, 1f);
+    public float flashSpeed = 2f;
+    private float startTime;
+    private float progress;
     public GameObject miniPanel;
     private GameObject player;
     public int timeremain = 1; // tiempo restante
@@ -35,7 +37,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     // Use this for initialization
     void Start () {
-        confirmationImage = GameObject.FindGameObjectWithTag("ConfirmationImage").GetComponent<Image>();
+        //confirmationImage = GameObject.FindGameObjectWithTag("ConfirmationImage").GetComponent<Image>();
         Debug.Log("Confirmation image = " + confirmationImage);
         //azioniListTmp = new ArrayList();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -46,22 +48,35 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     }
 
-    void Update()
+
+    public IEnumerator FlashGreenImage()
     {
-        if (flash)
+        float a = 0.1f;
+        float d = 0.02f;
+        if(confirmationImage != null)
         {
-            // ... set the colour of the damageImage to the flash colour.
-            confirmationImage.color = flashColour;
+            confirmationImage.color = new Color(0f, 1f, 0f, a);
         }
-        // Otherwise...
-        else
+        
+        a -= d;
+
+        yield return new WaitForSeconds(0.2f);
+
+        while(a > 0f)
         {
-            // ... transition the colour back to clear.
-            confirmationImage.color = Color.Lerp(confirmationImage.color, Color.clear, flashSpeed * Time.deltaTime);
+            if (confirmationImage != null)
+            {
+                confirmationImage.color = new Color(0f, 1f, 0f, a);
+            }
+            
+            a -= d;
+            yield return new WaitForSeconds(0.2f);
         }
 
-        // Reset the damaged flag.
-        flash = false;
+        yield return null;
+        
+
+
     }
 
 
@@ -93,7 +108,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             NotificationCenter.DefaultCenter().PostNotification(this, "EnNada");
             _button.onClick.Invoke();
-            flash = true;
+            StartCoroutine("FlashGreenImage");
             //reset time
             CancelInvoke("countDown");
             timeremain = 1;

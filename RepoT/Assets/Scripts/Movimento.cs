@@ -37,6 +37,8 @@ public class Movimento : MonoBehaviour
     //Prova punteggio
     private int azioni;
 
+    private AudioSource aS;
+
     //Id del cubo su cui si trova il player
     int idCubo = -1;
 
@@ -100,6 +102,7 @@ public class Movimento : MonoBehaviour
         isFor = false;
         wasFor = false;
         timeCount = 0f;
+        aS = gameObject.GetComponent<AudioSource>();
 
         uno = true;
 
@@ -478,11 +481,14 @@ public class Movimento : MonoBehaviour
         gameObject.GetComponentInChildren<HandAtacck>().isAttacking = true;
         anim.SetBool("attack", true);
         length = anim.GetCurrentAnimatorClipInfo(0).Length;
+        aS.clip = GetComponent<AudioHitHand>().RandomizeAudio();
+        aS.Play();
         //Debug.Log("length = " + length);
         yield return new WaitForSeconds(length);
         //arma.GetComponent<AxeScript>().isAttacking = false;
         gameObject.GetComponentInChildren<HandAtacck>().isAttacking = false;
         anim.SetBool("attack", false);
+
         yield return new WaitForSeconds(0.25f);
         ResetMovimento();
     }
