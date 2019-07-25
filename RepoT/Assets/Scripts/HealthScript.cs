@@ -17,14 +17,11 @@ public class HealthScript : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-        if (!tutorial)
-        {
-            img = GetComponentInChildren<Image>();
-            imgTransform = img.rectTransform;
-            size = imgTransform.sizeDelta.x;
-            dim = (size);
-            imgTransform.sizeDelta = new Vector2(size * vite, imgTransform.sizeDelta.y);
-        }
+        img = GetComponentInChildren<Image>();
+        imgTransform = img.rectTransform;
+        size = imgTransform.sizeDelta.x;
+        dim = (size);
+        imgTransform.sizeDelta = new Vector2(size * vite, imgTransform.sizeDelta.y);
         piume = GetComponentInChildren<ParticleSystem>();
     }
 

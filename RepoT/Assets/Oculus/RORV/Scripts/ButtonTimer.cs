@@ -24,7 +24,6 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private ArrayList azioniListTmp;
     private bool isButtonLaterale;
     public int tempoSelezione;
-    private GameObject lvlManager;
     private int idPanelNum = 2;
     private int idPanelIf = 3;
     private int counterMaxAzioni = 12;
@@ -37,13 +36,12 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     // Use this for initialization
     void Start () {
-        //confirmationImage = GameObject.FindGameObjectWithTag("ConfirmationImage").GetComponent<Image>();
+        confirmationImage = GameObject.FindGameObjectWithTag("ConfirmationImage").GetComponent<Image>();
         Debug.Log("Confirmation image = " + confirmationImage);
         //azioniListTmp = new ArrayList();
         player = GameObject.FindGameObjectWithTag("Player");
         _button = GetComponent<Button>();
         isButtonLaterale = gameObject.tag.Equals("ButtonLaterali");
-        lvlManager = GameObject.FindGameObjectWithTag("GameController");
         lvlController = GameObject.FindGameObjectWithTag("LvlChanger");
 
     }
@@ -109,6 +107,7 @@ public class ButtonTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             NotificationCenter.DefaultCenter().PostNotification(this, "EnNada");
             _button.onClick.Invoke();
             StartCoroutine("FlashGreenImage");
+            lvlController.GetComponent<AudioSource>().Play();
             //reset time
             CancelInvoke("countDown");
             timeremain = 1;
